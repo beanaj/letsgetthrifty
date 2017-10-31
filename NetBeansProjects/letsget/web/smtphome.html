@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>SMTP Example</title>
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="script.js"></script>
+    <style media="screen" type="text/css">
+        #bg{
+            background: gainsboro;
+        }
+        
+        #reg{
+            text-align: center;
+            border: solid;
+            border-width: 3px;
+            border-color: #137BE4;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+        
+        #top{
+            text-align: center;
+            border-bottom: solid;
+            border-width: 3px;
+            border-color: #137BE4;
+        }
+    </style>
+  </head>
+  <body>
+    <div class="pure-g">
+                <div class="pure-u-1-1" id="top">             
+                    <h1>Let's Get Thrifty</h1>
+                </div>
+    </div>
+    <div class="pure-g">
+        <div class="pure-u-1-1"><img class="pure-img" src="/img/top.png" alt="MountainTop"></div> 
+    </div>
+    <div class="pure-g" id="bg">
+        <div class="pure-u-1-1"><p></p></div> 
+    </div>
+    <div class="pure-g">
+        <div class="pure-u-1-3" id = "bg"><p></p></div>
+        <div class="pure-u-1-3" id = "reg">
+                    <form class="pure-form pure-form-stacked" method = "get" action = "registered">
+                        <fieldset>
+
+                            <legend>Register</legend>
+                            <label for="name">Name</label>
+                            <input id="name" type="text" placeholder="Kurt Vonnegut" name = "name" required>
+
+                            <label for="email">Email</label>
+                            <input id="email" type="email" placeholder="laughterhouse4@gmail.com" name = "email" required>
+
+                            <label for="password1">Password</label>
+                            <input id="password1" type="password" placeholder="*******" name = "password1" required>
+
+                            <label for="password2">Confirm Password</label>
+                            <input id="password2" type="password" placeholder="*******" name = "password2" required>
+
+
+                            <button type="submit" class="pure-button pure-button-primary">Register!</button>
+                            <script>
+                                var password = document.getElementById("password1"), confirm_password = document.getElementById("password2");
+                                function validatePassword(){
+                                  if(password.value != confirm_password.value) {
+                                    confirm_password.setCustomValidity("Passwords Don't Match");
+                                    if(password.length<5){
+                                        confirm_password.setCustomValidity("Password Too Short");
+                                    }
+                                  } else {
+                                    confirm_password.setCustomValidity('');
+                                  }
+                                }
+                                password.onchange = validatePassword;
+                                confirm_password.onkeyup = validatePassword;
+                            </script>
+
+                        </fieldset>
+                    </form>
+                     </div>
+    <div class="pure-u-1-3" id = "bg"><p></p></div>
+    </div>
+    <div class="pure-g" id="bg">
+        <div class="pure-u-1-1"><p></p></div> 
+    </div>
+    <div class="pure-g">
+        <div class="pure-u-1-1"><img class="pure-img" src="/img/bottom.png" alt="MountainBottom"></div> 
+    </div>
+  </body>
+</html>
