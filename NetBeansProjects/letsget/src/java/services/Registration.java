@@ -13,6 +13,9 @@ import javax.servlet.annotation.*;
 import javax.mail.*;
 import javax.mail.internet.*;
 import javax.activation.*;
+import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 
@@ -36,7 +39,8 @@ public class Registration extends HttpServlet {
          throws IOException, ServletException {
  
       //gather all registration information
-      String name = request.getParameter("name");
+      String firstName = request.getParameter("firstname");
+      String lastName = request.getParameter("lastname");
       String email = request.getParameter("email");
       String phone = request.getParameter("phone");
       String street = request.getParameter("street");
@@ -47,6 +51,8 @@ public class Registration extends HttpServlet {
       String exp = request.getParameter("exp");
       String type = request.getParameter("type");
       String password1 = request.getParameter("password1");
+      String userType = "user";
+      //generate confirmation code
       String code = UUID.randomUUID().toString();
       //get registration date for generating unique account id
       //change how id is generated
@@ -54,9 +60,9 @@ public class Registration extends HttpServlet {
       Date date = new Date();
       String regDate= dateFormat.format(date);
       //Generate unique account ID using registration date and first initials
-      String accountID= name.substring(0, 3) + regDate;
+      String accountID= lastName.substring(0, 3) + regDate;
       //note:: Might be worthwhile to check to see if the id is used, although very low chance of this.
-      
+      String name = firstName + " " + lastName;
       // Set the response MIME type of the response message
       response.setContentType("text/html");
       // Allocate a output writer to write the response message into the network socket
@@ -64,8 +70,10 @@ public class Registration extends HttpServlet {
       //Generate response email
       String subject = "Welcome! Registration Confirmation";
       String message = createConfirmationEmail(name, email, phone, street, city, zip, state, card, exp, type, code, accountID);
-      //generate confirmation code
-      
+      //add user to database
+      String[] information = {accountID, firstName, lastName, phone, email, card, userType, password1};
+      //add user to database
+      registerUser(information);
               
        // Write the response message, in an HTML page
       try {
@@ -85,6 +93,39 @@ public class Registration extends HttpServlet {
          out.close();  // Always close the output writer
       }
       
+   }
+   
+   private void registerUser(String[] info){
+       //insert user information into database
+       Connection con = null;
+       Statement state = null;
+       DatabaseUtility db = new DatabaseUtility();
+       try{
+           //register the driver
+           Class.forName(db.getDriver());
+           //connect to the database
+           con = DriverManager.getConnection(db.getURL(), db.getUser(), db.getPass());
+           //generate sql statement
+           state = con.createStatement();
+           String sql = "INSERT INTO users VALUES (\"" 
+                   +info[0]+"\", \""
+                   +info[1]+"\", \""
+                   +info[2]+"\", \""
+                   +info[3]+"\", \""
+                   +info[4]+"\", \""
+                   +info[5]+"\", \""
+                   +info[6]+"\", \""
+                   +info[7]+"\", \""
+                   +1+"\")";
+           state.executeUpdate(sql);
+           
+           
+       }catch(SQLException exception){
+           exception.printStackTrace();
+       } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Registration.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
    }
    
    static String convertStreamToString(java.io.InputStream is) {
