@@ -49,6 +49,7 @@ public class Registration extends HttpServlet {
       String password1 = request.getParameter("password1");
       String code = UUID.randomUUID().toString();
       //get registration date for generating unique account id
+      //change how id is generated
       DateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
       Date date = new Date();
       String regDate= dateFormat.format(date);
@@ -68,10 +69,6 @@ public class Registration extends HttpServlet {
               
        // Write the response message, in an HTML page
       try {
-         out.println("<html>");
-         out.println("<head><title>Success!!!</title></head>");
-         out.println("<body>");
-         out.println("<h1>You have been registered!</h1>");
          String resultMessage = "";
          //send email to registered user
          try {
@@ -81,14 +78,13 @@ public class Registration extends HttpServlet {
         } catch (Exception ex) {
             ex.printStackTrace();
             resultMessage = "There were an error: " + ex.getMessage();
-        }
-
-         out.println("<p>Please check your messages at: " + email + "</p>");
-         out.println("</body></html>");
+        }  
       } finally {
+          //this will need to be changed to a non absolute address
+         response.sendRedirect("http://localhost:9999/letsget/index.html");
          out.close();  // Always close the output writer
       }
-
+      
    }
    
    static String convertStreamToString(java.io.InputStream is) {
@@ -138,19 +134,6 @@ public class Registration extends HttpServlet {
             "     </tr>\n" +
             "    <tr>\n" +
             "      <td>\n" +
-            "       <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">\n" +
-            "         <tr>\n" +
-            "          <td width=\"260\" valign=\"top\">\n" +
-            "           Email:\n" +
-            "          </td>\n" +
-            "          <td style=\"font-size: 0; line-height: 0;\" width=\"20\">\n" +
-            "           &nbsp;\n" +
-            "          </td>\n" +
-            "          <td width=\"260\" valign=\"top\">\n" +
-            email +
-            "          </td>\n" +
-            "         </tr>\n" +
-            "        </table>\n" +
             "      </td>\n" +
             "     </tr>\n" +
             "     <tr>\n" +
