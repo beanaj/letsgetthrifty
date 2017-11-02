@@ -81,7 +81,7 @@ public class Registration extends HttpServlet {
         }  
       } finally {
           //this will need to be changed to a non absolute address
-         response.sendRedirect("http://localhost:9999/letsget/index.html");
+         response.sendRedirect("http://localhost:8080/letsget/index.html");
          out.close();  // Always close the output writer
       }
       
