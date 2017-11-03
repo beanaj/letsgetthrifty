@@ -51,6 +51,7 @@ public class Registration extends HttpServlet {
       String exp = request.getParameter("exp");
       String type = request.getParameter("type");
       String password1 = request.getParameter("password1");
+      String password2 = request.getParameter("password2");
       String userType = "user";
       //generate confirmation code
       String code = UUID.randomUUID().toString();
@@ -71,9 +72,10 @@ public class Registration extends HttpServlet {
       String subject = "Welcome! Registration Confirmation";
       String message = createConfirmationEmail(name, email, phone, street, city, zip, state, card, exp, type, code, accountID);
       //add user to database
-      String[] information = {accountID, firstName, lastName, phone, email, card, userType, password1};
+      String[] information = {firstName, lastName, phone, email, card, userType, password1, password2};
+      
       //add user to database
-      registerUser(information);
+      //registerUser(information);
               
        // Write the response message, in an HTML page
       try {
@@ -127,11 +129,6 @@ public class Registration extends HttpServlet {
         }
        
    }
-   
-   static String convertStreamToString(java.io.InputStream is) {
-    java.util.Scanner s = new java.util.Scanner(is).useDelimiter("\\A");
-    return s.hasNext() ? s.next() : "";
-    }
    
    private String createConfirmationEmail(String name, String email, String phone, String street, String city,
            String zip, String state, String card, String exp, String type, String code, String accountID){

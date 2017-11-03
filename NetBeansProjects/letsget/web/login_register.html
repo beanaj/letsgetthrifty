@@ -52,13 +52,13 @@
                         <div class="lrinputs">
                             <form class="pure-form" method = "get" action = "registered">
                                 <fieldset class="pure-group">
-                                    <input type="text" class="pure-input-1" placeholder="First Name" name = "firstname" required>
-                                    <input type="text" class="pure-input-1" placeholder="Last Name" name = "lastname" required>
-                                    <input type="email" class="pure-input-1" placeholder="Email" name = "email" required>
-                                    <input type="text" class="pure-input-1" placeholder="Phone" name = "phone" required>
+                                    <input id="firstname" type="text" class="pure-input-1" placeholder="First Name" name = "firstname" onchange="checkFN(this)" required>
+                                    <input id="lastname" type="text" class="pure-input-1" placeholder="Last Name" name = "lastname" onchange="checkLN(this)" required>
+                                    <input id="email" type="email" class="pure-input-1" placeholder="Email" name = "email"   required>
+                                    <input id="phone" type="text" class="pure-input-1" placeholder="Phone" name = "phone" onchange="checkPhone(this)" required>
                                     <input type="text" class="pure-input-1" placeholder="Street" name = "street" required>
                                     <input type="text" class="pure-input-1" placeholder="City" name = "city" required>
-                                    <select id="select" class="pure-input-1"id="state" name= "state" required>
+                                    <select id="select" class="pure-input-1" name= "state" required>
                                         <option disabled selected value>Select State</option>
                                         <option value="AL">Alabama</option>
                                         <option value="AK">Alaska</option>
@@ -112,9 +112,9 @@
                                         <option value="WI">Wisconsin</option>
                                         <option value="WY">Wyoming</option>
                                     </select>
-                                    <input type="text" class="pure-input-1" placeholder="Zipcode" name = "zip" required>
+                                    <input id = "zip" type="text" class="pure-input-1" placeholder="Zipcode" name = "zip" onchange="checkZip(this)" required>
                                     <input type="text" class="pure-input-1" placeholder="Card Number" name = "card" required>
-                                    <input type="text" class="pure-input-1" placeholder="Expiration" name = "exp" required>
+                                    <input id = "exp" type="text" class="pure-input-1" placeholder="Expiration" name = "exp" onchange="checkExp(this)" required>
                                     <select id="type" class="pure-input-1" name = "type" required>
                                         <option disabled selected value>Select Card Type</option>
                                         <option>Visa</option>
@@ -123,8 +123,8 @@
                                         <option>Discover</option>
                                         <option>Capital One</option>
                                     </select>
-                                    <input type="password" class="pure-input-1" placeholder="Enter Password" name = "password1" required>
-                                    <input type="password" class="pure-input-1" placeholder="Verify Password" name = "password2" required>
+                                    <input id = "p1" type="password" class="pure-input-1" placeholder="Enter Password" name = "password1" required>
+                                    <input id = "p2" type="password" class="pure-input-1" placeholder="Verify Password" name = "password2" onchange="checkPass(this)" required>
                                     <br>
                                     <button type="submit" class="pure-button login pure-input-1 pure-button-primary">Register</button>
                                 </fieldset>
