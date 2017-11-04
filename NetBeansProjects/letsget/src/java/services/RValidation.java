@@ -27,7 +27,7 @@ public class RValidation implements IValidator{
             error += "<b>Invalid First Name</b><br><br><br>";
             valid = false;
         }
-
+        //validating the last name by length
         String lastName = information[1]; 
         if(lastName != null){
             if(lastName.length()<=1||lastName.length()>30){
@@ -38,7 +38,7 @@ public class RValidation implements IValidator{
             error += "<b>Invalid Last Name</b><br><br><br>";
             valid = false;
         }
-        
+        //validating the phone number by replacing anything that isn't a number and then checking by length
         String phone = information[2];
         phone = phone.replaceAll( "[^\\d]", "" ); 
         if(phone != null){
@@ -51,6 +51,7 @@ public class RValidation implements IValidator{
             valid = false;
         }
         
+        //checking to ensure email at least has an @
         String email = information[3];
         int atSymbol = email.indexOf('@');
         if(email != null){
@@ -62,7 +63,7 @@ public class RValidation implements IValidator{
             error += "<b>Invalid Email Address</b><br><br>";
             valid = false;
         }
-       
+        //checking to make sure passwords are long enough and match
         String password1 = information[5];
         String password2 = information[6];
         

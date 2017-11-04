@@ -52,10 +52,6 @@ public class Registration extends HttpServlet {
         //generate confirmation code
         String code = UUID.randomUUID().toString();
         //get registration date for generating unique account id
-        //change how id is generated
-        DateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
-        Date date = new Date();
-        String regDate = dateFormat.format(date);
         //Generate unique account ID using registration date and first initials
         String accountID = "";
         //note:: Might be worthwhile to check to see if the id is used, although very low chance of this.
@@ -77,11 +73,20 @@ public class Registration extends HttpServlet {
             request.setAttribute("error", error);
             request.getRequestDispatcher("login_register.jsp").forward(request, response);
         } else {
+            //fetch and generate an accountID
+            //first we need to grab the hash from the last entry
+            int hash = getHashCounter();
+            //now with our most recent hash
+            accountID = generateAccountNumber(hash, lastName);
             // Write the response message, in an HTML page
+            //Add the user to the database
+            hash++;
+            String payment = accountID.substring(2);
+            addUser(information, accountID, code, payment, hash);
+            addPayment(accountID, payment, card, exp, type);
             String name = firstName + " " + lastName;
-            String subject = "Welcome! Registration Confirmation";
+            String subject = "Let's Get Thrifty Registration Confirmation";
             String message = createConfirmationEmail(name, email, phone, street, city, zip, state, card, exp, type, code, accountID);
-            
             try {
                 String resultMessage = "";
                 //send email to registered user
@@ -94,14 +99,45 @@ public class Registration extends HttpServlet {
                 }
             } finally {
                 //this will need to be changed to a non absolute address
-                response.sendRedirect("http://localhost:8080/letsget/index.html");
+                response.sendRedirect("confirmation.jsp");
                 out.close();  // Always close the output writer
             }
         }
     }
+    
+    private void addPayment(String accountID, String payment, String number, String expiration, String type){
+        //insert user payment information into databse
+        Connection con = null;
+        Statement state = null;
+        DatabaseUtility db = new DatabaseUtility();
+        try {
+            //remove anything but numbers from the payment
+            payment = payment.replaceAll( "[^\\d]", "" ); 
+            //register the driver
+            Class.forName(db.getDriver());
+            //connect to the database
+            con = DriverManager.getConnection(db.getURL(), db.getUser(), db.getPass());
+            //generate sql statement
+            state = con.createStatement();
+            expiration = expiration.substring(0,2)+"/01"+expiration.substring(2);
+            String sql = "INSERT INTO creditcards (creditCardID, userID, creditCardNumber, creditCardType, expirationDate) VALUES (\""
+                    + payment+ "\", \""//creditCardID
+                    + accountID + "\", \""//userID
+                    + number + "\", \""//creditcardnumber
+                    + type + "\", \""//creditcardtype
+                    + expiration + "\")";//expiration
+            state.executeUpdate(sql);
 
-    private void registerUser(String[] info) {
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Registration.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private void addUser(String[] info, String accountID, String code, String pay, int hash){
         //insert user information into database
+        //0-firstName, 1-lastName, 2-phone, 3-email, 4-userType, 5-password1, 6-password2
         Connection con = null;
         Statement state = null;
         DatabaseUtility db = new DatabaseUtility();
@@ -112,16 +148,18 @@ public class Registration extends HttpServlet {
             con = DriverManager.getConnection(db.getURL(), db.getUser(), db.getPass());
             //generate sql statement
             state = con.createStatement();
-            String sql = "INSERT INTO users VALUES (\""
-                    + info[0] + "\", \""
-                    + info[1] + "\", \""
-                    + info[2] + "\", \""
-                    + info[3] + "\", \""
-                    + info[4] + "\", \""
-                    + info[5] + "\", \""
-                    + info[6] + "\", \""
-                    + info[7] + "\", \""
-                    + 1 + "\")";
+            String sql = "INSERT INTO users (userID, firstName, lastName, phone, email, paymentInfo, userType, userPassword, hash, orderConfirmationCode, active) VALUES (\""
+                    + accountID + "\", \""//userID
+                    + info[0] + "\", \""//firstName
+                    + info[1] + "\", \""//lastName
+                    + info[2] + "\", \""//phone
+                    + info[3] + "\", \""//email
+                    + pay + "\", \""//paymentInfo
+                    + info[4] + "\", \""//usertyp
+                    + info[5] + "\", \""//userpass
+                    + hash + "\", \""//hash
+                    + code + "\", \""//confirmationcode
+                    + 0 + "\")";//active
             state.executeUpdate(sql);
 
         } catch (SQLException exception) {
@@ -130,6 +168,36 @@ public class Registration extends HttpServlet {
             Logger.getLogger(Registration.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+    }
+    
+    private String generateAccountNumber(int hash, String lastName){
+        hash = hash+534;
+        hash = hash*3;
+        String accountID = lastName.substring(0,2) + hash;
+        return accountID;
+    }
+    
+    
+    private int getHashCounter(){
+        int hash = -1;
+        DatabaseUtility db = new DatabaseUtility();
+        Connection con = null;
+        Statement state = null;
+        try{
+            Class.forName(db.getDriver());
+            con = DriverManager.getConnection(db.getURL(), db.getUser(), db.getPass());
+            state = con.createStatement();
+            String sql = "SELECT * FROM users ORDER BY hash DESC LIMIT 1";
+            ResultSet result = state.executeQuery(sql);
+            while(result.next()){
+                hash = result.getInt("hash");
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }catch (ClassNotFoundException ex) {
+            Logger.getLogger(Registration.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return hash;
     }
 
     private String createConfirmationEmail(String name, String email, String phone, String street, String city,
@@ -151,7 +219,7 @@ public class Registration extends HttpServlet {
                 + "    \n"
                 + "    <tr>\n"
                 + "      <td>\n"
-                + "          <b>Welcome to Let's Get Thrifty, below are your confirmation details.</b><br><br>\n"
+                + "          <b>Welcome to Let's Get Thrifty! Below are your account details. <br>These can be changed via the MyAccount page upon login.</b><br><br>\n"
                 + "      </td>\n"
                 + "     </tr>\n"
                 + "     <tr>\n"
