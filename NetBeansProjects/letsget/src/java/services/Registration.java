@@ -48,7 +48,7 @@ public class Registration extends HttpServlet {
         String type = request.getParameter("type");
         String password1 = request.getParameter("password1");
         String password2 = request.getParameter("password2");
-        String userType = "user";
+        String userType = "u";
         //generate confirmation code
         String code = UUID.randomUUID().toString();
         //get registration date for generating unique account id

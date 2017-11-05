@@ -1,0 +1,43 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Nov 4, 2017, 11:38:19 AM
+    Author     : andrewjacobsen
+*/
+
+.banner {
+    background: transparent url('../img/topbanner.png') 0 0 no-repeat fixed;
+    text-align: center;
+    background-size: cover;
+    height: 200px;
+    width: 100%;
+    margin-bottom: 3em;
+    display: table;
+}
+
+.banner-head {
+    display: table-cell;
+    vertical-align: middle;
+    margin-bottom: 0;
+    font-size: 2em;
+    color: white;
+    font-weight: 500;
+    text-shadow: 0 1px 1px black;
+    text-align: center;
+}
+
+.cheader {
+    background: black;
+    color: white;
+    padding: 0.1em 0 0.1em;
+    text-align: center;
+    font-size: xx-large;
+    font-weight: 800;
+}
+
+.pure-button{
+    background-color: black;
+}

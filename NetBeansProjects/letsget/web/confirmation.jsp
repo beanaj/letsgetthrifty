@@ -17,18 +17,44 @@
         <!--[if gt IE 8]><!-->
         <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/grids-responsive-min.css">
         <!--<![endif]-->
-        <link rel="stylesheet" href="styles/login_registerstyle.css">
+        <link rel="stylesheet" href="styles/confirmationstyle.css">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="scripts/login_registerscript.js"></script>
         <style media="screen" type="text/css">
 
         </style>
-  </head>
-  <body>
-    <div class="banner">
-        <h1 class="bannerhead">
-            <img src="img/letsgetlogo.png" alt="logo" height = "150" width="350">  
-        </h1>
-    </div>
-    
+    </head>
+    <body>
+        <div class="banner">
+            <h1 class="bannerhead">
+                <img src="img/letsgetlogo.png" alt="logo" height = "150" width="350">  
+            </h1>
+        </div>
+        <div class = "pure-g">
+            <div class="pure-u-1 pure-u-md-1-3">
+            </div>
+            <div class="pure-u-1 pure-u-md-1-3">
+                <div class="cheader">
+                    CONFIRMATION
+                </div>
+                <br>
+                <div class ="cinput">
+                    <form class="pure-form" method = "get" action = "confirmation">
+                        <fieldset class="pure-group">
+                            <input type="text" class="pure-input-1" placeholder="AccountID" name = "accountID" onchange="checkAccount(this)" required>
+                            <input type="text" class="pure-input-1" placeholder="Confirmation Code" name = "code" required>
+                            <br>
+                            <button type="submit" class="pure-button login pure-input-1 pure-button-primary">Confirm Account</button>
+                        </fieldset>
+                        <div id="error">
+                                
+                                    ${requestScope.error}
+                                
+                        </div>
+                    </form>                 
+                </div>
+            </div>
+            <div class="pure-u-1 pure-u-md-1-3">
+            </div>
+        </div>
 </html>
