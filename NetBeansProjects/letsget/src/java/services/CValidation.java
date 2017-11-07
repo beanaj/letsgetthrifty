@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  *
  * @author andrewjacobsen
  */
-public class CValidation {
+public class CValidation implements IValidator{
 
     private String error = "";
 

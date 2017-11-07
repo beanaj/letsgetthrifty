@@ -9,7 +9,7 @@
  * @author Addison
  */
 
-package services;
+package entity;
 
 public class Book {
    private String isbn;

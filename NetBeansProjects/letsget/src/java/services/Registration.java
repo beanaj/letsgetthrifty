@@ -1,3 +1,6 @@
+// NOTE, MAKE SURE TO ADD FEATURE TO PREVENT DOUBLE REGISTRATION
+
+
 package services;
 
 import java.io.*;
@@ -63,7 +66,7 @@ public class Registration extends HttpServlet {
         //Generate response email
         //add user to database
         String[] information = {firstName, lastName, phone, email, userType, password1, password2};
-
+        
         //validate the information input
         RValidation validator = new RValidation();
         Boolean valid = validator.isValid(information);
@@ -84,6 +87,7 @@ public class Registration extends HttpServlet {
             String payment = accountID.substring(2);
             addUser(information, accountID, code, payment, hash);
             addPayment(accountID, payment, card, exp, type);
+            addAddress(accountID, street, city, zip, state);
             String name = firstName + " " + lastName;
             String subject = "Let's Get Thrifty Registration Confirmation";
             String message = createConfirmationEmail(name, email, phone, street, city, zip, state, card, exp, type, code, accountID);
@@ -105,6 +109,34 @@ public class Registration extends HttpServlet {
         }
     }
     
+    private void addAddress(String accountID, String street, String city, String zip, String state){
+        //insert user address information into database
+        Connection con = null;
+        Statement stmnt = null;
+        DatabaseUtility db = new DatabaseUtility();
+        try {
+            //register the driver
+            Class.forName(db.getDriver());
+            //connect to the database
+            con = DriverManager.getConnection(db.getURL(), db.getUser(), db.getPass());
+            //generate sql statement
+            stmnt = con.createStatement();
+            String sql = "INSERT INTO addresses (addressID, street, city, state, zip, userID) VALUES (\""
+                    + "a" + accountID.replaceAll( "[^\\d]", "" )+ "\", \""//addressID
+                    + street + "\", \""//street
+                    + city + "\", \""//city
+                    + state + "\", \""//state
+                    + zip + "\", \""//zip code
+                    + accountID + "\")";//userID
+            stmnt.executeUpdate(sql);
+
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Registration.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     private void addPayment(String accountID, String payment, String number, String expiration, String type){
         //insert user payment information into databse
         Connection con = null;
@@ -121,7 +153,7 @@ public class Registration extends HttpServlet {
             state = con.createStatement();
             expiration = expiration.substring(0,2)+"/01"+expiration.substring(2);
             String sql = "INSERT INTO creditcards (creditCardID, userID, creditCardNumber, creditCardType, expirationDate) VALUES (\""
-                    + payment+ "\", \""//creditCardID
+                    + "999"+payment+ "\", \""//creditCardID
                     + accountID + "\", \""//userID
                     + number + "\", \""//creditcardnumber
                     + type + "\", \""//creditcardtype
@@ -171,8 +203,9 @@ public class Registration extends HttpServlet {
     }
     
     private String generateAccountNumber(int hash, String lastName){
-        hash = hash+534;
-        hash = hash*3;
+        hash = hash*534;
+        hash = hash/4;
+        hash = hash+3;
         String accountID = lastName.substring(0,2) + hash;
         return accountID;
     }

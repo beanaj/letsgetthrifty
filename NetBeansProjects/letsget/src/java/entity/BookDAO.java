@@ -1,5 +1,5 @@
 
-package services;
+package entity;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.sql.*;
+import services.DatabaseUtility;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
