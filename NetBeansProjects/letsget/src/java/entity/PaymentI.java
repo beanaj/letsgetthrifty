@@ -9,7 +9,6 @@ package entity;
  *
  * @author andrewjacobsen
  */
-public interface UserI {
-    public void register();
-    
+public interface PaymentI {
+    public void submit();
 }

@@ -26,6 +26,7 @@ public class Address implements AddressI{
     public Address(String accountID, String street, String city, String zip, String state){
         this.addressID = "a"+accountID.replaceAll( "[^\\d]", "" );
         this.street = street;
+        this.state = state;
         this.city = city;
         this.zip = zip;
         this.userID = accountID;
@@ -35,7 +36,7 @@ public class Address implements AddressI{
     public void submit(String type){
         if(type.equals("u")){//add a user address
             AddressDAO db = new AddressDAO();
-        db.addAddressUser(this);
+            db.addAddressUser(this);
         }     
     }
     

@@ -113,7 +113,7 @@
                                         <option value="WY">Wyoming</option>
                                     </select>
                                     <input id = "zip" type="text" class="pure-input-1" placeholder="Zipcode" name = "zip" onchange="checkZip(this)" required>
-                                    <input type="text" class="pure-input-1" placeholder="Card Number" name = "card" required>
+                                    <input type="text" class="pure-input-1" placeholder="Card Number" name = "card" onchange="checkCard(this)" required>
                                     <input id = "exp" type="text" class="pure-input-1" placeholder="Expiration" name = "exp" onchange="checkExp(this)" required>
                                     <select id="type" class="pure-input-1" name = "type" required>
                                         <option disabled selected value>Select Card Type</option>

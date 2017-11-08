@@ -15,7 +15,7 @@ public class RValidation implements IValidator{
     public Boolean isValid(String[] information){
         Boolean valid = true;
         //start validation of user submission content for:
-        //firstName, lastName, phone, email, userType, password1, password2
+        //firstName, lastName, phone, email, userType,card, password1, password2
         //check firstname to ensure valid 
         String firstName = information[0];
         if(firstName != null){
@@ -63,9 +63,23 @@ public class RValidation implements IValidator{
             error += "<b>Invalid Email Address</b><br><br>";
             valid = false;
         }
+        
+        //checking to ensure card number is all numbers
+        String card = information[5];
+        card = card.replaceAll("[0-9]", "");
+        
+        if(card != null){
+            if(card.length()>0){
+                error += "<b>Invalid Card Number</b><br><br>";
+                valid = false;
+            }
+        }else{
+            error += "<b>Invalid Email Address</b><br><br>";
+            valid = false;
+        }
         //checking to make sure passwords are long enough and match
-        String password1 = information[5];
-        String password2 = information[6];
+        String password1 = information[6];
+        String password2 = information[7];
         
         if(password1 != null && password2 != null){
             if(!password1.equals(password2)){

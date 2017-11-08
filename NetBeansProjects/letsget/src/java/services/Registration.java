@@ -5,6 +5,7 @@ package services;
 
 import entity.User;
 import entity.Address;
+import entity.Payment;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
@@ -67,7 +68,7 @@ public class Registration extends HttpServlet {
         PrintWriter out = response.getWriter();
         //Generate response email
         //add user to database
-        String[] information = {firstName, lastName, phone, email, userType, password1, password2};
+        String[] information = {firstName, lastName, phone, email, userType, card, password1, password2};
         
         //validate the information input
         RValidation validator = new RValidation();
@@ -96,8 +97,8 @@ public class Registration extends HttpServlet {
             addressObj.submit(userObj.getType());
             
             //create and add payment for user
-            addPayment(accountID, payment, card, exp, type);
-            
+            Payment payObj = new Payment(accountID, payment, card, exp, type);
+            payObj.submit();
             
             String name = firstName + " " + lastName;
             String subject = "Let's Get Thrifty Registration Confirmation";
@@ -119,65 +120,6 @@ public class Registration extends HttpServlet {
             }
         }
     }
-    
-    private void addAddress(String accountID, String street, String city, String zip, String state){
-        //insert user address information into database
-        Connection con = null;
-        Statement stmnt = null;
-        DatabaseUtility db = new DatabaseUtility();
-        try {
-            //register the driver
-            Class.forName(db.getDriver());
-            //connect to the database
-            con = DriverManager.getConnection(db.getURL(), db.getUser(), db.getPass());
-            //generate sql statement
-            stmnt = con.createStatement();
-            String sql = "INSERT INTO addresses (addressID, street, city, state, zip, userID) VALUES (\""
-                    + "a" + accountID.replaceAll( "[^\\d]", "" )+ "\", \""//addressID
-                    + street + "\", \""//street
-                    + city + "\", \""//city
-                    + state + "\", \""//state
-                    + zip + "\", \""//zip code
-                    + accountID + "\")";//userID
-            stmnt.executeUpdate(sql);
-
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Registration.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    private void addPayment(String accountID, String payment, String number, String expiration, String type){
-        //insert user payment information into databse
-        Connection con = null;
-        Statement state = null;
-        DatabaseUtility db = new DatabaseUtility();
-        try {
-            //remove anything but numbers from the payment
-            payment = payment.replaceAll( "[^\\d]", "" ); 
-            //register the driver
-            Class.forName(db.getDriver());
-            //connect to the database
-            con = DriverManager.getConnection(db.getURL(), db.getUser(), db.getPass());
-            //generate sql statement
-            state = con.createStatement();
-            expiration = expiration.substring(0,2)+"/01"+expiration.substring(2);
-            String sql = "INSERT INTO creditcards (creditCardID, userID, creditCardNumber, creditCardType, expirationDate) VALUES (\""
-                    + "999"+payment+ "\", \""//creditCardID
-                    + accountID + "\", \""//userID
-                    + number + "\", \""//creditcardnumber
-                    + type + "\", \""//creditcardtype
-                    + expiration + "\")";//expiration
-            state.executeUpdate(sql);
-
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Registration.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
     
     private String generateAccountNumber(int hash, String lastName){
         hash = hash*534;

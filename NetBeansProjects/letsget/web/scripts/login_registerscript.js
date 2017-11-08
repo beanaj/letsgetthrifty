@@ -22,12 +22,25 @@ function checkLN(input){
     }
 }
 
+//check lastname to ensure valid input
+function checkLN(input){
+    var lastName = input.value;
+    if(lastName !== null){
+        if(lastName.length<=1||lastName.length>30){
+            input.setCustomValidity("Last Name must be between 2 and 30 characters");
+        }else{
+            input.setCustomValidity('');
+        }
+    }
+}
+
 //check phone to ensure valid input
-function checkPhone(input){
-    var phone = input.value;
-    if(phone !== null){
-        if(phone.length!==12){
-            input.setCustomValidity("Please enter a valid phone number (XXX-XXX-XXXX)");
+function checkCard(input){
+    var card = input.value;
+    if(card !== null){
+        card = card.replace(/[0-9]/g, "X");
+        if(card.length!=0){
+            input.setCustomValidity("Please enter a card number (Only the number, omit symbols)");
         }else{
             input.setCustomValidity('');
         }

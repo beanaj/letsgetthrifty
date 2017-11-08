@@ -31,10 +31,10 @@ public class User implements UserI {
         this.phone = info[2];
         this.email = info[3];
         this.userType = info[4];
-        this.userPassword = info[5];
+        this.userPassword = encrypt(info[5]);
         this.hash = hash;
         this.orderConfirmationCode = code;
-        this.paymentInfo = payment;
+        this.paymentInfo = "999" + payment;
         this.active = 0;
     }
 
@@ -63,6 +63,11 @@ public class User implements UserI {
         } else {
             System.out.println("Error in: User.java: at line 65: User is already registered.");
         }
+    }
+    
+    //this is where we will encrypt the password in the user object
+    private String encrypt(String string) {
+        return string;
     }
 
     public boolean isActive() {
@@ -116,5 +121,7 @@ public class User implements UserI {
     public int getActive() {
         return active;
     }
+
+    
 
 };
