@@ -45,7 +45,7 @@ public class Confirmation extends HttpServlet {
         Boolean valid = validator.isValid(info);
         if (valid) {
             activateUser(accountID);
-            response.sendRedirect("homepage.html");
+            response.sendRedirect("login_register.jsp");
         } else {
             String error = validator.errorMessage();
             request.setAttribute("error", error);

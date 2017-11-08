@@ -37,7 +37,7 @@ public class Registration extends HttpServlet {
         pass = context.getInitParameter("pass");
     }
 
-    public void doGet(HttpServletRequest request, HttpServletResponse response)
+    public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
 
         //gather all registration information

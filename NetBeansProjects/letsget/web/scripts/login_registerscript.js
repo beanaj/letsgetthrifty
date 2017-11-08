@@ -38,7 +38,7 @@ function checkLN(input){
 function checkCard(input){
     var card = input.value;
     if(card !== null){
-        card = card.replace(/[0-9]/g, "X");
+        card = card.replace(/[0-9]/g, "");
         if(card.length!=0){
             input.setCustomValidity("Please enter a card number (Only the number, omit symbols)");
         }else{

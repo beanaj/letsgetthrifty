@@ -5,8 +5,11 @@
  */
 package entity;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
@@ -43,7 +46,7 @@ public class UserDAO {
                     + user.getEmail() + "\", \""//email
                     + user.getPaymentInfo() + "\", \""//paymentInfo
                     + user.getType() + "\", \""//usertyp
-                    + user.getPass() + "\", \""//userpass
+                    + encrypt(user.getPass()) + "\", \""//userpass
                     + user.getHash() + "\", \""//hash
                     + user.getCode() + "\", \""//confirmationcode
                     + 0 + "\")";//active
@@ -55,11 +58,154 @@ public class UserDAO {
             Logger.getLogger(Registration.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    public String encrypt(String pass){
+        byte byteData[] = {};
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            md.update(pass.getBytes());
+
+            byteData = md.digest();
+
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < byteData.length; i++) {
+         sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1));
+        }
+        
+        return sb.toString();
+    }
     
     //get user info from database
-    public User getUser(String accountID){
-        User butt = new User(accountID);//need to fetch all info from database, make a user, set active and return it
-        return butt;
+    public User getUser(String accountID, String type){
+        User user = new User();
+        //need to fetch all info from database, make a user and return it 
+        Connection con;
+        Statement state;
+        DatabaseUtility db = new DatabaseUtility();
+        if(type.equals("e")){
+            type = "email";
+        }else{
+            type = "userID";
+        }
+        try {
+            //register the driver
+            Class.forName(db.getDriver());
+            //connect to the database
+            con = DriverManager.getConnection(db.getURL(), db.getUser(), db.getPass());
+            //generate sql statement
+            state = con.createStatement();
+            String sql = "SELECT * FROM users WHERE " + type + " = "+"'"+accountID+"'";
+            ResultSet result = state.executeQuery(sql);
+            String userID = null, firstName = null, lastName = null, email = null;
+            String phone = null, paymentInfo = null, userType = null, userPassword = null, orderConfirmationCode = null;
+            int hash = -1, active = -1;
+            
+            while(result.next()){
+                  userID = result.getString("userID");
+                  firstName = result.getString("firstName");
+                  lastName = result.getString("lastName");
+                  email = result.getString("email");
+                  phone = result.getString("phone");
+                  paymentInfo = result.getString("paymentInfo");
+                  userType = result.getString("userType");
+                  userPassword = result.getString("userPassword");
+                  hash = result.getInt("hash");
+                  orderConfirmationCode = result.getString("orderConfirmationCode");
+                  active = result.getInt("active");
+            }
+            
+            user.setAccountID(userID);
+            user.setFN(firstName);
+            user.setLN(lastName);
+            user.setEmail(email);
+            user.setPhone(phone);
+            user.setPaymentInfo(paymentInfo);
+            user.setType(userType);
+            user.setPass(userPassword);
+            user.setHash(hash);
+            user.setCode(orderConfirmationCode);
+            user.setActive(active);
+            
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Registration.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return user;
+    }
+    
+    public Boolean isRegistered(String accountID, String type) throws ClassNotFoundException{
+        Boolean found;
+        Connection con;
+        Statement state;
+        DatabaseUtility db = new DatabaseUtility();
+        if(type.equals("e")){
+            type = "email";
+        }else{
+            type = "userID";
+        }
+        try {
+            //register the driver
+            Class.forName(db.getDriver());
+            //connect to the database
+            con = DriverManager.getConnection(db.getURL(), db.getUser(), db.getPass());
+            //generate sql statement
+            state = con.createStatement();
+            String sql = "SELECT * FROM users WHERE " + type +" = "+"'"+accountID+"'";
+            ResultSet result = state.executeQuery(sql);
+            if (!result.isBeforeFirst() ) {    
+                 found = false;
+            } else{
+                found = true;
+            }
+            
+        } catch (SQLException exception) {
+            System.out.println("not found");
+            found = false;
+        } 
+        return found;
+    }
+    
+    public Boolean isConfirmed(String accountID, String type) throws ClassNotFoundException{
+        Boolean found;
+        Connection con;
+        Statement state;
+        DatabaseUtility db = new DatabaseUtility();
+        if(type.equals("e")){
+            type = "email";
+        }else{
+            type = "userID";
+        }
+
+        try {
+            //register the driver
+            Class.forName(db.getDriver());
+            //connect to the database
+            con = DriverManager.getConnection(db.getURL(), db.getUser(), db.getPass());
+            //generate sql statement
+            state = con.createStatement();
+            String sql = "SELECT * FROM users WHERE " + type +" = "+"'"+accountID+"'";
+
+            ResultSet result = state.executeQuery(sql);
+            String active = "";
+            while(result.next()){
+                active = result.getString("active");
+            }
+            
+            if(active.equals("1")){
+                found = true;
+            }else{
+                found = false;
+            }
+        } catch (SQLException exception) {
+            found = false;
+        } 
+        return found;
     }
     
 }

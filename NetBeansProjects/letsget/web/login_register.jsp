@@ -33,14 +33,19 @@
                         EXISTING USERS
                         </div>
                         <div class="lrinputs">
-                            <form class="pure-form" method = "get" action = "login">
+                            <form class="pure-form" method = "post" action = "login">
                                 <fieldset class="pure-group">
-                                    <input type="text" class="pure-input-1" placeholder="AccountID/Email" required>
-                                    <input type="password" class="pure-input-1" placeholder="Password" required>
+                                    <input type="text" class="pure-input-1" placeholder="AccountID/Email" name="accountLogin" required>
+                                    <input type="password" class="pure-input-1" placeholder="Password" name="accountPassword" required>
                                     <br>
                                     <button type="submit" class="pure-button login pure-input-1 pure-button-primary">Log in</button>
                                 </fieldset>
                             </form>
+                            <div id="errorLogin">
+                                
+                                    ${requestScope.errorLogin}
+                                
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -50,7 +55,7 @@
                         REGISTER
                         </div>
                         <div class="lrinputs">
-                            <form class="pure-form" method = "get" action = "registered">
+                            <form class="pure-form" method = "post" action = "registered">
                                 <fieldset class="pure-group">
                                     <input id="firstname" type="text" class="pure-input-1" placeholder="First Name" name = "firstname" onchange="checkFN(this)" required>
                                     <input id="lastname" type="text" class="pure-input-1" placeholder="Last Name" name = "lastname" onchange="checkLN(this)" required>
