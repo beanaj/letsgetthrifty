@@ -38,6 +38,7 @@
             <p>Phone</p>
             <p>Address</p>
             <p>Payment</p>
+            <p>Password</p>
             <p>Promotions</p>     
             <p>Orders</p>
             
@@ -132,7 +133,33 @@
                     </fieldset>
                 </form>
             </div>
-    
+            <div>
+                <form class="pure-form">
+                    <fieldset class="pure-group">
+                        <input type="text" class="pure-input-1" placeholder="Card Number" name = "card" onchange="checkCard(this)" required>
+                        <input id = "exp" type="text" class="pure-input-1" placeholder="Expiration" name = "exp" onchange="checkExp(this)" required>
+                        <select id="type" class="pure-input-1" name = "type" required>
+                            <option disabled selected value>Select Card Type</option>
+                            <option>Visa</option>
+                            <option>MasterCard</option>
+                            <option>American Express</option>
+                            <option>Discover</option>
+                            <option>Capital One</option>
+                            </select>                        
+                        <button type="submit" class="pure-button login pure-input-1 pure-button-primary">Update</button>
+                    </fieldset>
+                </form>
+            </div>
+            <div>
+                <form class="pure-form">
+                    <fieldset class="pure-group">
+                        <input type="text" class="pure-input-1" placeholder="Old Password" name="oldPass">
+                        <input type="text" class="pure-input-1" placeholder="New Password" name="newPass">               
+                        <input type="text" class="pure-input-1" placeholder="Verify New Password" name="newPassVerify">
+                        <button type="submit" class="pure-button login pure-input-1 pure-button-primary">Update</button>
+                    </fieldset>
+                </form>
+            </div>         
         </div>
     </div>
     
