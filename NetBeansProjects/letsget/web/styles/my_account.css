@@ -14,7 +14,7 @@ and open the template in the editor.
     background-size: cover;
     height: 200px;
     width: 100%;
-    margin-bottom: 3em;
+    margin-bottom: 0;/* 3em */
     display: table;
 }
 
@@ -27,4 +27,30 @@ and open the template in the editor.
     font-weight: 500;
     text-shadow: 0 1px 1px black;
     text-align: center;
+}
+
+#menu{
+    background: black;
+    color: white;
+    float:left;
+    margin: 0;
+    width: 15%;
+    padding: 10px 20px 100% 20px;
+}
+
+#attribute{
+    background: blue;
+    color: yellow;
+    float:left;
+    margin: 0 0 0 0;
+    width: 15%;
+    padding: 10px 20px 100% 20px;
+}
+
+#edit{
+    background: #999;
+    float:left;
+    margin: 0 1%;
+    width: 50%;
+    padding: 10px 20px 10px 20px;
 }

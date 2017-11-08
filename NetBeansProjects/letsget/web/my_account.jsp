@@ -10,9 +10,9 @@
     <!--[if gt IE 8]><!-->
     <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/grids-responsive-min.css">
     <!--<![endif]-->
-    <link rel="stylesheet" href="styles/template.css">
+    <link rel="stylesheet" href="styles/my_account.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-<!--    <script src="scripts/login_registerscript.js"></script>-->
+    <!--<script src="scripts/login_registerscript.js"></script>-->
     <style media="screen" type="text/css">
         
     </style>
@@ -24,42 +24,56 @@
         </h1>
     </div>
     
-    <div class="l-content">
-        <div class="container">
+    <div>
+        <div id="menu">
             
-        </div>
-    </div>
-      
-    <div class="l-content">
-        <div class="container">
-             <div class="pure-g">
-                <div class="pure-u-1 pure-u-md-1-2">
-                    <div class="box">
-                        <div class="lrheader">
-                        Name
-                        </div>
-                        <div class="lrinputs">
-                            <form class="pure-form" method = "get" action = "registered">
-                                <fieldset class="pure-group">
-                                    <input id="firstname" type="text" class="pure-input-1" placeholder="First Name" name = "firstname" onchange="checkFN(this)" required>
-                                    <input id="lastname" type="text" class="pure-input-1" placeholder="Last Name" name = "lastname" onchange="checkLN(this)" required>
-                                </fieldset>  
-                            <div class="lrheader">
-                            Email
-                            </div>
-                                <fieldset class="pure-group">
-                                    <input id="email" type="email" class="pure-input-1" placeholder="Email" name = "email"   required>
-                                </fieldset>
-                            <div class="lrheader">
-                            Phone
-                            </div>     
-                                    <input id="phone" type="text" class="pure-input-1" placeholder="Phone" name = "phone" onchange="checkPhone(this)" required>
-                            <div class="lrheader">
-                            Address
-                            </div>   
-                                    <input type="text" class="pure-input-1" placeholder="Street" name = "street" required>
-                                    <input type="text" class="pure-input-1" placeholder="City" name = "city" required>
-                                    <select id="select" class="pure-input-1" name= "state" required>
+          <p>Welcome, User!</p>
+ 
+        
+        </div>        
+        <div id="attribute">
+            
+            <p>Name</p>
+            <p>Email</p>
+            <p>Phone</p>
+            <p>Address</p>
+            <p>Payment</p>
+            <p>Promotions</p>     
+            <p>Orders</p>
+            
+        </div>        
+        <div id="edit">
+            <div>
+                <form class="pure-form">
+                    <fieldset class="pure-group">
+                        <input type="text" class="pure-input-1" placeholder="First Name" name="firstName">
+                        <input type="text" class="pure-input-1" placeholder="Last Name" name="firstName">
+                        <button type="submit" class="pure-button login pure-input-1 pure-button-primary">Update</button>
+                    </fieldset>
+                </form>
+            </div>
+            <div>
+                <form class="pure-form">
+                    <fieldset class="pure-group">
+                        <input type="text" class="pure-input-1" placeholder="Email Adress" name="email">
+                        <button type="submit" class="pure-button login pure-input-1 pure-button-primary">Update</button>
+                    </fieldset>
+                </form>
+            </div>
+            <div>
+                <form class="pure-form">
+                    <fieldset class="pure-group">
+                        <input type="text" class="pure-input-1" placeholder="Phone Number" name="phone">
+                        <button type="submit" class="pure-button login pure-input-1 pure-button-primary">Update</button>
+                    </fieldset>
+                </form>
+            </div>
+            <div>
+                <form class="pure-form">
+                    <fieldset class="pure-group">
+                        <input type="text" class="pure-input-1" placeholder="Street" name = "street" required>
+                        <input type="text" class="pure-input-1" placeholder="City" name = "city" required>
+                        <select id="select" class="pure-input-1" name= "state" required>
                                         <option disabled selected value>Select State</option>
                                         <option value="AL">Alabama</option>
                                         <option value="AK">Alaska</option>
@@ -113,41 +127,14 @@
                                         <option value="WI">Wisconsin</option>
                                         <option value="WY">Wyoming</option>
                                     </select>
-                                    <input id = "zip" type="text" class="pure-input-1" placeholder="Zipcode" name = "zip" onchange="checkZip(this)" required>
-                            <div class="lrheader">
-                            Payment
-                            </div>   
-                                    <input type="text" class="pure-input-1" placeholder="Card Number" name = "card" onchange="checkCard(this)" required>
-                                    <input id = "exp" type="text" class="pure-input-1" placeholder="Expiration" name = "exp" onchange="checkExp(this)" required>
-                                    <select id="type" class="pure-input-1" name = "type" required>
-                                        <option disabled selected value>Select Card Type</option>
-                                        <option>Visa</option>
-                                        <option>MasterCard</option>
-                                        <option>American Express</option>
-                                        <option>Discover</option>
-                                        <option>Capital One</option>
-                                    </select>
-                            <div class="lrheader">
-                            Password
-                            </div>   
-                                    <input id = "p0" type="password" class="pure-input-1" placeholder="Enter Old Password" name = "password0" required>
-                                    <input id = "p1" type="password" class="pure-input-1" placeholder="Enter New Password" name = "password1" required>
-                                    <input id = "p2" type="password" class="pure-input-1" placeholder="Verify New Password" name = "password2" onchange="checkPass(this)" required>
-                                    <br>
-                                    <button type="submit" class="pure-button login pure-input-1 pure-button-primary">Save</button>
-                                </fieldset>
-                            </form>
-                            
-                            <div id="error">
-                                
-                                    ${requestScope.error}
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                        <input id = "zip" type="text" class="pure-input-1" placeholder="Zipcode" name = "zip" onchange="checkZip(this)" required>
+                        <button type="submit" class="pure-button login pure-input-1 pure-button-primary">Update</button>
+                    </fieldset>
+                </form>
             </div>
+    
         </div>
     </div>
+    
   </body>
 </html>
