@@ -3,6 +3,8 @@
 
 package services;
 
+import entity.User;
+import entity.Address;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
@@ -85,9 +87,18 @@ public class Registration extends HttpServlet {
             //Add the user to the database
             hash++;
             String payment = accountID.substring(2);
-            addUser(information, accountID, code, payment, hash);
+            //create and register user object
+            User userObj = new User(information, accountID, code, payment, hash);
+            userObj.register();
+            
+            //create and add address for user
+            Address addressObj = new Address(accountID, street, city, zip, state);
+            addressObj.submit(userObj.getType());
+            
+            //create and add payment for user
             addPayment(accountID, payment, card, exp, type);
-            addAddress(accountID, street, city, zip, state);
+            
+            
             String name = firstName + " " + lastName;
             String subject = "Let's Get Thrifty Registration Confirmation";
             String message = createConfirmationEmail(name, email, phone, street, city, zip, state, card, exp, type, code, accountID);
@@ -167,40 +178,6 @@ public class Registration extends HttpServlet {
         }
     }
     
-    private void addUser(String[] info, String accountID, String code, String pay, int hash){
-        //insert user information into database
-        //0-firstName, 1-lastName, 2-phone, 3-email, 4-userType, 5-password1, 6-password2
-        Connection con = null;
-        Statement state = null;
-        DatabaseUtility db = new DatabaseUtility();
-        try {
-            //register the driver
-            Class.forName(db.getDriver());
-            //connect to the database
-            con = DriverManager.getConnection(db.getURL(), db.getUser(), db.getPass());
-            //generate sql statement
-            state = con.createStatement();
-            String sql = "INSERT INTO users (userID, firstName, lastName, phone, email, paymentInfo, userType, userPassword, hash, orderConfirmationCode, active) VALUES (\""
-                    + accountID + "\", \""//userID
-                    + info[0] + "\", \""//firstName
-                    + info[1] + "\", \""//lastName
-                    + info[2] + "\", \""//phone
-                    + info[3] + "\", \""//email
-                    + pay + "\", \""//paymentInfo
-                    + info[4] + "\", \""//usertyp
-                    + info[5] + "\", \""//userpass
-                    + hash + "\", \""//hash
-                    + code + "\", \""//confirmationcode
-                    + 0 + "\")";//active
-            state.executeUpdate(sql);
-
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Registration.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-    }
     
     private String generateAccountNumber(int hash, String lastName){
         hash = hash*534;

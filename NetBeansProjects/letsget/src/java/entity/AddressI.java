@@ -9,6 +9,6 @@ package entity;
  *
  * @author andrewjacobsen
  */
-public interface UserI {
-    public void register();
+public interface AddressI {
+    public void submit(String type);
 }

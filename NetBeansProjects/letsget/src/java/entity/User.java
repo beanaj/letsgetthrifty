@@ -9,7 +9,8 @@ package entity;
  *
  * @author andrewjacobsen
  */
-public class User implements UserI{
+public class User implements UserI {
+
     private String userID;
     private String firstName;
     private String lastName;
@@ -18,12 +19,11 @@ public class User implements UserI{
     private String paymentInfo;
     private String userType;
     private String userPassword;
-    private String hash;
+    private int hash;
     private String orderConfirmationCode;
     private int active;
-    
-    @Override
-    public void User(String[] info, String accountID, String code, String payment, String hash){
+
+    public User(String[] info, String accountID, String code, String payment, int hash) {
         //info contains firstName, lastName, phone, email, userType, password1, password2
         this.userID = accountID;
         this.firstName = info[0];
@@ -37,90 +37,84 @@ public class User implements UserI{
         this.paymentInfo = payment;
         this.active = 0;
     }
-    
 
-    @Override
-    public void User(String accountID){
-            UserDAO db = new UserDAO();
-            User current = db.getUser(accountID);
-            this.userID = current.getAccountID();
-            this.firstName = current.getFN();
-            this.lastName = current.getLN();
-            this.phone = current.getPhone();
-            this.email = current.getEmail();
-            this.userType = current.getType();
-            this.userPassword = current.getPass();
-            this.hash = current.getHash();
-            this.orderConfirmationCode = current.getCode();
-            this.paymentInfo = current.getPaymentInfo();
-            this.active = 1;
+    public User(String accountID) {
+        UserDAO db = new UserDAO();
+        User current = db.getUser(accountID);
+        this.userID = current.getAccountID();
+        this.firstName = current.getFN();
+        this.lastName = current.getLN();
+        this.phone = current.getPhone();
+        this.email = current.getEmail();
+        this.userType = current.getType();
+        this.userPassword = current.getPass();
+        this.hash = current.getHash();
+        this.orderConfirmationCode = current.getCode();
+        this.paymentInfo = current.getPaymentInfo();
+        this.active = 1;
     }
 
-
     @Override
-    public void register(){
-        if(!this.isActive()){
+    public void register() {
+        if (!this.isActive()) {
             UserDAO db = new UserDAO();
             db.addUser(this);
             this.active = 1;
-        }else{
+        } else {
             System.out.println("Error in: User.java: at line 65: User is already registered.");
         }
     }
-   
-    
-    public boolean isActive(){
+
+    public boolean isActive() {
         Boolean on = false;
-        if(active == 1){
+        if (active == 1) {
             on = true;
         }
         return on;
     }
-    
-     
-    public String getAccountID(){
+
+    public String getAccountID() {
         return userID;
     }
-    
-    public String getFN(){
+
+    public String getFN() {
         return firstName;
     }
-    
-    public String getLN(){
+
+    public String getLN() {
         return lastName;
     }
-    
-    public String getPhone(){
+
+    public String getPhone() {
         return phone;
     }
-    
-    public String getEmail(){
+
+    public String getEmail() {
         return email;
     }
-    
-    public String getType(){
+
+    public String getType() {
         return userType;
     }
-    
-    public String getPass(){
+
+    public String getPass() {
         return userPassword;
     }
-    
-    public String getHash(){
+
+    public int getHash() {
         return hash;
     }
-    
-    public String getCode(){
+
+    public String getCode() {
         return orderConfirmationCode;
     }
-    
-    public String getPaymentInfo(){
+
+    public String getPaymentInfo() {
         return paymentInfo;
     }
 
-    public int getActive(){
+    public int getActive() {
         return active;
     }
-    
-    
+
 };
