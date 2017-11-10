@@ -135,7 +135,7 @@ while(resultSet.next()){
 <td><%=resultSet.getInt("qtyInStock")%></td>
 <td><%=resultSet.getInt("buyPrice")%></td>
 <td>
-    <a href="delete.jsp?deleteid=<%=primaryKey%>">Delete</a>
+    <a href="deleteBook.jsp?deleteid=<%=primaryKey%>">Delete</a>
 </td>
 
 </tr>
@@ -164,43 +164,6 @@ e.printStackTrace();
 </table>       
 <!--END OF TABLE-->
                
-<br>
-<script>
-//    function addBook() {
-//        var new_isbn=document.getElementById("new_isbn").value;
-//        var new_genre=document.getElementById("new_genre").value;
-//        var new_author=document.getElementById("new_author").value; 
-//        var new_title=document.getElementById("new_title").value;
-//        var new_rating=document.getElementById("new_rating").value;
-//        var new_publisher=document.getElementById("new_publisher").value; 
-//        var new_publicationyear=document.getElementById("new_publicationyear").value;
-//        var new_quantity=document.getElementById("new_quantity").value;
-//        var new_buyprice=document.getElementById("new_buyprice").value; 
-//        var table = document.getElementById("bookTable");
-//        var table_len=(table.rows.length)-1;
-//        var row = table.insertRow(table_len).outerHTML="<tr id='row"+table_len+"'>\n\
-//                                                            <td id='isbn_row"+table_len+"'>"+new_isbn+"</td>\n\
-//                                                            <td id='genre_row"+table_len+"'>"+new_genre+"</td>\n\
-//                                                            <td id='author_row"+table_len+"'>"+new_author+"</td>\n\
-//\n\                                                         <td id='title_row"+table_len+"'>"+new_title+"</td>\n\
-//                                                            <td id='rating_row"+table_len+"'>"+new_rating+"</td>\n\
-//                                                            <td id='publisher_row"+table_len+"'>"+new_publisher+"</td>\n\
-//\n\                                                         <td id='publicationyear_row"+table_len+"'>"+new_publicationyear+"</td>\n\
-//                                                            <td id='quantity_row"+table_len+"'>"+new_quantity+"</td>\n\
-//                                                            <td id='buyprice_row"+table_len+"'>"+new_buyprice+"</td>\n\
-//\n\                                                         <td><a href="delete.jsp?deleteid='new_isbn'">Delete</a></td>\n\
-//                                                        </tr>";
-//        document.getElementById("new_isbn").value="";
-//        document.getElementById("new_genre").value="";
-//        document.getElementById("new_author").value="";
-//        document.getElementById("new_title").value="";
-//        document.getElementById("new_rating").value="";
-//        document.getElementById("new_publisher").value="";
-//        document.getElementById("new_publicationyear").value="";
-//        document.getElementById("new_quantity").value="";
-//        document.getElementById("new_buyprice").value="";
-//    }
-</script>
 
             </div>      
         </div>

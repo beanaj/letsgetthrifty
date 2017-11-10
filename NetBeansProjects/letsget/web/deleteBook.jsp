@@ -34,5 +34,5 @@ e.printStackTrace();
     
     preparedStatement.execute();
     
-    response.sendRedirect("generateTable.jsp");
+    response.sendRedirect("adminInventory.jsp");
 %>
