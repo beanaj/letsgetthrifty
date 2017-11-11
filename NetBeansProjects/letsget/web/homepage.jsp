@@ -59,12 +59,11 @@
             <a class="pure-menu-heading" href="#">Welcome!</a>
 
             <ul class="pure-menu-list">
-                <li class="pure-menu-item menu-item-divided pure-menu-selected"><a href="generateTable.jsp" class="pure-menu-link">Home</a></li>
-                <li class="pure-menu-item"><a href="generateTable.jsp" class="pure-menu-link">My Account</a></li>
-
-                <li class="pure-menu-item"><a href="#" class="pure-menu-link">Search</a></li>
-
-                <li class="pure-menu-item"><a href="#" class="pure-menu-link">Log In/Register</a></li>
+                <li class="pure-menu-item menu-item-divided pure-menu-selected"><a href="homepage.jsp" class="pure-menu-link">Home</a></li>
+                <li class="pure-menu-item"><a href="#" class="pure-menu-link">My Cart</a></li>
+                <li class="pure-menu-item"><a href="search.jsp" class="pure-menu-link">Search</a></li>
+                <li class="pure-menu-item"><a href="my_accont.jsp" class="pure-menu-link">My Account</a></li>
+                <li class="pure-menu-item"><a href="login_register.jsp" class="pure-menu-link">Log In/Register</a></li>
                 <li class="pure-menu-item"><a href="#" class="pure-menu-link">Sign Out</a></li>
             </ul>
         </div>
@@ -115,7 +114,9 @@ statement=connection.createStatement();
 String sql ="SELECT * FROM books";
 
 resultSet = statement.executeQuery(sql);
-while(resultSet.next()){
+//while(resultSet.next()){
+for(int i=0; i<40; i++){
+    resultSet.next();
 %>
 <!--<tr bgcolor="#DEB887">-->
 <tr>  
@@ -123,17 +124,13 @@ while(resultSet.next()){
         String primaryKey = resultSet.getString("isbn");
         String pic = resultSet.getString("picture");
     %>
-<td><image src ="<%=pic%>"></td>
-<td><%=resultSet.getInt("buyPrice")%></td>    
-<td><%=resultSet.getString("isbn") %></td>
-<td><%=resultSet.getString("genre") %></td>
-<td><%=resultSet.getString("author") %></td>
-<td><%=resultSet.getString("title") %></td>
-<td><%=resultSet.getString("rating") %></td>
-<td><%=resultSet.getString("publisher") %></td>
-<td><%=resultSet.getInt("publicationYear")%></td>
-<td><%=resultSet.getInt("qtyInStock")%></td>
-<td><%=resultSet.getInt("buyPrice")%></td>
+<td><image src ="<%=pic%>" height="325" width=225"></td>    
+<td>Title: <%=resultSet.getString("title") %><br>
+    Author: <%=resultSet.getString("author") %><br>
+    Genre: <%=resultSet.getString("genre") %><br>
+    Rating: <%=resultSet.getString("rating") %>/5</td>
+<td>$<%=resultSet.getString("buyPrice") %></td>
+<td><button type="submit" class="pure-button">Add to Cart</td>
 </tr>
 
 <% 

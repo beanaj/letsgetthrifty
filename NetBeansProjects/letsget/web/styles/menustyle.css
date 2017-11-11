@@ -4,86 +4,9 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 */
 /* 
-    Created on : Nov 2, 2017, 8:55:42 PM
+    Created on : Nov 11, 2017, 10:11:12 AM
     Author     : Ian
 */
-html, body {
-    width:100%;
-}
-
-table {
-    margin: 0 auto;
-    border: none;
-}
-
-td{
-    border-bottom: 1px solid #ddd;
-}
-.banner {
-    background: transparent url('../img/topbanner.png') 0 0 no-repeat fixed;
-    text-align: center;
-    background-size: cover;
-    height: 200px;
-    width: 100%;
-    margin-bottom: 3em;
-    display: table;
-}
-
-.banner-head {
-    display: table-cell;
-    vertical-align: middle;
-    margin-bottom: 0;
-    font-size: 2em;
-    color: white;
-    font-weight: 500;
-    text-shadow: 0 1px 1px black;
-    text-align: center;
-}
-
-input.searchbar {
-    padding-left: 300px;
-    padding-right:300px;
-    width: 450px;
-    height: 50px;
-    text-align: center;
-    vertical-align: middle; 
-    font-size: 150%;
-}
-
-.pure-button {
-    background-color: black;
-    color: white;
-    height: 50px;
-    font-size: 150%;
-}
-
-h2{
-    font-size: 300%;
-    background-color: black;
-    color: white;
-    width: 500px;
-    padding-left: 300px;
-    padding-right: 300px;
-    vertical-align: middle;
-}
-
-table.bookTable{
-   
-    width: 500px;
-    padding-left: 300px;
-    padding-right: 300px;
-}
-
-tr {
-    border: none;
-}
-td{
-    font-size: 120%;
-    color: black;
-}
-body {
-    color: #777;
-}
 
 .pure-img-responsive {
     max-width: 100%;
@@ -331,5 +254,3 @@ Hides the menu at `48em`, but modify this based on your app's needs.
         left: 150px;
     }
 }
-
-

@@ -4,7 +4,7 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 */
 /* 
-    Created on : Nov 2, 2017, 8:55:42 PM
+    Created on : Nov 11, 2017, 12:20:14 PM
     Author     : Ian
 */
 html, body {
@@ -57,6 +57,17 @@ input.searchbar {
     font-size: 150%;
 }
 
+select {
+    background-color: black;
+    color: white;
+    height: 50px;
+    font-size: 150%;
+}
+
+option{
+    background-color: black;
+    color: white;
+}
 h2{
     font-size: 300%;
     background-color: black;
@@ -65,24 +76,6 @@ h2{
     padding-left: 300px;
     padding-right: 300px;
     vertical-align: middle;
-}
-
-table.bookTable{
-   
-    width: 500px;
-    padding-left: 300px;
-    padding-right: 300px;
-}
-
-tr {
-    border: none;
-}
-td{
-    font-size: 120%;
-    color: black;
-}
-body {
-    color: #777;
 }
 
 .pure-img-responsive {
@@ -331,5 +324,3 @@ Hides the menu at `48em`, but modify this based on your app's needs.
         left: 150px;
     }
 }
-
-

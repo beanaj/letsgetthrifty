@@ -50,6 +50,12 @@
             <a class="pure-menu-heading" href="#">Admin</a>
 
             <ul class="pure-menu-list">
+                <li class="pure-menu-item"><a href="homepage.jsp" class="pure-menu-link">Home</a></li>
+                <li class="pure-menu-item"><a href="#" class="pure-menu-link">My Cart</a></li>
+                <li class="pure-menu-item"><a href="" class="pure-menu-link">Search</a></li>
+                <li class="pure-menu-item"><a href="my_accont.jsp" class="pure-menu-link">My Account</a></li>
+                <li class="pure-menu-item"><a href="login_register.jsp" class="pure-menu-link">Log In/Register</a></li>
+                <li class="pure-menu-item"><a href="#" class="pure-menu-link">Sign Out</a></li>
                 <li class="pure-menu-item menu-item-divided pure-menu-selected"><a href="generateTable.jsp" class="pure-menu-link">Inventory</a></li>
                 <li class="pure-menu-item"><a href="generateTable.jsp" class="pure-menu-link">Promotions</a></li>
 
