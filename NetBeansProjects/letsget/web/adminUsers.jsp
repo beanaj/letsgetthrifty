@@ -140,7 +140,7 @@ while(resultSet.next()){
 <td><%=resultSet.getString("paymentInfo") %></td>
 <td><%=resultSet.getString("userType") %></td>
 <td><%=resultSet.getString("userPassword") %></td>
-<!--<td><%=resultSet.getString("orderConfirmation") %></td>-->
+<!--ORDER CONFIRMATION-->
 <td><%=resultSet.getString("active") %></td>
 <!--<td>
     <a href="deleteBook.jsp?deleteid=<%=primaryKey%>">Delete</a>

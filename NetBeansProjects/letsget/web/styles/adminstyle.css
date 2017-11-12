@@ -8,13 +8,6 @@ and open the template in the editor.
     Author     : Addison
 */
 
-@media screen and (min-width: 800px){
-    .container{
-        max-width: 1000px;/*Limit max-width to 800px*/
-        margin: 0 auto;/*Centering this container*/
-    }
-}
-
 .box {
     margin: 0 3em 2em;
     padding: 0 0 3em;
@@ -46,14 +39,11 @@ body {
     color: #777;
 }
 
-table, th, td {
+table, td, tr {
     border: 1px solid black;
     color: black;
     font-weight: 200;
     font-size: 1em;
-}
-
-th {
     text-align: center;
 }
 
@@ -301,5 +291,12 @@ Hides the menu at `48em`, but modify this based on your app's needs.
     #layout.active {
         position: relative;
         left: 150px;
+    }
+}
+
+@media screen and (min-width: 800px){
+    .container{
+        max-width: 800px;/*Limit max-width to 800px*/
+        margin: 0 auto;/*Centering this container*/
     }
 }
