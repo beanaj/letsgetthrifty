@@ -1,8 +1,10 @@
 <%-- 
-    Document   : homepage
-    Created on : Nov 5, 2017, 12:07:53 PM
+    Document   : my_cart
+    Created on : Nov 12, 2017, 1:28:20 PM
     Author     : Ian
 --%>
+
+<!DOCTYPE html>
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Statement"%>
@@ -24,10 +26,10 @@
     <!--<![endif]-->
     <link rel="stylesheet" href="styles/homepagestyle.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style src="hompagestyle.css"></style>
-  </head>
-  <body>
-      <%
+    <style src="my_cartstyle.css"></style>
+</head>
+<body>
+             <%
         //allow access only if session exists
         String user = null;
         if(session.getAttribute("user") == null){
@@ -57,9 +59,10 @@
         <div class="pure-u-1-5"> 
         <div id ="menu" class="pure-menu">
             <a class="pure-menu-heading" href="#">Welcome!</a>
+
             <ul class="pure-menu-list">
-                <li class="pure-menu-item menu-item-divided pure-menu-selected"><a href="homepage.jsp" class="pure-menu-link">Home</a></li>
-                <li class="pure-menu-item"><a href="#" class="pure-menu-link">My Cart</a></li>
+                <li class="pure-menu-item"><a href="homepage.jsp" class="pure-menu-link">Home</a></li>
+                <li class="pure-menu-item menu-item-divided pure-menu-selected"><a href="my_cart.jsp" class="pure-menu-link">My Cart</a></li>
                 <li class="pure-menu-item"><a href="search.jsp" class="pure-menu-link">Search</a></li>
                 <li class="pure-menu-item"><a href="my_accont.jsp" class="pure-menu-link">My Account</a></li>
                 <li class="pure-menu-item"><a href="login_register.jsp" class="pure-menu-link">Log In/Register</a></li>
@@ -68,80 +71,9 @@
         </div>
         </div>
         <div class="pure-u-4-5">
-            <div class="search"
-                <form class="pure-form">
-                    <input class="searchbar" type="search" placeholder="Search by Title">
-                    <button type="submit" class="pure-button pure-button-primary">Search!</button>
-                </form>
-            </div>
-                <h2>RECENT ADDITIONS</h2>
-  
-                        <!--THE TABLE:::-->
-                <%
-//String driverName = "com.mysql.jdbc.Driver";
-//String connectionUrl = "letsgetthrifty-database.cgg5mwmrnbyi.us-east-1.rds.amazonaws.com:3306/";
-//String dbName = "letsget";
-//String userId = "admin";
-//String password = "password";
-String driverName = "com.mysql.jdbc.Driver";
-String connectionUrl = "jdbc:mysql://letsgetthrifty-database.cgg5mwmrnbyi.us-east-1.rds.amazonaws.com:3306/letsget?zeroDateTimeBehavior=convertToNull";
-String dbName = "letsget";
-String userId = "admin";
-String password = "password";
-
-
-try {
-Class.forName(driverName);
-} catch (ClassNotFoundException e) {
-e.printStackTrace();
-}
-
-Connection connection = null;
-Statement statement = null;
-ResultSet resultSet = null;
-%>
-<!--<h2 align="center"><font><strong>Retrieve data from database in jsp</strong></font></h2>-->
-<table id="bookTable" align="center" cellpadding="5" cellspacing="5" border="1">
-<tr>
-
-</tr>
-
-<%
-try{ 
-connection = DriverManager.getConnection(connectionUrl, userId, password);
-statement=connection.createStatement();
-String sql ="SELECT * FROM books";
-
-resultSet = statement.executeQuery(sql);
-//while(resultSet.next()){
-for(int i=0; i<40; i++){
-    resultSet.next();
-%>
-<!--<tr bgcolor="#DEB887">-->
-<tr>  
-    <%
-        String primaryKey = resultSet.getString("isbn");
-        String pic = resultSet.getString("picture");
-    %>
-<td><image src ="<%=pic%>" height="325" width=225"></td>    
-<td>Title: <%=resultSet.getString("title") %><br>
-    Author: <%=resultSet.getString("author") %><br>
-    Genre: <%=resultSet.getString("genre") %><br>
-    Rating: <%=resultSet.getString("rating") %>/5</td>
-<td>$<%=resultSet.getString("buyPrice") %></td>
-<td><button type="submit" class="pure-button">Add to Cart</td>
-</tr>
-
-<% 
-}
-connection.close();
-} catch (Exception e) {
-e.printStackTrace();
-}
-%>
-</table>       
-<!--END OF TABLE-->
+            <h2>MY CART</h2>
+        </div>
     </div>
     <script src="scripts/homepage.js"></script>
-  </body>
+</body>
 </html>
