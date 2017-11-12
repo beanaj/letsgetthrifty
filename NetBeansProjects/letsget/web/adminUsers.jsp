@@ -71,7 +71,7 @@
             <div class="container">               
                 <div class="box">
                     <div class="header">
-                        <h1>Inventory</h1>
+                        <h1>Users</h1>
                     </div>               
                 </div>
                 

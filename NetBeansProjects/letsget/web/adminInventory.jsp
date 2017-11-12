@@ -100,7 +100,7 @@ Statement statement = null;
 ResultSet resultSet = null;
 %>
 <!--<h2 align="center"><font><strong>Retrieve data from database in jsp</strong></font></h2>-->
-<table id="bookTable" align="center" cellpadding="1" cellspacing="1" border="1">
+<table id="bookTable" align="center" cellpadding="5" cellspacing="5" border="1">
 <tr>
 
 </tr>

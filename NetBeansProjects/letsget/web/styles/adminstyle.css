@@ -43,7 +43,7 @@ table, td, tr {
     border: 1px solid black;
     color: black;
     font-weight: 200;
-    font-size: 1em;
+    font-size: .9em;
     text-align: center;
 }
 
@@ -99,6 +99,7 @@ The content `<div>` is where all your content goes.
      text-align: center;
      font-size: xx-large;
      font-weight: 800;
+     max-width: 300;
      /*border-bottom: 1px solid #eee;*/
  }
     .header h1 {
