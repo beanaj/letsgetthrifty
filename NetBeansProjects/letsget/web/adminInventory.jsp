@@ -4,10 +4,11 @@
     Author     : Addison
 --%>
 
+<%@page import="java.sql.Connection"%>
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Statement"%>
-<%@page import="java.sql.Connection"%>
+<%@page import="services.DatabaseUtility"%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -77,20 +78,11 @@
                 
                 <!--THE TABLE:::-->
                 <%
-//String driverName = "com.mysql.jdbc.Driver";
-//String connectionUrl = "letsgetthrifty-database.cgg5mwmrnbyi.us-east-1.rds.amazonaws.com:3306/";
-//String dbName = "letsget";
-//String userId = "admin";
-//String password = "password";
-String driverName = "com.mysql.jdbc.Driver";
-String connectionUrl = "jdbc:mysql://letsgetthrifty-database.cgg5mwmrnbyi.us-east-1.rds.amazonaws.com:3306/letsget?zeroDateTimeBehavior=convertToNull";
-String dbName = "letsget";
-String userId = "admin";
-String password = "password";
+DatabaseUtility db = new DatabaseUtility();
 
 
 try {
-Class.forName(driverName);
+Class.forName(db.getDriver());
 } catch (ClassNotFoundException e) {
 e.printStackTrace();
 }
@@ -119,7 +111,7 @@ ResultSet resultSet = null;
 
 <%
 try{ 
-connection = DriverManager.getConnection(connectionUrl, userId, password);
+connection = DriverManager.getConnection(db.getURL(), db.getUser(), db.getPass());
 statement=connection.createStatement();
 String sql ="SELECT * FROM books";
 
