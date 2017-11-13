@@ -22,11 +22,6 @@ import services.DatabaseUtility;
  * @author Addison
  */
 public class BookDAO {
-    private DataSource dataSource;
-    
-//    public BookDAO(DataSource dataSource) {
-//        this.dataSource = dataSource;
-//    }
     
     public List<Book> list() throws SQLException {
         DatabaseUtility db = new DatabaseUtility();
@@ -60,10 +55,17 @@ public class BookDAO {
                 book.setSellPrice(rs.getDouble("sellPrice"));
                 book.setSupplierID(rs.getInt("supplierID"));
                 book.setTitle(rs.getString("title"));
+                
+                books.add(book);
             }
         
         }
         return books;
+    }
+    
+    //Add a book to the database
+    public void addBook(Book b) {
+        
     }
 }
 

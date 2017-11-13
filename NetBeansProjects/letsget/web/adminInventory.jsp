@@ -147,19 +147,17 @@ e.printStackTrace();
 %>
 
 <tr name="add book button"method="post" action="book">
-    <td><input type="text" id="new_isbn"></td>
-    <td><input type="text" id="new_genre"></td>
-    <td><input type="text" id="new_author"></td>
-    <td><input type="text" id="new_title"></td>
-    <td><input type="text" id="new_rating"></td>
-    <td><input type="text" id="new_publisher"></td>
-    <td><input type="text" id="new_publicationyear"></td>
-    <td><input type="text" id="new_quantity"></td>
-    <td><input type="text" id="new_buyprice"></td>
+    <td><input type="text" name="new_isbn"></td>
+    <td><input type="text" name="new_genre"></td>
+    <td><input type="text" name="new_author"></td>
+    <td><input type="text" name="new_title"></td>
+    <td><input type="text" name="new_rating"></td>
+    <td><input type="text" name="new_publisher"></td>
+    <td><input type="text" name="new_publicationyear"></td>
+    <td><input type="text" name="new_quantity"></td>
+    <td><input type="text" name="new_buyprice"></td>
     <!--<td><input type="button" onclick="addBook()" value="Add Book"></td>-->
-    <td>
-        <a href="addBook.jsp?ISBN=${new_isbn}">Add Book</a>
-    </td>
+    <td><input type="submit" value="Add Book"</td>
 </tr>
 
 </table>       

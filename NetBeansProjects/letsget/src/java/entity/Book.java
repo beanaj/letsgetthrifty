@@ -27,6 +27,33 @@ public class Book {
    private double sellPrice;
    private int supplierID;
    
+   //Constructor
+   public Book(String i, String g, String a, String t, double r, String pic, int e, String pub, int pubYear, int q, int minT, double bp, double sp, int sID) {
+       this.isbn = i;
+       this.genre = g;
+       this.author = a;
+       this.title = t;
+       this.rating = r;
+       this.picture = pic;
+       this.edition = e;
+       this.publisher = pub;
+       this.publicationYear = pubYear;
+       this.qtyInStock = q;
+       this.minThreshold = minT;
+       this.buyPrice = bp;
+       this.sellPrice = sp;
+       this.supplierID = sID;
+   }
+   
+   public Book() {
+       
+   }
+   
+   public void addBook() {
+       BookDAO db = new BookDAO();
+       db.addBook(this);
+   }
+   
    public String getISBN() {
        return this.isbn;
    }

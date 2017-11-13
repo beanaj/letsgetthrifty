@@ -70,7 +70,16 @@ public class BookTable extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String isbn = request.getParameter("new_isbn");
+        String genre = request.getParameter("new_genre");
+        String author = request.getParameter("new_author");
+        String title = request.getParameter("new_title");
+        String rating = request.getParameter("new_rating");
+        String pub = request.getParameter("new_publisher");
+        String pubYear = request.getParameter("new_publicationyear");
+        String quantity = request.getParameter("new_quantity");
+        String buyPrice = request.getParameter("new_buyprice");
+        
     }
 
     /**
