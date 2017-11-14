@@ -5,44 +5,21 @@
  */
 package services;
 
+import com.sun.media.jfxmedia.logging.Logger;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import entity.Book;
+import entity.BookDAO;
 
 /**
  *
  * @author Addison
  */
 public class BookTable extends HttpServlet {
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet BookTable</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet BookTable at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -56,7 +33,7 @@ public class BookTable extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+      
     }
 
     /**
@@ -70,16 +47,30 @@ public class BookTable extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
+        
         String isbn = request.getParameter("new_isbn");
         String genre = request.getParameter("new_genre");
         String author = request.getParameter("new_author");
         String title = request.getParameter("new_title");
-        String rating = request.getParameter("new_rating");
+        double rating = Double.parseDouble(request.getParameter("new_rating"));
+        String picture = request.getParameter("new_picture");
+        int edition = Integer.parseInt(request.getParameter("new_edition"));
         String pub = request.getParameter("new_publisher");
-        String pubYear = request.getParameter("new_publicationyear");
-        String quantity = request.getParameter("new_quantity");
-        String buyPrice = request.getParameter("new_buyprice");
+        int pubYear = Integer.parseInt(request.getParameter("new_publicationyear"));
+        int quantity = Integer.parseInt(request.getParameter("new_quantity"));
+        int minT = Integer.parseInt(request.getParameter("new_minthreshold"));
+        double buyPrice = Double.parseDouble(request.getParameter("new_buyprice"));
+        double sellPrice = Double.parseDouble(request.getParameter("new_sellprice"));
+        int supplierID = Integer.parseInt(request.getParameter("new_supplierID"));
         
+        //Create Book object and add to database:
+        Book book = new Book(isbn, genre, author, title, rating, picture, edition, pub, pubYear, quantity, minT, buyPrice, sellPrice, supplierID);
+        book.addBook();
+        
+        response.sendRedirect("adminInventory.jsp");
+        out.close();
     }
 
     /**

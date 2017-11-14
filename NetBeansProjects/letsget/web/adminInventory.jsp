@@ -103,10 +103,15 @@ ResultSet resultSet = null;
 <td><b>Author</b></td>
 <td><b>Title</b></td>
 <td><b>Rating</b></td>
+<td><b>Picture Link</b></td>
+<td><b>Edition</b></td>
 <td><b>Publisher</b></td>
 <td><b>Publication year</b></td>
 <td><b>Quantity</b></td>
+<td><b>Min Threshold</b></td>
 <td><b>Buy Price</b></td>
+<td><b>Sell Price</b></td>
+<td><b>Supplier ID</b></td>
 </tr>
 
 <%
@@ -128,10 +133,15 @@ while(resultSet.next()){
 <td><%=resultSet.getString("author") %></td>
 <td><%=resultSet.getString("title") %></td>
 <td><%=resultSet.getString("rating") %></td>
+<td><%=resultSet.getString("picture") %></td>
+<td><%=resultSet.getInt("edition") %></td>
 <td><%=resultSet.getString("publisher") %></td>
 <td><%=resultSet.getInt("publicationYear")%></td>
 <td><%=resultSet.getInt("qtyInStock")%></td>
+<td><%=resultSet.getInt("minThreshold") %></td>
 <td><%=resultSet.getInt("buyPrice")%></td>
+<td><%=resultSet.getInt("sellPrice")%></td>
+<td><%=resultSet.getInt("supplierID")%></td>
 <td>
     <a href="deleteBook.jsp?deleteid=<%=primaryKey%>">Delete</a>
 </td>
@@ -146,19 +156,25 @@ e.printStackTrace();
 }
 %>
 
-<tr name="add book button"method="post" action="book">
+<form  name="add book button" method="post" action="book">
+<tr>
     <td><input type="text" name="new_isbn"></td>
     <td><input type="text" name="new_genre"></td>
     <td><input type="text" name="new_author"></td>
     <td><input type="text" name="new_title"></td>
     <td><input type="text" name="new_rating"></td>
+    <td><input type="text" name="new_picture"></td>
+    <td><input type="text" name="new_edition"></td>
     <td><input type="text" name="new_publisher"></td>
     <td><input type="text" name="new_publicationyear"></td>
     <td><input type="text" name="new_quantity"></td>
+    <td><input type="text" name="new_minthreshold"></td>
     <td><input type="text" name="new_buyprice"></td>
-    <!--<td><input type="button" onclick="addBook()" value="Add Book"></td>-->
+    <td><input type="text" name="new_sellprice"></td>
+    <td><input type="text" name="new_supplierID"></td>
     <td><input type="submit" value="Add Book"</td>
 </tr>
+</form>
 
 </table>       
 <!--END OF TABLE-->
