@@ -4,11 +4,14 @@
     Author     : Addison
 --%>
 
+<%@page import="java.util.List"%>
 <%@page import="java.sql.Connection"%>
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Statement"%>
 <%@page import="services.DatabaseUtility"%>
+<%@page import="entity.BookDAO"%>
+<%@page import="entity.Book"%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -77,71 +80,56 @@
                 </div>
                 
                 <!--THE TABLE:::-->
-                <%
-DatabaseUtility db = new DatabaseUtility();
-
-
-try {
-Class.forName(db.getDriver());
-} catch (ClassNotFoundException e) {
-e.printStackTrace();
-}
-
-Connection connection = null;
-Statement statement = null;
-ResultSet resultSet = null;
-%>
-<!--<h2 align="center"><font><strong>Retrieve data from database in jsp</strong></font></h2>-->
+                
 <table id="bookTable" align="center" cellpadding="5" cellspacing="5" border="1">
 <tr>
 
 </tr>
 <!--<tr bgcolor="#A52A2A">-->
-<tr>
-<td><b>ISBN</b></td>
-<td><b>Genre</b></td>
-<td><b>Author</b></td>
-<td><b>Title</b></td>
-<td><b>Rating</b></td>
-<td><b>Picture Link</b></td>
-<td><b>Edition</b></td>
-<td><b>Publisher</b></td>
-<td><b>Publication year</b></td>
-<td><b>Quantity</b></td>
-<td><b>Min Threshold</b></td>
-<td><b>Buy Price</b></td>
-<td><b>Sell Price</b></td>
-<td><b>Supplier ID</b></td>
+<tr>  
+    <td><b>ISBN</b></td>
+    <td><b>Genre</b></td>
+    <td><b>Author</b></td>
+    <td><b>Title</b></td>
+    <td><b>Rating</b></td>
+    <td><b>Picture Link</b></td>
+    <td><b>Edition</b></td>
+    <td><b>Publisher</b></td>
+    <td><b>Publication year</b></td>
+    <td><b>Quantity</b></td>
+    <td><b>Min Threshold</b></td>
+    <td><b>Buy Price</b></td>
+    <td><b>Sell Price</b></td>
+    <td><b>Supplier ID</b></td>
 </tr>
 
 <%
-try{ 
-connection = DriverManager.getConnection(db.getURL(), db.getUser(), db.getPass());
-statement=connection.createStatement();
-String sql ="SELECT * FROM books";
+//Create a BookDAO Object to access a list of the books
+BookDAO db = new BookDAO();
+List<Book> bookList = db.list();
 
-resultSet = statement.executeQuery(sql);
-while(resultSet.next()){
+//Loop through the book list and put the books in a table:
+for (int i = 0; i <= bookList.size(); i++) {
 %>
 <!--<tr bgcolor="#DEB887">-->
 <tr>  
     <%
-        String primaryKey = resultSet.getString("isbn");
+        String primaryKey = bookList.get(i).getISBN();     
     %>
-<td><%=resultSet.getString("isbn") %></td>
-<td><%=resultSet.getString("genre") %></td>
-<td><%=resultSet.getString("author") %></td>
-<td><%=resultSet.getString("title") %></td>
-<td><%=resultSet.getString("rating") %></td>
-<td><%=resultSet.getString("picture") %></td>
-<td><%=resultSet.getInt("edition") %></td>
-<td><%=resultSet.getString("publisher") %></td>
-<td><%=resultSet.getInt("publicationYear")%></td>
-<td><%=resultSet.getInt("qtyInStock")%></td>
-<td><%=resultSet.getInt("minThreshold") %></td>
-<td><%=resultSet.getInt("buyPrice")%></td>
-<td><%=resultSet.getInt("sellPrice")%></td>
-<td><%=resultSet.getInt("supplierID")%></td>
+    <td><%=bookList.get(i).getISBN() %></td>
+    <td><%=bookList.get(i).getGenre() %></td>
+    <td><%=bookList.get(i).getAuthor() %></td>
+    <td><%=bookList.get(i).getTitle() %></td>
+    <td><%=bookList.get(i).getRating() %></td>
+    <td><%=bookList.get(i).getPicture() %></td>
+    <td><%=bookList.get(i).getEdition() %></td>
+    <td><%=bookList.get(i).getPublisher() %></td>
+    <td><%=bookList.get(i).getPublicationYear() %></td>
+    <td><%=bookList.get(i).getQtyInStock()%></td>
+    <td><%=bookList.get(i).getMinThreshold()%></td>
+    <td><%=bookList.get(i).getBuyPrice() %></td>
+    <td><%=bookList.get(i).getSellPrice() %></td>
+    <td><%=bookList.get(i).getSupplierID()%></td>
 <td>
     <a href="deleteBook.jsp?deleteid=<%=primaryKey%>">Delete</a>
 </td>
@@ -150,29 +138,25 @@ while(resultSet.next()){
 
 <% 
 }
-connection.close();
-} catch (Exception e) {
-e.printStackTrace();
-}
 %>
 
-<form  name="add book button" method="post" action="book">
+<form name="add book button" method="post" action="book">
 <tr>
-    <td><input type="text" name="new_isbn"></td>
-    <td><input type="text" name="new_genre"></td>
-    <td><input type="text" name="new_author"></td>
-    <td><input type="text" name="new_title"></td>
-    <td><input type="text" name="new_rating"></td>
-    <td><input type="text" name="new_picture"></td>
-    <td><input type="text" name="new_edition"></td>
-    <td><input type="text" name="new_publisher"></td>
-    <td><input type="text" name="new_publicationyear"></td>
-    <td><input type="text" name="new_quantity"></td>
-    <td><input type="text" name="new_minthreshold"></td>
-    <td><input type="text" name="new_buyprice"></td>
-    <td><input type="text" name="new_sellprice"></td>
-    <td><input type="text" name="new_supplierID"></td>
-    <td><input type="submit" value="Add Book"</td>
+    <td><input type="text" name="new_isbn" required></td>
+    <td><input type="text" name="new_genre" required></td>
+    <td><input type="text" name="new_author" required></td>
+    <td><input type="text" name="new_title" required></td>
+    <td><input type="text" name="new_rating" required></td>
+    <td><input type="text" name="new_picture" required></td>
+    <td><input type="text" name="new_edition" required></td>
+    <td><input type="text" name="new_publisher" required></td>
+    <td><input type="text" name="new_publicationyear" required></td>
+    <td><input type="text" name="new_quantity" required></td>
+    <td><input type="text" name="new_minthreshold" required></td>
+    <td><input type="text" name="new_buyprice" required></td>
+    <td><input type="text" name="new_sellprice" required></td>
+    <td><input type="text" name="new_supplierID" required></td>
+    <td><input type="submit" value="Add Book"></td>
 </tr>
 </form>
 
