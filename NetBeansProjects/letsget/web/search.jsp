@@ -63,7 +63,7 @@
                 <li class="pure-menu-item"><a href="homepage.jsp" class="pure-menu-link">Home</a></li>
                 <li class="pure-menu-item"><a href="#" class="pure-menu-link">My Cart</a></li>
                 <li class="pure-menu-item menu-item-divided pure-menu-selected"><a href="" class="pure-menu-link">Search</a></li>
-                <li class="pure-menu-item"><a href="my_accont.jsp" class="pure-menu-link">My Account</a></li>
+                <li class="pure-menu-item"><a href="my_account.jsp" class="pure-menu-link">My Account</a></li>
                 <li class="pure-menu-item"><a href="login_register.jsp" class="pure-menu-link">Log In/Register</a></li>
                 <li class="pure-menu-item"><a href="#" class="pure-menu-link">Sign Out</a></li>
             </ul>

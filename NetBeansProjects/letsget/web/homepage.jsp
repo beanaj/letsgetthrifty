@@ -12,136 +12,150 @@
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>Let's Get Thrifty</title>
-    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
-    <!--[if lte IE 8]>
-    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/grids-responsive-old-ie-min.css">
-    <![endif]-->
-    <!--[if gt IE 8]><!-->
-    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/grids-responsive-min.css">
-    <!--<![endif]-->
-    <link rel="stylesheet" href="styles/homepagestyle.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style src="hompagestyle.css"></style>
-  </head>
-  <body>
-      <%
-        //allow access only if session exists
-        String user = null;
-        if(session.getAttribute("user") == null){
-               System.out.println("FAIL");
-        }else user = (String) session.getAttribute("user");
-        String userName = null;
-        String sessionID = null;
-        Cookie[] cookies = request.getCookies();
-        if(cookies !=null){
-        for(Cookie cookie : cookies){
-                if(cookie.getName().equals("user")) userName = cookie.getValue();
-                if(cookie.getName().equals("JSESSIONID")) sessionID = cookie.getValue();
-        }
-        }
+    <head>
+        <meta charset="utf-8">
+        <title>Let's Get Thrifty</title>
+        <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
+        <!--[if lte IE 8]>
+        <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/grids-responsive-old-ie-min.css">
+        <![endif]-->
+        <!--[if gt IE 8]><!-->
+        <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/grids-responsive-min.css">
+        <!--<![endif]-->
+        <link rel="stylesheet" href="styles/homepagestyle.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style src="hompagestyle.css"></style>
+    </head>
+    <body>
+        <%
+            //allow access only if session exists
+            String user = null;
+            if (session.getAttribute("user") == null) {
+                System.out.println("FAIL");
+            } else {
+                user = (String) session.getAttribute("user");
+            }
+            String userName = null;
+            String sessionID = null;
+            Cookie[] cookies = request.getCookies();
+            if (cookies != null) {
+                for (Cookie cookie : cookies) {
+                    if (cookie.getName().equals("user")) {
+                        userName = cookie.getValue();
+                    }
+                    if (cookie.getName().equals("JSESSIONID")) {
+                        sessionID = cookie.getValue();
+                    }
+                }
+            }
         %>
-    <div class="banner">
-        <h1 class="bannerhead">
-            <img src="img/letsgetlogo.png" alt="logo" height = "150" width="350">  
-        </h1>
-    </div>
-    <!-- Menu toggle -->
+
+        <!-- Menu toggle -->
         <a href="#menu" id="menuLink" class="menu-link">
-        <!-- Hamburger icon -->
+            <!-- Hamburger icon -->
             <span></span>
         </a>
-    <div class="pure-g">
-        <div class="pure-u-1-5"> 
-        <div id ="menu" class="pure-menu">
-            <a class="pure-menu-heading" href="#">Welcome!</a>
-            <ul class="pure-menu-list">
-                <li class="pure-menu-item menu-item-divided pure-menu-selected"><a href="homepage.jsp" class="pure-menu-link">Home</a></li>
-                <li class="pure-menu-item"><a href="#" class="pure-menu-link">My Cart</a></li>
-                <li class="pure-menu-item"><a href="search.jsp" class="pure-menu-link">Search</a></li>
-                <li class="pure-menu-item"><a href="my_account.jsp" class="pure-menu-link">My Account</a></li>
-                <li class="pure-menu-item"><a href="login_register.jsp" class="pure-menu-link">Log In/Register</a></li>
-                <li class="pure-menu-item"><a href="#" class="pure-menu-link">Sign Out</a></li>
-            </ul>
-        </div>
-        </div>
-        <div class="pure-u-4-5">
-            <div class="search"
-                <form class="pure-form">
-                    <input class="searchbar" type="search" placeholder="Search by Title">
-                    <button type="submit" class="pure-button pure-button-primary">Search!</button>
-                </form>
+        <div class="pure-g">
+            <div class="pure-u-1-4"> 
+                <div id ="menu" class="pure-menu">
+                    <a class="pure-menu-heading" href="#">Welcome!</a>
+                    <ul class="pure-menu-list">
+                        <li class="pure-menu-item menu-item-divided pure-menu-selected"><a href="homepage.jsp" class="pure-menu-link">Home</a></li>
+                        <li class="pure-menu-item"><a href="#" class="pure-menu-link">My Cart</a></li>
+                        <li class="pure-menu-item"><a href="search.jsp" class="pure-menu-link">Search</a></li>
+                        <li class="pure-menu-item"><a href="my_account.jsp" class="pure-menu-link">My Account</a></li>
+                        <li class="pure-menu-item"><a href="login_register.jsp" class="pure-menu-link">Log In/Register</a></li>
+                        <li class="pure-menu-item"><a href="#" class="pure-menu-link">Sign Out</a></li>
+                    </ul>
+                </div>
             </div>
-                <h2>RECENT ADDITIONS</h2>
-  
-                        <!--THE TABLE:::-->
+            <div class="pure-u-5-8">
+                <div class="banner">
+                    <h1 class="bannerhead">
+                        <img src="img/letsgetlogo.png" alt="logo" height = "150" width="350">  
+                    </h1>
+                </div>
+                <div class="search">
+                    <form class="pure-form">
+                        <div class="pure-g">
+                            <div class="pure-u-3-4"> 
+                                <input class="searchbar" type="search" placeholder="Search for books">
+                            </div>
+                            <div class="pure-u-1-4">     
+                                <button type="submit" class="pure-button pure-button-primary" id="searchbutton">SEARCH</button>
+                            </div>
+                    </form>
+                </div>
+                </div>
+                <div class="browseheader">
+                    RECENT ADDITIONS
+                </div>
+
+                <!--THE TABLE:::-->
                 <%
 //String driverName = "com.mysql.jdbc.Driver";
 //String connectionUrl = "letsgetthrifty-database.cgg5mwmrnbyi.us-east-1.rds.amazonaws.com:3306/";
 //String dbName = "letsget";
 //String userId = "admin";
 //String password = "password";
-String driverName = "com.mysql.jdbc.Driver";
-String connectionUrl = "jdbc:mysql://letsgetthrifty-database.cgg5mwmrnbyi.us-east-1.rds.amazonaws.com:3306/letsget?zeroDateTimeBehavior=convertToNull";
-String dbName = "letsget";
-String userId = "admin";
-String password = "password";
+                    String driverName = "com.mysql.jdbc.Driver";
+                    String connectionUrl = "jdbc:mysql://letsgetthrifty-database.cgg5mwmrnbyi.us-east-1.rds.amazonaws.com:3306/letsget?zeroDateTimeBehavior=convertToNull";
+                    String dbName = "letsget";
+                    String userId = "admin";
+                    String password = "password";
 
+                    try {
+                        Class.forName(driverName);
+                    } catch (ClassNotFoundException e) {
+                        e.printStackTrace();
+                    }
 
-try {
-Class.forName(driverName);
-} catch (ClassNotFoundException e) {
-e.printStackTrace();
-}
+                    Connection connection = null;
+                    Statement statement = null;
+                    ResultSet resultSet = null;
+                %>
 
-Connection connection = null;
-Statement statement = null;
-ResultSet resultSet = null;
-%>
-<!--<h2 align="center"><font><strong>Retrieve data from database in jsp</strong></font></h2>-->
-<table id="bookTable" align="center" cellpadding="5" cellspacing="5" border="1">
-<tr>
+                <table>
+                    <tr>
 
-</tr>
+                    </tr>
 
-<%
-try{ 
-connection = DriverManager.getConnection(connectionUrl, userId, password);
-statement=connection.createStatement();
-String sql ="SELECT * FROM books";
+                    <%
+                        try {
+                            connection = DriverManager.getConnection(connectionUrl, userId, password);
+                            statement = connection.createStatement();
+                            String sql = "SELECT * FROM books";
 
-resultSet = statement.executeQuery(sql);
-//while(resultSet.next()){
-for(int i=0; i<40; i++){
-    resultSet.next();
-%>
-<!--<tr bgcolor="#DEB887">-->
-<tr>  
-    <%
-        String primaryKey = resultSet.getString("isbn");
-        String pic = resultSet.getString("picture");
-    %>
-<td><image src ="<%=pic%>" height="325" width=225"></td>    
-<td>Title: <%=resultSet.getString("title") %><br>
-    Author: <%=resultSet.getString("author") %><br>
-    Genre: <%=resultSet.getString("genre") %><br>
-    Rating: <%=resultSet.getString("rating") %>/5</td>
-<td>$<%=resultSet.getString("buyPrice") %></td>
-<td><button type="submit" class="pure-button">Add to Cart</td>
-</tr>
+                            resultSet = statement.executeQuery(sql);
+                            for (int i = 0; i < 40; i++) {
+                                resultSet.next();
+                    %>
+                    <tr>  
+                        <%
+                            String primaryKey = resultSet.getString("isbn");
+                            String pic = resultSet.getString("picture");
+                        %>
+                        <td><image src ="<%=pic%>" height="200" width=130"></td>    
+                        <td><h3><%=resultSet.getString("title")%></h3>
+                            <b><%=resultSet.getString("author")%></b><br><br>
+                            <%=resultSet.getString("genre")%><br>
+                            <%=resultSet.getString("rating")%>/5</td>
+                        <td><h4>$<%=resultSet.getString("buyPrice")%></h4><br><button type="submit" class="pure-button">ADD TO CART</td>
+                    </tr>
 
-<% 
-}
-connection.close();
-} catch (Exception e) {
-e.printStackTrace();
-}
-%>
-</table>       
-<!--END OF TABLE-->
-    </div>
-    <script src="scripts/homepage.js"></script>
-  </body>
+                    <%
+                            }
+                            connection.close();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    %>
+                </table>       
+                <!--END OF TABLE-->
+            </div>
+            <div class="pure-u-1-8"> 
+            </div>
+        </div>
+        <script src="scripts/homepage.js"></script>
+    </body>
 </html>
