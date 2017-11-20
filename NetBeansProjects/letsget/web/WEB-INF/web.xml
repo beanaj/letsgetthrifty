@@ -16,6 +16,14 @@
         <servlet-name>BookTable</servlet-name>
         <servlet-class>services.BookTable</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Logout</servlet-name>
+        <servlet-class>services.Logout</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CartManager</servlet-name>
+        <servlet-class>services.CartManager</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Registration</servlet-name>
         <url-pattern>/registered</url-pattern>
@@ -31,6 +39,14 @@
     <servlet-mapping>
         <servlet-name>BookTable</servlet-name>
         <url-pattern>/book</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Logout</servlet-name>
+        <url-pattern>/signout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CartManager</servlet-name>
+        <url-pattern>/cartmanager</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

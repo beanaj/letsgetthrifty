@@ -28,25 +28,25 @@
     </head>
     <body>
         <%
-            //allow access only if session exists
-            String user = null;
-            if (session.getAttribute("user") == null) {
-                System.out.println("FAIL");
-            } else {
-                user = (String) session.getAttribute("user");
-            }
-            String userName = null;
+            String userID = null;
+            userID = (String) session.getAttribute("userID");
+            String userName = "Guest";
             String sessionID = null;
             Cookie[] cookies = request.getCookies();
             if (cookies != null) {
                 for (Cookie cookie : cookies) {
-                    if (cookie.getName().equals("user")) {
+                    if (cookie.getName().equals("userID")) {
+                        userID = cookie.getValue();
+                    }
+                    if (cookie.getName().equals("userName")) {
                         userName = cookie.getValue();
                     }
                     if (cookie.getName().equals("JSESSIONID")) {
                         sessionID = cookie.getValue();
                     }
                 }
+            } else {
+                sessionID = session.getId();
             }
         %>
 
@@ -58,14 +58,14 @@
         <div class="pure-g">
             <div class="pure-u-1-4"> 
                 <div id ="menu" class="pure-menu">
-                    <a class="pure-menu-heading" href="#">Welcome!</a>
+                    <a class="pure-menu-heading" href="#">Welcome<%="\n " + userName%></a>
                     <ul class="pure-menu-list">
                         <li class="pure-menu-item menu-item-divided pure-menu-selected"><a href="homepage.jsp" class="pure-menu-link">Home</a></li>
                         <li class="pure-menu-item"><a href="#" class="pure-menu-link">My Cart</a></li>
                         <li class="pure-menu-item"><a href="search.jsp" class="pure-menu-link">Search</a></li>
                         <li class="pure-menu-item"><a href="my_account.jsp" class="pure-menu-link">My Account</a></li>
                         <li class="pure-menu-item"><a href="login_register.jsp" class="pure-menu-link">Log In/Register</a></li>
-                        <li class="pure-menu-item"><a href="#" class="pure-menu-link">Sign Out</a></li>
+                        <li class="pure-menu-item"><a href="signout" class="pure-menu-link">Sign Out</a></li>
                     </ul>
                 </div>
             </div>
@@ -86,76 +86,80 @@
                             </div>
                     </form>
                 </div>
-                </div>
-                <div class="browseheader">
-                    RECENT ADDITIONS
-                </div>
+            </div>
+            <div class="browseheader">
+                RECENT ADDITIONS
+            </div>
 
-                <!--THE TABLE:::-->
-                <%
+            <!--THE TABLE:::-->
+            <%
 //String driverName = "com.mysql.jdbc.Driver";
 //String connectionUrl = "letsgetthrifty-database.cgg5mwmrnbyi.us-east-1.rds.amazonaws.com:3306/";
 //String dbName = "letsget";
 //String userId = "admin";
 //String password = "password";
-                    String driverName = "com.mysql.jdbc.Driver";
-                    String connectionUrl = "jdbc:mysql://letsgetthrifty-database.cgg5mwmrnbyi.us-east-1.rds.amazonaws.com:3306/letsget?zeroDateTimeBehavior=convertToNull";
-                    String dbName = "letsget";
-                    String userId = "admin";
-                    String password = "password";
+                String driverName = "com.mysql.jdbc.Driver";
+                String connectionUrl = "jdbc:mysql://letsgetthrifty-database.cgg5mwmrnbyi.us-east-1.rds.amazonaws.com:3306/letsget?zeroDateTimeBehavior=convertToNull";
+                String dbName = "letsget";
+                String userId = "admin";
+                String password = "password";
 
+                try {
+                    Class.forName(driverName);
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+
+                Connection connection = null;
+                Statement statement = null;
+                ResultSet resultSet = null;
+            %>
+
+            <table>
+                <tr>
+
+                </tr>
+
+                <%
                     try {
-                        Class.forName(driverName);
-                    } catch (ClassNotFoundException e) {
+                        connection = DriverManager.getConnection(connectionUrl, userId, password);
+                        statement = connection.createStatement();
+                        String sql = "SELECT * FROM books";
+
+                        resultSet = statement.executeQuery(sql);
+                        for (int i = 0; i < 15; i++) {
+                            resultSet.next();
+                %>
+                <tr>  
+                    <%
+                        String primaryKey = resultSet.getString("isbn");
+                        String pic = resultSet.getString("picture");
+                    %>
+                    <td><image src ="<%=pic%>" height="200" width=130"></td>    
+                    <td><h3><%=resultSet.getString("title")%></h3>
+                        <b><%=resultSet.getString("author")%></b><br><br>
+                        <%=resultSet.getString("genre")%><br>
+                        <%=resultSet.getString("rating")%>/5</td>
+                    <td><h4>$<%=resultSet.getString("buyPrice")%></h4><br>
+                        <form class="pure-form" method = "post" action = "cartmanager">
+                            <input type="hidden" name="isbn" value=<%=primaryKey%>>
+                            <button type="submit" class="pure-button">ADD TO CART</button>
+                        </form>
+                </tr>
+
+                <%
+                        }
+                        connection.close();
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
-
-                    Connection connection = null;
-                    Statement statement = null;
-                    ResultSet resultSet = null;
                 %>
-
-                <table>
-                    <tr>
-
-                    </tr>
-
-                    <%
-                        try {
-                            connection = DriverManager.getConnection(connectionUrl, userId, password);
-                            statement = connection.createStatement();
-                            String sql = "SELECT * FROM books";
-
-                            resultSet = statement.executeQuery(sql);
-                            for (int i = 0; i < 40; i++) {
-                                resultSet.next();
-                    %>
-                    <tr>  
-                        <%
-                            String primaryKey = resultSet.getString("isbn");
-                            String pic = resultSet.getString("picture");
-                        %>
-                        <td><image src ="<%=pic%>" height="200" width=130"></td>    
-                        <td><h3><%=resultSet.getString("title")%></h3>
-                            <b><%=resultSet.getString("author")%></b><br><br>
-                            <%=resultSet.getString("genre")%><br>
-                            <%=resultSet.getString("rating")%>/5</td>
-                        <td><h4>$<%=resultSet.getString("buyPrice")%></h4><br><button type="submit" class="pure-button">ADD TO CART</td>
-                    </tr>
-
-                    <%
-                            }
-                            connection.close();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    %>
-                </table>       
-                <!--END OF TABLE-->
-            </div>
-            <div class="pure-u-1-8"> 
-            </div>
+            </table>       
+            <!--END OF TABLE-->
         </div>
-        <script src="scripts/homepage.js"></script>
-    </body>
+        <div class="pure-u-1-8"> 
+        </div>
+    </div>
+    <script src="scripts/homepage.js"></script>
+</body>
 </html>

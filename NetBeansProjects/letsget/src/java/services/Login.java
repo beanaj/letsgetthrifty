@@ -58,20 +58,26 @@ public class Login extends HttpServlet {
         } else {
             //now we will nee to fetch the user object
             user = new User(accountOrEmail, type);
+            String userID = user.getAccountID();
+            String userFirstname = user.getFN();
             UserDAO dao = new UserDAO();
             //encrypt input passed pw
             password = dao.encrypt(password);
             userpass = user.getPass();
-            if (userpass.equals(password)){//correct password, edit session attributes and redirect to the homepage
+            if (userpass.equals(password)) {//correct password, edit session attributes and redirect to the homepage
+                //set session attributes
                 HttpSession session = request.getSession();
-                session.setAttribute("user", user.getFN());
-                session.setAttribute("accountID", user.getAccountID());
+                session.setAttribute("userID", userID);
+                session.setAttribute("name", userFirstname);
                 //setting session to expiry in 30 mins
                 session.setMaxInactiveInterval(30 * 60);
-                Cookie userName = new Cookie("user", user.getAccountID());
-                userName.setMaxAge(30 * 60);
+                Cookie userName = new Cookie("userID", userID);
+                Cookie userFirst = new Cookie("userName", userFirstname);
                 response.addCookie(userName);
-                response.sendRedirect("homepage.jsp");
+                response.addCookie(userFirst);
+                //Get the encoded URL string
+                String encodedURL = response.encodeRedirectURL("homepage.jsp");
+                response.sendRedirect(encodedURL);
             } else {//wrong password
                 request.setAttribute("errorLogin", "<b>Invalid AccountID/Email or Password</b><br>Please enter a valid accountID/email or password");
                 request.getRequestDispatcher("login_register.jsp").forward(request, response);

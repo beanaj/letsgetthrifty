@@ -190,8 +190,8 @@ appears on the left side of the page.
 */
 
 #menu {
-    margin-left: -150px; /* "#menu" width */
-    width: 150px;
+    margin-left: -200px; /* "#menu" width */
+    width: 200px;
     position: fixed;
     top: 0px;
     left: 0;
@@ -326,21 +326,21 @@ Hides the menu at `48em`, but modify this based on your app's needs.
     }
 
     #layout {
-        padding-left: 150px; /* left col width "#menu" */
+        padding-left: 200px; /* left col width "#menu" */
         left: 0;
     }
     #menu {
-        left: 150px;
+        left: 200px;
     }
 
     .menu-link {
         position: fixed;
-        left: 150px;
+        left: 1200px;
         display: none;
     }
 
     #layout.active .menu-link {
-        left: 150px;
+        left: 200px;
     }
 }
 
@@ -353,7 +353,7 @@ Hides the menu at `48em`, but modify this based on your app's needs.
     */
     #layout.active {
         position: relative;
-        left: 150px;
+        left: 200px;
     }
 }
 
