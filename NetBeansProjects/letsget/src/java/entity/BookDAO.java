@@ -97,5 +97,24 @@ public class BookDAO {
             Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public void updateBook(String isb, String gen, String author, String tit, Double rat, String pic, int ed, String pub, int pubYear, int qty, int minT, double buyP, double sellP, int supID) {
+        //Set up database connection:
+        Connection conn = null;
+        PreparedStatement stat = null;
+        DatabaseUtility db = new DatabaseUtility();
+        try {
+            Class.forName(db.getDriver());
+            conn = DriverManager.getConnection(db.getURL(), db.getUser(), db.getPass());
+            String query = "UPDATE book SET genre = gen, author = auth, title = tit, rating = rat, picture = pic, edition = ed, publisher = pub, publicationYear = pubYear, qtyInStock = qty, minThreshold = minT, buyPrice = buyP, sellPrice = sellP, supplierID = supID WHERE isbn = isb";
+            stat = conn.prepareStatement(query);
+            stat.execute();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
 }
 

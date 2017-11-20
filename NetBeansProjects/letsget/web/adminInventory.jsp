@@ -85,7 +85,6 @@
 <tr>
 
 </tr>
-<!--<tr bgcolor="#A52A2A">-->
 <tr>  
     <td><b>ISBN</b></td>
     <td><b>Genre</b></td>
@@ -109,13 +108,14 @@ BookDAO db = new BookDAO();
 List<Book> bookList = db.list();
 
 //Loop through the book list and put the books in a table:
-for (int i = 0; i <= bookList.size(); i++) {
+for (int i = 0; i < bookList.size(); i++) {
 %>
-<!--<tr bgcolor="#DEB887">-->
-<tr>  
+
+ 
     <%
         String primaryKey = bookList.get(i).getISBN();     
     %>
+<tr> 
     <td><%=bookList.get(i).getISBN() %></td>
     <td><%=bookList.get(i).getGenre() %></td>
     <td><%=bookList.get(i).getAuthor() %></td>
@@ -130,17 +130,17 @@ for (int i = 0; i <= bookList.size(); i++) {
     <td><%=bookList.get(i).getBuyPrice() %></td>
     <td><%=bookList.get(i).getSellPrice() %></td>
     <td><%=bookList.get(i).getSupplierID()%></td>
-<td>
-    <a href="deleteBook.jsp?deleteid=<%=primaryKey%>">Delete</a>
-</td>
-
+    <td>
+        <a href="deleteBook.jsp?deleteid=<%=primaryKey%>">Delete</a>
+    </td>
 </tr>
 
 <% 
 }
 %>
 
-<form name="add book button" method="post" action="book">
+<!--Add book row:-->
+<form name="addBookButton" method="post" action="book" values="add">
 <tr>
     <td><input type="text" name="new_isbn" required></td>
     <td><input type="text" name="new_genre" required></td>
@@ -158,6 +158,27 @@ for (int i = 0; i <= bookList.size(); i++) {
     <td><input type="text" name="new_supplierID" required></td>
     <td><input type="submit" value="Add Book"></td>
 </tr>
+</form>
+
+<!--Update Book Row:-->
+<form name="addBookButton" method="post" action="book" values="update">
+    <tr>
+    <td><input type="text" name="new_isbn" required></td>
+    <td><input type="text" name="new_genre" required></td>
+    <td><input type="text" name="new_author" required></td>
+    <td><input type="text" name="new_title" required></td>
+    <td><input type="text" name="new_rating" required></td>
+    <td><input type="text" name="new_picture" required></td>
+    <td><input type="text" name="new_edition" required></td>
+    <td><input type="text" name="new_publisher" required></td>
+    <td><input type="text" name="new_publicationyear" required></td>
+    <td><input type="text" name="new_quantity" required></td>
+    <td><input type="text" name="new_minthreshold" required></td>
+    <td><input type="text" name="new_buyprice" required></td>
+    <td><input type="text" name="new_sellprice" required></td>
+    <td><input type="text" name="new_supplierID" required></td>
+    <td><input type="submit" value="Update Book"></td>
+    </tr>
 </form>
 
 </table>       
