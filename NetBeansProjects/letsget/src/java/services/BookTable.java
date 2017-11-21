@@ -50,9 +50,10 @@ public class BookTable extends HttpServlet {
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
         
-        String hiddenParam = request.getParameter("addBookButton");
+        String hiddenParam = request.getParameter("addUpdate");
+
         switch (hiddenParam) {
-            case "add":
+            case "Add Book":
                 String isbn = request.getParameter("new_isbn");
                 String genre = request.getParameter("new_genre");
                 String author = request.getParameter("new_author");
@@ -72,7 +73,7 @@ public class BookTable extends HttpServlet {
                 Book book = new Book(isbn, genre, author, title, rating, picture, edition, pub, pubYear, quantity, minT, buyPrice, sellPrice, supplierID);
                 book.addBook();
                 break;
-            case "update":
+            case "Update Book":
                 String i = request.getParameter("new_isbn");
                 String g = request.getParameter("new_genre");
                 String a = request.getParameter("new_author");

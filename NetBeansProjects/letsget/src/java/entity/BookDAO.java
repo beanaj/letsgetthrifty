@@ -98,7 +98,7 @@ public class BookDAO {
         }
     }
     
-    public void updateBook(String isb, String gen, String author, String tit, Double rat, String pic, int ed, String pub, int pubYear, int qty, int minT, double buyP, double sellP, int supID) {
+    public void updateBook(String is, String gen, String author, String tit, double rat, String pic, int ed, String pub, int pubYear, int qty, int minT, double buyP, double sellP, int supID) {
         //Set up database connection:
         Connection conn = null;
         PreparedStatement stat = null;
@@ -106,15 +106,31 @@ public class BookDAO {
         try {
             Class.forName(db.getDriver());
             conn = DriverManager.getConnection(db.getURL(), db.getUser(), db.getPass());
-            String query = "UPDATE book SET genre = gen, author = auth, title = tit, rating = rat, picture = pic, edition = ed, publisher = pub, publicationYear = pubYear, qtyInStock = qty, minThreshold = minT, buyPrice = buyP, sellPrice = sellP, supplierID = supID WHERE isbn = isb";
+         
+            String query = "UPDATE books SET genre = ?, author = ?, title = ?, rating = ?, picture = ?, edition = ?, publisher = ?, publicationYear = ?, qtyInStock = ?, minThreshold = ?, buyPrice = ?, sellPrice = ?, supplierID = ? WHERE isbn = ?";
             stat = conn.prepareStatement(query);
-            stat.execute();
+            stat.setString(1, gen);
+            stat.setString(2, author);
+            stat.setString(3, tit);
+            stat.setDouble(4, rat);
+            stat.setString(5, pic);
+            stat.setInt(6, ed);
+            stat.setString(7, pub);
+            stat.setInt(8, pubYear);
+            stat.setInt(9, qty);
+            stat.setInt(10, minT);
+            stat.setDouble(11, buyP);
+            stat.setDouble(12, sellP);
+            stat.setInt(13, supID);
+            stat.setString(14, is);
+            
+            stat.executeUpdate();
+            
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
     }
 }
 

@@ -140,7 +140,7 @@ for (int i = 0; i < bookList.size(); i++) {
 %>
 
 <!--Add book row:-->
-<form name="addBookButton" method="post" action="book" values="add">
+<form name="addBookButton" method="post" action="book">
 <tr>
     <td><input type="text" name="new_isbn" required></td>
     <td><input type="text" name="new_genre" required></td>
@@ -156,12 +156,12 @@ for (int i = 0; i < bookList.size(); i++) {
     <td><input type="text" name="new_buyprice" required></td>
     <td><input type="text" name="new_sellprice" required></td>
     <td><input type="text" name="new_supplierID" required></td>
-    <td><input type="submit" value="Add Book"></td>
+    <td><input name="addUpdate" type="submit" value="Add Book"></td>
 </tr>
 </form>
 
 <!--Update Book Row:-->
-<form name="addBookButton" method="post" action="book" values="update">
+<form name="addBookButton" method="post" action="book">
     <tr>
     <td><input type="text" name="new_isbn" required></td>
     <td><input type="text" name="new_genre" required></td>
@@ -177,7 +177,7 @@ for (int i = 0; i < bookList.size(); i++) {
     <td><input type="text" name="new_buyprice" required></td>
     <td><input type="text" name="new_sellprice" required></td>
     <td><input type="text" name="new_supplierID" required></td>
-    <td><input type="submit" value="Update Book"></td>
+    <td><input name="addUpdate" type="submit" value="Update Book"></td>
     </tr>
 </form>
 
