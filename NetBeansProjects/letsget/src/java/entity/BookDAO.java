@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -106,25 +107,118 @@ public class BookDAO {
         try {
             Class.forName(db.getDriver());
             conn = DriverManager.getConnection(db.getURL(), db.getUser(), db.getPass());
-         
-            String query = "UPDATE books SET genre = ?, author = ?, title = ?, rating = ?, picture = ?, edition = ?, publisher = ?, publicationYear = ?, qtyInStock = ?, minThreshold = ?, buyPrice = ?, sellPrice = ?, supplierID = ? WHERE isbn = ?";
-            stat = conn.prepareStatement(query);
-            stat.setString(1, gen);
-            stat.setString(2, author);
-            stat.setString(3, tit);
-            stat.setDouble(4, rat);
-            stat.setString(5, pic);
-            stat.setInt(6, ed);
-            stat.setString(7, pub);
-            stat.setInt(8, pubYear);
-            stat.setInt(9, qty);
-            stat.setInt(10, minT);
-            stat.setDouble(11, buyP);
-            stat.setDouble(12, sellP);
-            stat.setInt(13, supID);
-            stat.setString(14, is);
             
-            stat.executeUpdate();
+            if (!gen.isEmpty()) {
+                String query = "UPDATE books SET genre = ? WHERE isbn = ?";
+                stat = conn.prepareStatement(query);
+                stat.setString(1, gen);
+                stat.setString(2, is);
+                stat.executeUpdate();  
+            } 
+            if (!author.isEmpty()) {
+                String query = "UPDATE books SET author = ? WHERE isbn = ?";
+                stat = conn.prepareStatement(query);
+                stat.setString(1, author);
+                stat.setString(2, is);
+                stat.executeUpdate();
+            }
+            if (!tit.isEmpty()) {
+                String query = "UPDATE books SET title = ? WHERE isbn = ?";
+                stat = conn.prepareStatement(query);
+                stat.setString(1, tit);
+                stat.setString(2, is);
+                stat.executeUpdate();
+            }
+            if (Double.compare(rat, -1) != 0) {
+                String query = "UPDATE books SET rating = ? WHERE isbn = ?";
+                stat = conn.prepareStatement(query);
+                stat.setDouble(1, rat);
+                stat.setString(2, is);
+                stat.executeUpdate();
+            }
+            if (!pic.isEmpty()) {
+                String query = "UPDATE books SET picture = ? WHERE isbn = ?";
+                stat = conn.prepareStatement(query);
+                stat.setString(1, pic);
+                stat.setString(2, is);
+                stat.executeUpdate();
+            }
+            if (Integer.compare(ed, -1) != 0) {
+                String query = "UPDATE books SET edition = ? WHERE isbn = ?";
+                stat = conn.prepareStatement(query);
+                stat.setInt(1, ed);
+                stat.setString(2, is);
+                stat.executeUpdate();
+            }
+            if (!pub.isEmpty()) {
+                String query = "UPDATE books SET publisher = ? WHERE isbn = ?";
+                stat = conn.prepareStatement(query);
+                stat.setString(1, pub);
+                stat.setString(2, is);
+                stat.executeUpdate();
+            }
+            if (Integer.compare(pubYear, -1) != 0) {
+                String query = "UPDATE books SET publicationYear = ? WHERE isbn = ?";
+                stat = conn.prepareStatement(query);
+                stat.setInt(1, pubYear);
+                stat.setString(2, is);
+                stat.executeUpdate();
+            }
+            if (Integer.compare(qty, -1) != 0) {
+                String query = "UPDATE books SET qtyInStock = ? WHERE isbn = ?";
+                stat = conn.prepareStatement(query);
+                stat.setInt(1, qty);
+                stat.setString(2, is);
+                stat.executeUpdate();
+            }
+            if (Integer.compare(minT, -1) != 0) {
+                String query = "UPDATE books SET minThreshold = ? WHERE isbn = ?";
+                stat = conn.prepareStatement(query);
+                stat.setInt(1, minT);
+                stat.setString(2, is);
+                stat.executeUpdate();
+            }
+            if (Double.compare(buyP, -1) != 0) {
+                String query = "UPDATE books SET buyPrice = ? WHERE isbn = ?";
+                stat = conn.prepareStatement(query);
+                stat.setDouble(1, buyP);
+                stat.setString(2, is);
+                stat.executeUpdate();
+            }
+            if (Double.compare(sellP, -1) != 0) {
+                String query = "UPDATE books SET sellPrice = ? WHERE isbn = ?";
+                stat = conn.prepareStatement(query);
+                stat.setDouble(1, sellP);
+                stat.setString(2, is);
+                stat.executeUpdate();
+            }
+            if (Integer.compare(supID, -1) != 0) {
+                String query = "UPDATE books SET supplierID = ? WHERE isbn = ?";
+                stat = conn.prepareStatement(query);
+                stat.setInt(1, supID);
+                stat.setString(2, is);
+                stat.executeUpdate();
+            }
+            
+            //THIS CODE WORKS::
+//            String query = "UPDATE books SET genre = ?, author = ?, title = ?, rating = ?, picture = ?, edition = ?, publisher = ?, publicationYear = ?, qtyInStock = ?, minThreshold = ?, buyPrice = ?, sellPrice = ?, supplierID = ? WHERE isbn = ?";
+//            stat = conn.prepareStatement(query);
+//            stat.setString(1, gen);
+//            stat.setString(2, author);
+//            stat.setString(3, tit);
+//            stat.setDouble(4, rat);
+//            stat.setString(5, pic);
+//            stat.setInt(6, ed);
+//            stat.setString(7, pub);
+//            stat.setInt(8, pubYear);
+//            stat.setInt(9, qty);
+//            stat.setInt(10, minT);
+//            stat.setDouble(11, buyP);
+//            stat.setDouble(12, sellP);
+//            stat.setInt(13, supID);
+//            stat.setString(14, is);
+            
+//            stat.executeUpdate();
             
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, ex);

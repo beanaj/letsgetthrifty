@@ -164,19 +164,19 @@ for (int i = 0; i < bookList.size(); i++) {
 <form name="addBookButton" method="post" action="book">
     <tr>
     <td><input type="text" name="new_isbn" required></td>
-    <td><input type="text" name="new_genre" required></td>
-    <td><input type="text" name="new_author" required></td>
-    <td><input type="text" name="new_title" required></td>
-    <td><input type="text" name="new_rating" required></td>
-    <td><input type="text" name="new_picture" required></td>
-    <td><input type="text" name="new_edition" required></td>
-    <td><input type="text" name="new_publisher" required></td>
-    <td><input type="text" name="new_publicationyear" required></td>
-    <td><input type="text" name="new_quantity" required></td>
-    <td><input type="text" name="new_minthreshold" required></td>
-    <td><input type="text" name="new_buyprice" required></td>
-    <td><input type="text" name="new_sellprice" required></td>
-    <td><input type="text" name="new_supplierID" required></td>
+    <td><input type="text" name="new_genre"></td>
+    <td><input type="text" name="new_author"></td>
+    <td><input type="text" name="new_title"></td>
+    <td><input type="text" name="new_rating"></td>
+    <td><input type="text" name="new_picture"></td>
+    <td><input type="text" name="new_edition"></td>
+    <td><input type="text" name="new_publisher"></td>
+    <td><input type="text" name="new_publicationyear"></td>
+    <td><input type="text" name="new_quantity"></td>
+    <td><input type="text" name="new_minthreshold"></td>
+    <td><input type="text" name="new_buyprice"></td>
+    <td><input type="text" name="new_sellprice"></td>
+    <td><input type="text" name="new_supplierID"></td>
     <td><input name="addUpdate" type="submit" value="Update Book"></td>
     </tr>
 </form>
