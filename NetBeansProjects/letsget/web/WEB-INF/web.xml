@@ -24,6 +24,10 @@
         <servlet-name>CartManager</servlet-name>
         <servlet-class>services.CartManager</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Remove</servlet-name>
+        <servlet-class>services.Remove</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Registration</servlet-name>
         <url-pattern>/registered</url-pattern>
@@ -47,6 +51,10 @@
     <servlet-mapping>
         <servlet-name>CartManager</servlet-name>
         <url-pattern>/cartmanager</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Remove</servlet-name>
+        <url-pattern>/remove</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

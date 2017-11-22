@@ -9,13 +9,11 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,8 +23,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author andrewjacobsen
  */
-public class CartManager extends HttpServlet {
-
+public class Remove extends HttpServlet {
     /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -38,29 +35,15 @@ public class CartManager extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        Cookie[] cookies = request.getCookies();
-        HttpSession session = request.getSession(false);
+        HttpSession session = request.getSession();
         String userID = (String) session.getAttribute("userID");
-        System.out.println(userID);
-        if (userID != null) {
-            String isbn = request.getParameter("isbn");
-            String priceString = request.getParameter("price");
-            double price = Double.parseDouble(priceString);
-            
-            int qty = Integer.parseInt(request.getParameter("quantity"));
-            //if(request.getParameter("update").equals("true")){
-            //    qty--;
-            //}
-            addToCart(isbn, price, userID, qty);
-            response.sendRedirect("homepage.jsp");
-        } else {
-            response.sendRedirect("login_register.jsp");
-        }
-
+        String isbn = request.getParameter("isbn");
+        
+        removeFromCart(isbn, userID);
+        response.sendRedirect("my_cart.jsp");
     }
     
-    private void addToCart(String isbn,double price, String userID, int qty){
+    private void removeFromCart(String isbn, String userID){
         Connection con = null;
         Statement state = null;
         DatabaseUtility db = new DatabaseUtility();
@@ -71,14 +54,10 @@ public class CartManager extends HttpServlet {
             con = DriverManager.getConnection(db.getURL(), db.getUser(), db.getPass());
             //generate sql statement
             state = con.createStatement();
-            for(int i=0; i<qty;i++){
-                String sql = "INSERT INTO carts (userID, isbn, qty, totalPrice) VALUES (\""
-                    + userID + "\", \""//userID
-                    + isbn + "\", \""//isbn
-                    + 1 + "\", \""//qty
-                    + price + "\")";//price
-            state.executeUpdate(sql);
-            }
+            String sql = "DELETE FROM carts WHERE userID = '"+userID+"' AND isbn = '"+isbn+"'";
+            System.out.println(sql);
+            state.execute(sql);
+            
         } catch (SQLException exception) {
             exception.printStackTrace();
         } catch (ClassNotFoundException ex) {
@@ -86,3 +65,5 @@ public class CartManager extends HttpServlet {
         }
     }
 }
+
+

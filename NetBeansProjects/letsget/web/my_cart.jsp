@@ -3,11 +3,17 @@
     Created on : Nov 5, 2017, 12:07:53 PM
     Author     : Ian
 --%>
+<%@page import="java.text.DecimalFormat"%>
+<%@page import="java.util.logging.Logger"%>
+<%@page import="java.sql.SQLException"%>
+<%@page import="java.util.logging.Level"%>
+<%@page import="services.DatabaseUtility"%>
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Statement"%>
 <%@page import="java.sql.Connection"%>
-
+<%@page import="entity.CartObject"%>
+<%@page import="entity.CartDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
@@ -53,6 +59,16 @@
             } else {
                 sessionID = session.getId();
             }
+
+            CartDAO cartDB = new CartDAO();
+            CartObject[] cartContents = cartDB.getCartContents(userID);
+            //generatre isbn list for sql query
+            String isbns = "";
+            for (int i = 0; i < cartContents.length; i++) {
+                isbns += cartContents[i].isbn + ",";
+            }
+            Double totalPrice = 0.0;
+
         %>
 
         <!-- Menu toggle -->
@@ -115,14 +131,18 @@
                     </tr>
 
                     <%
-                        try {
-                            connection = DriverManager.getConnection(connectionUrl, userId, password);
-                            statement = connection.createStatement();
-                            String sql = "SELECT * FROM books";
+                        if (isbns.length() > 0) {
+                            isbns = isbns.substring(0, isbns.length() - 1);
 
-                            resultSet = statement.executeQuery(sql);
-                            for (int i = 4; i < 6; i++) {
-                                resultSet.next();
+                            try {
+                                connection = DriverManager.getConnection(connectionUrl, userId, password);
+                                statement = connection.createStatement();
+                                String sql = "SELECT * FROM books WHERE isbn IN (" + isbns + ")";
+                                System.out.println(sql);
+                                resultSet = statement.executeQuery(sql);
+                                for (int i = 0; i < cartContents.length; i++) {
+                                    resultSet.next();
+                                    totalPrice += Double.parseDouble(resultSet.getString("buyPrice"));
                     %>
                     <tr>  
                         <%
@@ -141,17 +161,24 @@
                             <br>
                             <form class="pure-form" method = "post" action = "cartmanager">
                                 <input type="hidden" name="isbn" value=<%=primaryKey%>>
-                                <input type="text" name="quantity" value="1">
+                                <input type="hidden" name="price" value=<%=resultSet.getString("buyPrice")%>>
+                                <input type="hidden" name="update" value="true">
+                                <input type="text" name="quantity" value=<%=cartContents[i].quantity%>>
                                 <button type="submit" class="pure-button">UPDATE</button>
-                                <a href="remove" class="pure-menu-link">remove</a>
+                            </form>
+                            <form class="pure-form" method = "post" action = "remove">
+                                <input type="hidden" name="isbn" value=<%=primaryKey%>>
+                                <input type="hidden" name="quantity" value=<%=cartContents[i].quantity%>>
+                                <button type="submit" class="pure-button remove-button">REMOVE</button>
                             </form>
                     </tr>
 
                     <%
+                                }
+                                connection.close();
+                            } catch (Exception e) {
+                                e.printStackTrace();
                             }
-                            connection.close();
-                        } catch (Exception e) {
-                            e.printStackTrace();
                         }
                     %>
                 </table>       
@@ -168,9 +195,29 @@
                         </div>
                         <div class="promo">
                             <form class="pure-form" method = "post" action = "">
-                                Total Price<br>
-                                Shipping<br>
-                                <input type="text" name="promo" placeholder="Promo Code">
+                                <%
+                                    DecimalFormat df = new DecimalFormat("#.00");
+                                    Double subtotal = Double.parseDouble(df.format(totalPrice));
+                                    Double shipping = Double.parseDouble(df.format(subtotal / 10));
+                                    Double total = Double.parseDouble(df.format(shipping + subtotal));
+                                %>
+                                <div class="summary">
+                                    <table>
+                                        <tr>
+                                            <td><b>Subtotal:</b></td> 
+                                            <td><%=totalPrice%></td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>Shipping:</b></td>
+                                            <td><%=shipping%></td>
+                                        </tr>
+                                        <tr>
+                                            <td><h3>Total Price:</h3></td>
+                                            <td><h3><%=total%></h3></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <input type="text" name="promo" placeholder="Enter Promo Code">
                                 <button type="submit" class="pure-button">PROCEED TO CHECKOUT</button>
                             </form>
                         </div>

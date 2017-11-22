@@ -82,6 +82,19 @@ input.searchbar {
     font-size: 100%;
 }
 
+.summary{
+    color: black;
+    padding: 1em 1em 1em 1em;
+}
+
+.remove-button {
+    background-color: gray;
+    color: white;
+    height: 50px;
+    width:100%;
+    font-size: 100%;
+}
+
 h2{
     font-size: 300%;
     background-color: black;
@@ -113,8 +126,7 @@ table{
 }
 
 .spacertwo{
-    width: 500px;
-    height:4px;
+    height:6px;
 }
 
 .promo{

@@ -175,6 +175,8 @@
                     <td><h4>$<%=resultSet.getString("buyPrice")%></h4><br>
                         <form class="pure-form" method = "post" action = "cartmanager">
                             <input type="hidden" name="isbn" value=<%=primaryKey%>>
+                            <input type="hidden" name="quantity" value="1">
+                            <input type="hidden" name="update" value="false">
                             <input type="hidden" name="price" value=<%=resultSet.getString("buyPrice")%>>
                             <button type="submit" class="pure-button">ADD TO CART</button>
                         </form>
