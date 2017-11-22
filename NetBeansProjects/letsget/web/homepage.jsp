@@ -3,6 +3,10 @@
     Created on : Nov 5, 2017, 12:07:53 PM
     Author     : Ian
 --%>
+<%@page import="java.sql.SQLException"%>
+<%@page import="java.util.logging.Logger"%>
+<%@page import="java.util.logging.Level"%>
+<%@page import="services.DatabaseUtility"%>
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Statement"%>
@@ -48,6 +52,34 @@
             } else {
                 sessionID = session.getId();
             }
+            Connection con = null;
+            Statement state = null;
+            ResultSet result = null;
+            DatabaseUtility db = new DatabaseUtility();
+            String booksInCart="";
+            try {
+                //register the driver
+                Class.forName(db.getDriver());
+                //connect to the database
+                con = DriverManager.getConnection(db.getURL(), db.getUser(), db.getPass());
+                //generate sql statement
+                state = con.createStatement();
+                String sql = "SELECT * FROM carts WHERE userID = '"+userID+"'";
+                result = state.executeQuery(sql);
+                int inCart=0;
+                while(result.next()){
+                    inCart++;
+                }
+                
+                if(inCart>0){
+                    booksInCart = " ( "+Integer.toString(inCart)+" )";
+                }
+                
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Registration.class.getName()).log(Level.SEVERE, null, ex);
+            }
         %>
 
         <!-- Menu toggle -->
@@ -61,7 +93,7 @@
                     <a class="pure-menu-heading" href="#">Welcome<%="\n " + userName%></a>
                     <ul class="pure-menu-list">
                         <li class="pure-menu-item menu-item-divided pure-menu-selected"><a href="homepage.jsp" class="pure-menu-link">Home</a></li>
-                        <li class="pure-menu-item"><a href="#" class="pure-menu-link">My Cart</a></li>
+                        <li class="pure-menu-item"><a href="my_cart.jsp" class="pure-menu-link">My Cart<%=""+booksInCart%></a></li>
                         <li class="pure-menu-item"><a href="search.jsp" class="pure-menu-link">Search</a></li>
                         <li class="pure-menu-item"><a href="my_account.jsp" class="pure-menu-link">My Account</a></li>
                         <li class="pure-menu-item"><a href="login_register.jsp" class="pure-menu-link">Log In/Register</a></li>
@@ -143,6 +175,7 @@
                     <td><h4>$<%=resultSet.getString("buyPrice")%></h4><br>
                         <form class="pure-form" method = "post" action = "cartmanager">
                             <input type="hidden" name="isbn" value=<%=primaryKey%>>
+                            <input type="hidden" name="price" value=<%=resultSet.getString("buyPrice")%>>
                             <button type="submit" class="pure-button">ADD TO CART</button>
                         </form>
                 </tr>

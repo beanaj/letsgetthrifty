@@ -4,17 +4,28 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 */
 /* 
-    Created on : Nov 12, 2017, 1:34:00 PM
+    Created on : Nov 2, 2017, 8:55:42 PM
     Author     : Ian
 */
+html, body {
+    width:100%;
+}
 
+table {
+    margin: 0 auto;
+    border: none;
+}
+
+td{
+    border-bottom: 1px solid #ddd;
+}
 .banner {
     background: transparent url('../img/topbanner.png') 0 0 no-repeat fixed;
     text-align: center;
     background-size: cover;
     height: 200px;
     width: 100%;
-    margin-bottom: 3em;
+    margin-bottom: 0em;
     display: table;
 }
 
@@ -29,21 +40,46 @@ and open the template in the editor.
     text-align: center;
 }
 
+.browseheader {
+    background: black;
+    color: white;
+    padding: 0.1em 0 0.1em;
+    text-align: center;
+    font-size: xx-large;
+    font-weight: 800;
+    max-width: 300em;
+}
+
+.summaryheader{
+    background: black;
+    color: white;
+    padding: 0.1em 0.1em 0.1em 0.1em;
+    text-align: center;
+    font-size: xx-large;
+    font-weight: 800;
+    max-width: 300em;
+}
+
+.search{
+    padding-bottom: 1em;
+    padding-top: 1em;
+}
+
 input.searchbar {
     padding-left: 300px;
     padding-right:300px;
-    width: 450px;
+    width: 100%;
     height: 50px;
-    text-align: center;
     vertical-align: middle; 
-    font-size: 150%;
+    font-size: 100%;
 }
 
 .pure-button {
     background-color: black;
     color: white;
     height: 50px;
-    font-size: 150%;
+    width:100%;
+    font-size: 100%;
 }
 
 h2{
@@ -54,6 +90,50 @@ h2{
     padding-left: 300px;
     padding-right: 300px;
     vertical-align: middle;
+}
+
+h3{
+    font-weight: bold;
+    font-size: x-large;
+}
+
+h4{
+    font-weight: bold;
+    font-size: xx-large;
+}
+
+table{
+    border: none;
+    border-bottom: 2px solid black;
+    cellpadding: 5px;
+}
+
+.spacer{
+    width: 500px;
+}
+
+.spacertwo{
+    width: 500px;
+    height:4px;
+}
+
+.promo{
+    border: 2px solid black;
+}
+input{
+    width: 100%;
+}
+tr {
+    border: none;
+}
+td{
+    font-size: 120%;
+    color: black;
+    padding: 10px;
+    vertical-align: top;
+}
+body {
+    color: #777;
 }
 
 .pure-img-responsive {
@@ -136,14 +216,14 @@ appears on the left side of the page.
 */
 
 #menu {
-    margin-left: -150px; /* "#menu" width */
-    width: 150px;
+    margin-left: -200px; /* "#menu" width */
+    width: 200px;
     position: fixed;
-    top: 200px;
+    top: 0px;
     left: 0;
     bottom: 0;
     z-index: 1000; /* so the menu or its navicon stays above all content */
-    background: #191818;
+    background: black;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
 }
@@ -272,21 +352,21 @@ Hides the menu at `48em`, but modify this based on your app's needs.
     }
 
     #layout {
-        padding-left: 150px; /* left col width "#menu" */
+        padding-left: 200px; /* left col width "#menu" */
         left: 0;
     }
     #menu {
-        left: 150px;
+        left: 200px;
     }
 
     .menu-link {
         position: fixed;
-        left: 150px;
+        left: 1200px;
         display: none;
     }
 
     #layout.active .menu-link {
-        left: 150px;
+        left: 200px;
     }
 }
 
@@ -299,6 +379,8 @@ Hides the menu at `48em`, but modify this based on your app's needs.
     */
     #layout.active {
         position: relative;
-        left: 150px;
+        left: 200px;
     }
 }
+
+
