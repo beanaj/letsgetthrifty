@@ -74,23 +74,67 @@ public class BookTable extends HttpServlet {
                 book.addBook();
                 break;
             case "Update Book":
-                String i = request.getParameter("new_isbn");
-                String g = request.getParameter("new_genre");
-                String a = request.getParameter("new_author");
-                String t = request.getParameter("new_title");
-                double r = Double.parseDouble(request.getParameter("new_rating"));
-                String p = request.getParameter("new_picture");
-                int e = Integer.parseInt(request.getParameter("new_edition"));
-                String pu = request.getParameter("new_publisher");
-                int pubY = Integer.parseInt(request.getParameter("new_publicationyear"));
-                int q = Integer.parseInt(request.getParameter("new_quantity"));
-                int m = Integer.parseInt(request.getParameter("new_minthreshold"));
-                double b = Double.parseDouble(request.getParameter("new_buyprice"));
-                double s = Double.parseDouble(request.getParameter("new_sellprice"));
-                int sup = Integer.parseInt(request.getParameter("new_supplierID"));
+                String i = "";
+                String g = "";
+                String a = "";
+                String t = "";
+                double r = -1;
+                String p = "";
+                int e = -1;
+                String pu = "";
+                int pubY = -1;
+                int q = -1;
+                int m = -1;
+                double b = -1;
+                double s = -1;
+                int sup = -1;
+                
+                if (!request.getParameter("new_isbn").isEmpty()) {
+                    i = request.getParameter("new_isbn");
+                } 
+                if (!request.getParameter("new_genre").isEmpty()) {
+                    g = request.getParameter("new_genre");
+                } 
+                if (!request.getParameter("new_author").isEmpty()) {
+                    a = request.getParameter("new_author");
+                } 
+                if (!request.getParameter("new_title").isEmpty()) {
+                    t = request.getParameter("new_title");
+                }
+                if (!request.getParameter("new_rating").isEmpty()) {
+                    r = Double.parseDouble(request.getParameter("new_rating"));
+                } 
+                if (!request.getParameter("new_picture").isEmpty()) {
+                    p = request.getParameter("new_picture");
+                } 
+                if (!request.getParameter("new_edition").isEmpty()) {
+                    e = Integer.parseInt(request.getParameter("new_edition"));
+                } 
+                if (!request.getParameter("new_publisher").isEmpty()) {
+                    pu = request.getParameter("new_publisher");
+                }
+                if (!request.getParameter("new_publicationyear").isEmpty()) {
+                    pubY = Integer.parseInt(request.getParameter("new_publicationyear"));
+                }
+                if (!request.getParameter("new_quantity").isEmpty()) {
+                    q = Integer.parseInt(request.getParameter("new_quantity"));
+                }
+                if (!request.getParameter("new_minthreshold").isEmpty()) {
+                    m = Integer.parseInt(request.getParameter("new_minthreshold"));
+                }
+                if (!request.getParameter("new_buyprice").isEmpty()) {
+                    b = Double.parseDouble(request.getParameter("new_buyprice"));
+                }
+                if (!request.getParameter("new_sellprice").isEmpty()) {
+                    s = Double.parseDouble(request.getParameter("new_sellprice"));
+                }
+                if (!request.getParameter("new_supplierID").isEmpty()) {
+                    sup = Integer.parseInt(request.getParameter("new_supplierID"));
+                }
                 
                 //Update book in the database:
                 BookDAO db = new BookDAO();
+                System.out.println(r);
                 db.updateBook(i, g, a, t, r, p, e, pu, pubY, q, m, b, s, sup);
                 
                 break;
