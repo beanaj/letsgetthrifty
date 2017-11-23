@@ -134,9 +134,8 @@ public class BookTable extends HttpServlet {
                 
                 //Update book in the database:
                 BookDAO db = new BookDAO();
-                System.out.println(r);
                 db.updateBook(i, g, a, t, r, p, e, pu, pubY, q, m, b, s, sup);
-                
+
                 break;
         } // switch
         

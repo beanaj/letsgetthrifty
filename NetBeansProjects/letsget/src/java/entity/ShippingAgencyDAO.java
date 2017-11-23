@@ -74,4 +74,49 @@ public class ShippingAgencyDAO {
             Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public void updateAgency(int saID, String aName, String phone, String cName, String cPhone) {
+        //Set up database connection:
+        Connection conn = null;
+        PreparedStatement stat = null;
+        DatabaseUtility db = new DatabaseUtility();
+        
+        try {
+            Class.forName(db.getDriver());
+            conn = DriverManager.getConnection(db.getURL(), db.getUser(), db.getPass());
+            
+            if (!aName.isEmpty()) {
+                String query = "UPDATE shippingagencies SET agencyName = ? WHERE shippingAgencyID = ?";
+                stat = conn.prepareStatement(query);
+                stat.setString(1, aName);
+                stat.setInt(2, saID);
+                stat.executeUpdate();
+            }
+            if (!phone.isEmpty()) {
+                String query = "UPDATE shippingagencies SET phone = ? WHERE shippingAgencyID = ?";
+                stat = conn.prepareStatement(query);
+                stat.setString(1, phone);
+                stat.setInt(2, saID);
+                stat.executeUpdate();
+            }
+            if (!cName.isEmpty()) {
+                String query = "UPDATE shippingagencies SET contactName = ? WHERE shippingAgencyID = ?";
+                stat = conn.prepareStatement(query);
+                stat.setString(1, cName);
+                stat.setInt(2, saID);
+                stat.executeUpdate();
+            }
+            if (!cPhone.isEmpty()) {
+                String query = "UPDATE shippingagencies SET contactPhone = ? WHERE shippingAgencyID = ?";
+                stat = conn.prepareStatement(query);
+                stat.setString(1, cPhone);
+                stat.setInt(2, saID);
+                stat.executeUpdate();
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

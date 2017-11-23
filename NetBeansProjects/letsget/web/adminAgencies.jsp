@@ -4,11 +4,14 @@
     Author     : Addison
 --%>
 
+<%@page import="java.util.List"%>
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Statement"%>
 <%@page import="java.sql.Connection"%>
 <%@page import="services.DatabaseUtility"%>
+<%@page import="entity.ShippingAgency"%>
+<%@page import="entity.ShippingAgencyDAO"%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -72,25 +75,11 @@
             <div class="container">               
                 <div class="box">
                     <div class="header">
-                        <h1>Employees</h1>
+                        <h1>Agencies</h1>
                     </div>               
                 </div>
                 
                 <!--THE TABLE:::-->
-                <%
-DatabaseUtility db = new DatabaseUtility();
-
-try {
-Class.forName(db.getDriver());
-} catch (ClassNotFoundException e) {
-e.printStackTrace();
-}
-
-Connection connection = null;
-Statement statement = null;
-ResultSet resultSet = null;
-%>
-
 <table id="bookTable" align="center" cellpadding="5" cellspacing="5" border="1">
 <tr>
 
@@ -105,45 +94,54 @@ ResultSet resultSet = null;
 </tr>
 
 <%
-try{ 
-connection = DriverManager.getConnection(db.getURL(), db.getUser(), db.getPass());
-statement=connection.createStatement();
-String sql ="SELECT * FROM shippingagencies";
+ShippingAgencyDAO db = new ShippingAgencyDAO();
+List<ShippingAgency> agencyList = db.list();
 
-resultSet = statement.executeQuery(sql);
-while(resultSet.next()){
+for (int i = 0; i < agencyList.size(); i++) {
 %>
 <!--<tr bgcolor="#DEB887">-->
 <tr>  
     <%
-        int primaryKey = resultSet.getInt("shippingAgencyID");
+        int primaryKey = agencyList.get(i).getAgencyID();
     %>
-<td><%=resultSet.getInt("shippingAgencyID") %></td>
-<td><%=resultSet.getString("agencyName") %></td>
-<td><%=resultSet.getString("phone") %></td>
-<td><%=resultSet.getString("contactName") %></td>
-<td><%=resultSet.getString("contactPhone") %></td>
-<!--<td>
-    <a href="deleteBook.jsp?deleteid=<%=primaryKey%>">Delete</a>
-</td>-->
+    <td><%=agencyList.get(i).getAgencyID() %></td>
+<td><%=agencyList.get(i).getAgencyName() %></td>
+<td><%=agencyList.get(i).getPhone() %></td>
+<td><%=agencyList.get(i).getContactName() %></td>
+<td><%=agencyList.get(i).getContactPhone() %></td>
+<td>
+    <a href="deleteAgency.jsp?deleteid=<%=primaryKey%>">Delete</a>
+</td>
 
 </tr>
 
 <% 
 }
-connection.close();
-} catch (Exception e) {
-e.printStackTrace();
-}
 %>
 
-<!--<tr>
-    <td><input type="text" id="new_promoID"></td>
-    <td><input type="text" id="new_promoName"></td>
-    <td><input type="text" id="new_percentage"></td>
-    <td><input type="text" id="new_expiration"></td>
-    <td><input type="button" onclick="addBook()" value="Add Book"></td>
-</tr>-->
+<!--Add Agency row:-->
+<form name="addAgencyButton" method="post" action="agency">
+<tr>
+    <td><input type="text" name="new_shippingAgencyID" required></td>
+    <td><input type="text" name="new_agencyName" required></td>
+    <td><input type="text" name="new_phone" required></td>
+    <td><input type="text" name="new_contactName" required></td>
+    <td><input type="text" name="new_contactPhone" required></td>
+    <td><input name="addUpdate" type="submit" value="Add Agency"></td>
+</tr>
+</form>
+
+<!--Update Agency Row:-->
+<form name="addAgencyButton" method="post" action="agency">
+    <tr>
+    <td><input type="text" name="new_shippingAgencyID" required></td>
+    <td><input type="text" name="new_agencyName"></td>
+    <td><input type="text" name="new_phone"></td>
+    <td><input type="text" name="new_contactName"></td>
+    <td><input type="text" name="new_contactPhone"></td>
+    <td><input name="addUpdate" type="submit" value="Update Agency"></td>
+    </tr>
+</form>
 
 </table>       
 <!--END OF TABLE-->

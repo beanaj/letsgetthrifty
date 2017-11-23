@@ -200,26 +200,6 @@ public class BookDAO {
                 stat.executeUpdate();
             }
             
-            //THIS CODE WORKS::
-//            String query = "UPDATE books SET genre = ?, author = ?, title = ?, rating = ?, picture = ?, edition = ?, publisher = ?, publicationYear = ?, qtyInStock = ?, minThreshold = ?, buyPrice = ?, sellPrice = ?, supplierID = ? WHERE isbn = ?";
-//            stat = conn.prepareStatement(query);
-//            stat.setString(1, gen);
-//            stat.setString(2, author);
-//            stat.setString(3, tit);
-//            stat.setDouble(4, rat);
-//            stat.setString(5, pic);
-//            stat.setInt(6, ed);
-//            stat.setString(7, pub);
-//            stat.setInt(8, pubYear);
-//            stat.setInt(9, qty);
-//            stat.setInt(10, minT);
-//            stat.setDouble(11, buyP);
-//            stat.setDouble(12, sellP);
-//            stat.setInt(13, supID);
-//            stat.setString(14, is);
-            
-//            stat.executeUpdate();
-            
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
