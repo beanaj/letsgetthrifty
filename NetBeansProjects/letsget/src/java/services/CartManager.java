@@ -5,6 +5,7 @@
  */
 package services;
 
+import entity.CartDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -47,20 +48,26 @@ public class CartManager extends HttpServlet {
             String isbn = request.getParameter("isbn");
             String priceString = request.getParameter("price");
             double price = Double.parseDouble(priceString);
-            
+
             int qty = Integer.parseInt(request.getParameter("quantity"));
-            //if(request.getParameter("update").equals("true")){
-            //    qty--;
-            //}
+            String refresh = request.getParameter("update");
+            CartDAO cartDB = new CartDAO();
+            cartDB.removeFromCart(isbn, userID);
+            //in this spot remove all and add qty
             addToCart(isbn, price, userID, qty);
-            response.sendRedirect("homepage.jsp");
+            if(refresh.equals("true")){
+                response.sendRedirect("my_cart.jsp");
+            }else{
+                response.sendRedirect("homepage.jsp");
+            }
+            
         } else {
             response.sendRedirect("login_register.jsp");
         }
 
     }
-    
-    private void addToCart(String isbn,double price, String userID, int qty){
+
+    private void addToCart(String isbn, double price, String userID, int qty) {
         Connection con = null;
         Statement state = null;
         DatabaseUtility db = new DatabaseUtility();
@@ -71,13 +78,13 @@ public class CartManager extends HttpServlet {
             con = DriverManager.getConnection(db.getURL(), db.getUser(), db.getPass());
             //generate sql statement
             state = con.createStatement();
-            for(int i=0; i<qty;i++){
+            for (int i = 0; i < qty; i++) {
                 String sql = "INSERT INTO carts (userID, isbn, qty, totalPrice) VALUES (\""
-                    + userID + "\", \""//userID
-                    + isbn + "\", \""//isbn
-                    + 1 + "\", \""//qty
-                    + price + "\")";//price
-            state.executeUpdate(sql);
+                        + userID + "\", \""//userID
+                        + isbn + "\", \""//isbn
+                        + 1 + "\", \""//qty
+                        + price + "\")";//price
+                state.executeUpdate(sql);
             }
         } catch (SQLException exception) {
             exception.printStackTrace();

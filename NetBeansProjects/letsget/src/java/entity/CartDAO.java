@@ -8,6 +8,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import services.DatabaseUtility;
@@ -43,6 +45,7 @@ public class CartDAO {
                 CartObject book = new CartObject();
                 book.isbn=result.getString("isbn");
                 book.quantity=Integer.parseInt(result.getString("qty"));
+                System.out.println(book.isbn);
                 cl.add(book);
             }
         } catch (SQLException e) {
@@ -51,22 +54,55 @@ public class CartDAO {
             Logger.getLogger(Registration.class.getName()).log(Level.SEVERE, null, ex);
         }
         //this should be improved if the book quantity is large
-        for(int i =0; i < cl.size(); i++){
+        ArrayList<CartObject> clsave = new ArrayList();
+        Set<String> isbnset = new HashSet<String>();
+        for(int i =0; i<cl.size();i++){
             CartObject book = cl.get(i);
-            for(int j=0; j<cl.size(); j++){
-                if(i<=j&&book.isEqual(cl.get(j))){
-                    book.quantity += cl.get(j).quantity;
-                    System.out.println(i+"  "+j);
-                    cl.set(i, book);
-                    cl.remove(j);
+            String isbn = book.isbn;
+            isbnset.add(isbn);
+        }
+        
+        String[] uniqueISBN = isbnset.toArray(new String[0]);
+        
+        int[] uniqueQty = new int[uniqueISBN.length];
+        for(int i =0; i<uniqueISBN.length;i++){
+            for(int j=0; j<cl.size();j++){
+                CartObject book = cl.get(j);
+                if(book.isbn.equals(uniqueISBN[i])){
+                    uniqueQty[i]+=1;
                 }
             }
         }
         
-        CartObject[] cart = new CartObject[cl.size()];
-        for(int i =0; i< cl.size(); i++){
-            cart[i]=cl.get(i);
+        CartObject[] cart = new CartObject[uniqueISBN.length];
+        for(int i =0; i< uniqueISBN.length; i++){
+            CartObject book = new CartObject();
+            book.isbn=uniqueISBN[i];
+            book.quantity=uniqueQty[i];
+            cart[i]=book;
         }
         return cart;
+    }
+    
+    public void removeFromCart(String isbn, String userID){
+        Connection con = null;
+        Statement state = null;
+        DatabaseUtility db = new DatabaseUtility();
+        try {
+            //register the driver
+            Class.forName(db.getDriver());
+            //connect to the database
+            con = DriverManager.getConnection(db.getURL(), db.getUser(), db.getPass());
+            //generate sql statement
+            state = con.createStatement();
+            String sql = "DELETE FROM carts WHERE userID = '"+userID+"' AND isbn = '"+isbn+"'";
+            System.out.println(sql);
+            state.execute(sql);
+            
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Registration.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

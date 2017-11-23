@@ -143,6 +143,8 @@
                                 for (int i = 0; i < cartContents.length; i++) {
                                     resultSet.next();
                                     totalPrice += Double.parseDouble(resultSet.getString("buyPrice"));
+                                    System.out.println("Title: " + resultSet.getString("title"));
+                                    System.out.println("Quantity"+cartContents[i].quantity);
                     %>
                     <tr>  
                         <%
@@ -197,9 +199,9 @@
                             <form class="pure-form" method = "post" action = "">
                                 <%
                                     DecimalFormat df = new DecimalFormat("#.00");
-                                    Double subtotal = Double.parseDouble(df.format(totalPrice));
-                                    Double shipping = Double.parseDouble(df.format(subtotal / 10));
-                                    Double total = Double.parseDouble(df.format(shipping + subtotal));
+                                    String subtotal = df.format(totalPrice);
+                                    String shipping = df.format(totalPrice/10);
+                                    String total = df.format(totalPrice + totalPrice/10);
                                 %>
                                 <div class="summary">
                                     <table>

@@ -13,7 +13,7 @@ public class CartObject {
     public String isbn;
     public int quantity;
     
-    public boolean isEqual(CartObject book){
+    public boolean equals(CartObject book){
         if(this.isbn.equals(book.isbn)){
             return true;
         }else{
