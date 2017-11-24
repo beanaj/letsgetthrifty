@@ -52,7 +52,7 @@ public class Promotion {
         this.expiration = exp;
     }
     
-    public void addPromo(Promotion p) {
+    public void addPromo() {
         PromotionDAO db = new PromotionDAO();
         db.addPromo(this);
     }

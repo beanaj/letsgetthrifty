@@ -74,4 +74,42 @@ public class PromotionDAO {
             Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+        
+        public void updatePromotion(int pID, String name, double perc, String exp) {
+            //Set up database connection:
+        Connection conn = null;
+        PreparedStatement stat = null;
+        DatabaseUtility db = new DatabaseUtility();
+        
+        try {
+            Class.forName(db.getDriver());
+            conn = DriverManager.getConnection(db.getURL(), db.getUser(), db.getPass());
+            
+            if (!name.isEmpty()) {
+                String query = "UPDATE promotions SET promoName = ? WHERE promoID = ?";
+                stat = conn.prepareStatement(query);
+                stat.setString(1, name);
+                stat.setInt(2, pID);
+                stat.executeUpdate();
+            }
+            if (Double.compare(perc, -1) != 0) {
+                String query = "UPDATE promotions SET percentage = ? WHERE promoID = ?";
+                stat = conn.prepareStatement(query);
+                stat.setDouble(1, perc);
+                stat.setInt(2, pID);
+                stat.executeUpdate();
+            }
+            if (!exp.isEmpty()) {
+                String query = "UPDATE promotions SET expiration = ? WHERE promoID = ?";
+                stat = conn.prepareStatement(query);
+                stat.setString(1, exp);
+                stat.setInt(2, pID);
+                stat.executeUpdate();
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
 }

@@ -28,6 +28,10 @@
         <servlet-name>Remove</servlet-name>
         <servlet-class>services.Remove</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PromotionTable</servlet-name>
+        <servlet-class>services.PromotionTable</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Registration</servlet-name>
         <url-pattern>/registered</url-pattern>
@@ -55,6 +59,10 @@
     <servlet-mapping>
         <servlet-name>Remove</servlet-name>
         <url-pattern>/remove</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PromotionTable</servlet-name>
+        <url-pattern>/promotion</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
