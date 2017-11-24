@@ -25,11 +25,30 @@ e.printStackTrace();
 e.printStackTrace();
 }
     
-    String bookToDelete = request.getParameter("deleteid");
     
-    preparedStatement = connection.prepareStatement("delete from books where isbn=" + bookToDelete);
+    String type = request.getParameter("type");
     
-    preparedStatement.execute();
+    switch (type) {
+        case "book":
+            String item = request.getParameter("deleteid");
+            preparedStatement = connection.prepareStatement("delete from books where isbn=" + item);
+            preparedStatement.execute();
+            response.sendRedirect("adminInventory.jsp");
+            break;
+        case "agency":
+            int itemB = Integer.parseInt(request.getParameter("deleteid"));
+            preparedStatement = connection.prepareStatement("delete from shippingagencies where shippingAgencyID=" + itemB);
+            preparedStatement.execute();
+            response.sendRedirect("adminAgencies.jsp");
+            break;
+        case "promotion":
+            int itemC = Integer.parseInt(request.getParameter("deleteid"));
+            preparedStatement = connection.prepareStatement("delete from promotions where promoID=" + itemC);
+            preparedStatement.execute();
+            response.sendRedirect("adminPromotions.jsp");
+            break;
+            
+           
+    }
     
-    response.sendRedirect("adminInventory.jsp");
 %>

@@ -4,6 +4,9 @@
     Author     : Addison
 --%>
 
+<%@page import="entity.Promotion"%>
+<%@page import="java.util.List"%>
+<%@page import="entity.PromotionDAO"%>
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Statement"%>
@@ -77,19 +80,6 @@
                 </div>
                 
                 <!--THE TABLE:::-->
-                <%
-DatabaseUtility db = new DatabaseUtility();
-
-try {
-Class.forName(db.getDriver());
-} catch (ClassNotFoundException e) {
-e.printStackTrace();
-}
-
-Connection connection = null;
-Statement statement = null;
-ResultSet resultSet = null;
-%>
 
 <table id="bookTable" align="center" cellpadding="5" cellspacing="5" border="1">
 <tr>
@@ -104,44 +94,52 @@ ResultSet resultSet = null;
 </tr>
 
 <%
-try{ 
-connection = DriverManager.getConnection(db.getURL(), db.getUser(), db.getPass());
-statement=connection.createStatement();
-String sql ="SELECT * FROM promotions";
-
-resultSet = statement.executeQuery(sql);
-while(resultSet.next()){
+    PromotionDAO db = new PromotionDAO();
+    List<Promotion> promoList = db.list();
+    
+    for (int i = 0; i < promoList.size(); i++) {
 %>
-<!--<tr bgcolor="#DEB887">-->
+
 <tr>  
     <%
-        String primaryKey = resultSet.getString("promoID");
+        int primaryKey = promoList.get(i).getPromoID();
+        String deleteType = "promotion";
     %>
-<td><%=resultSet.getInt("promoID") %></td>
-<td><%=resultSet.getString("promoName") %></td>
-<td><%=resultSet.getDouble("percentage") %></td>
-<td><%=resultSet.getString("expiration") %></td>
-<!--<td>
-    <a href="deleteBook.jsp?deleteid=<%=primaryKey%>">Delete</a>
-</td>-->
+    <td><%=promoList.get(i).getPromoID() %></td>
+<td><%=promoList.get(i).getPromoName() %></td>
+<td><%=promoList.get(i).getPercentage() %></td>
+<td><%=promoList.get(i).getExpiration() %></td>
+<td>
+    <a href="deleteBook.jsp?deleteid=<%=primaryKey%>&type=<%=deleteType%>">Delete</a>
+</td>
 
 </tr>
 
 <% 
 }
-connection.close();
-} catch (Exception e) {
-e.printStackTrace();
-}
 %>
 
-<!--<tr>
-    <td><input type="text" id="new_promoID"></td>
-    <td><input type="text" id="new_promoName"></td>
-    <td><input type="text" id="new_percentage"></td>
-    <td><input type="text" id="new_expiration"></td>
-    <td><input type="button" onclick="addBook()" value="Add Book"></td>
-</tr>-->
+<!--Add Promotion row:-->
+<form name="addPromoButton" method="post" action="promotion">
+<tr>
+    <td><input type="text" name="new_promoID" required></td>
+    <td><input type="text" name="new_promoName" required></td>
+    <td><input type="text" name="new_percentage" required></td>
+    <td><input type="text" name="new_expiration" required></td>
+    <td><input name="addUpdate" type="submit" value="Add Promotion"></td>
+</tr>
+</form>
+
+<!--Update promotion Row:-->
+<form name="addPromoButton" method="post" action="promotion">
+    <tr>
+    <td><input type="text" name="new_promoID" required></td>
+    <td><input type="text" name="new_promoName"></td>
+    <td><input type="text" name="new_percentage"></td>
+    <td><input type="text" name="new_expiration"></td>
+    <td><input name="addUpdate" type="submit" value="Update Promotion"></td>
+    </tr>
+</form>
 
 </table>       
 <!--END OF TABLE-->

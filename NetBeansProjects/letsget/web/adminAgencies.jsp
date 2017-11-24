@@ -103,6 +103,7 @@ for (int i = 0; i < agencyList.size(); i++) {
 <tr>  
     <%
         int primaryKey = agencyList.get(i).getAgencyID();
+        String deleteType = "agency";
     %>
     <td><%=agencyList.get(i).getAgencyID() %></td>
 <td><%=agencyList.get(i).getAgencyName() %></td>
@@ -110,7 +111,7 @@ for (int i = 0; i < agencyList.size(); i++) {
 <td><%=agencyList.get(i).getContactName() %></td>
 <td><%=agencyList.get(i).getContactPhone() %></td>
 <td>
-    <a href="deleteAgency.jsp?deleteid=<%=primaryKey%>">Delete</a>
+    <a href="deleteBook.jsp?deleteid=<%=primaryKey%>&type=<%=deleteType%>">Delete</a>
 </td>
 
 </tr>

@@ -113,7 +113,8 @@ for (int i = 0; i < bookList.size(); i++) {
 
  
     <%
-        String primaryKey = bookList.get(i).getISBN();     
+        String primaryKey = bookList.get(i).getISBN();
+        String deleteType = "book";
     %>
 <tr> 
     <td><%=bookList.get(i).getISBN() %></td>
@@ -131,7 +132,7 @@ for (int i = 0; i < bookList.size(); i++) {
     <td><%=bookList.get(i).getSellPrice() %></td>
     <td><%=bookList.get(i).getSupplierID()%></td>
     <td>
-        <a href="deleteBook.jsp?deleteid=<%=primaryKey%>">Delete</a>
+        <a href="deleteBook.jsp?deleteid=<%=primaryKey%>&type=<%=deleteType%>">Delete</a>
     </td>
 </tr>
 
