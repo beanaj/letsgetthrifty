@@ -122,7 +122,20 @@
 }
 %>
 
-
+<!--Update User Row:-->
+<form name="updateUserButton" method="post" action="userTable">
+    <tr>
+    <td><input type="text" name="new_userID" required></td>
+    <td><input type="text" name="new_firstName"></td>
+    <td><input type="text" name="new_lastName"></td>
+    <td><input type="text" name="new_phone"></td>
+    <td><input type="text" name="new_email"></td>
+    <td><input type="text" name="new_userType"></td>
+    <td><input type="text" name="new_orderConfirmationCode"></td>
+    <td><input type="text" name="new_active"></td>
+    <td><input name="addUpdate" type="submit" value="Update User"></td>
+    </tr>
+</form>
 
 </table>       
 <!--END OF TABLE-->

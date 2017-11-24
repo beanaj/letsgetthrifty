@@ -248,4 +248,70 @@ public class UserDAO {
         return users;
     }
     
+    public void updateUser(String id, String fN, String lN, String pho, String ema, String type, String code, int act) {
+        //Set up database connection:
+        Connection conn = null;
+        PreparedStatement stat = null;
+        DatabaseUtility db = new DatabaseUtility();
+        
+        try {
+            Class.forName(db.getDriver());
+            conn = DriverManager.getConnection(db.getURL(), db.getUser(), db.getPass());
+            
+            if (!fN.isEmpty()) {
+                String query = "UPDATE users SET firstName = ? WHERE userID = ?";
+                stat = conn.prepareStatement(query);
+                stat.setString(1, fN);
+                stat.setString(2, id);
+                stat.executeUpdate();
+            }
+            if (!lN.isEmpty()) {
+                String query = "UPDATE users SET lastName = ? WHERE userID = ?";
+                stat = conn.prepareStatement(query);
+                stat.setString(1, lN);
+                stat.setString(2, id);
+                stat.executeUpdate();
+            }
+            if (!pho.isEmpty()) {
+                String query = "UPDATE users SET phone = ? WHERE userID = ?";
+                stat = conn.prepareStatement(query);
+                stat.setString(1, pho);
+                stat.setString(2, id);
+                stat.executeUpdate();
+            }
+            if (!ema.isEmpty()) {
+                String query = "UPDATE users SET email = ? WHERE userID = ?";
+                stat = conn.prepareStatement(query);
+                stat.setString(1, ema);
+                stat.setString(2, id);
+                stat.executeUpdate();
+            }
+            if (!type.isEmpty()) {
+                String query = "UPDATE users SET userType = ? WHERE userID = ?";
+                stat = conn.prepareStatement(query);
+                stat.setString(1, type);
+                stat.setString(2, id);
+                stat.executeUpdate();
+            }
+            if (!code.isEmpty()) {
+                String query = "UPDATE users SET orderConfirmationCode = ? WHERE userID = ?";
+                stat = conn.prepareStatement(query);
+                stat.setString(1, code);
+                stat.setString(2, id);
+                stat.executeUpdate();
+            }
+            if (Integer.compare(act, -1) != 0) {
+                String query = "UPDATE users SET active = ? WHERE userID = ?";
+                stat = conn.prepareStatement(query);
+                stat.setInt(1, act);
+                stat.setString(2, id);
+                stat.executeUpdate();
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
 }
