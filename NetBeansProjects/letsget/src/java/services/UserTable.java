@@ -118,6 +118,42 @@ public class UserTable extends HttpServlet {
                 db.updateUser(id, fN, lN, phone, email, type, code, active);
                 
                 break;
+                
+            case "Promote User":
+                String idB = "";
+                String fNB = "";
+                String lNB = "";
+                String phoneB = ""; 
+                String emailB = "";
+                String typeB = "e";
+                String codeB = "";
+                int activeB = -1; 
+                
+                if (!request.getParameter("new_userID").isEmpty()) {
+                    idB = request.getParameter("new_userID");
+                } 
+                
+                UserDAO dbB = new UserDAO();
+                dbB.updateUser(idB, fNB, lNB, phoneB, emailB, typeB, codeB, activeB);
+                break;
+            case "Suspend User":
+                String idC = "";
+                String fNC = "";
+                String lNC = "";
+                String phoneC = ""; 
+                String emailC = "";
+                String typeC = "";
+                String codeC = "";
+                int activeC = 0; 
+                
+                if (!request.getParameter("new_userID").isEmpty()) {
+                    idC = request.getParameter("new_userID");
+                } 
+                
+                UserDAO dbC = new UserDAO();
+                dbC.updateUser(idC, fNC, lNC, phoneC, emailC, typeC, codeC, activeC);
+                break;
+                
         } // switch
         response.sendRedirect("adminUsers.jsp");
         out.close();
