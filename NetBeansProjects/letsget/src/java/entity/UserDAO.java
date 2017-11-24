@@ -9,9 +9,12 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import services.DatabaseUtility;
@@ -206,6 +209,43 @@ public class UserDAO {
             found = false;
         } 
         return found;
+    }
+    
+    public List<User> list() throws SQLException {
+        DatabaseUtility db = new DatabaseUtility();
+        
+        List<User> users = new ArrayList<User>();
+        
+        try {
+            Class.forName(db.getDriver());
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        
+        try (
+            Connection connection = DriverManager.getConnection(db.getURL(), db.getUser(), db.getPass());
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM users");
+            ResultSet rs = statement.executeQuery();
+                ) {
+            while (rs.next()) {
+                User user = new User();
+                user.setAccountID(rs.getString("userID"));
+                user.setFN(rs.getString("firstName"));
+                user.setLN(rs.getString("lastName"));
+                user.setPhone(rs.getString("phone"));
+                user.setEmail(rs.getString("email"));
+                user.setPaymentInfo(rs.getString("paymentInfo"));
+                user.setType(rs.getString("userType"));
+                user.setPass(rs.getString("userPassword"));
+                user.setHash(rs.getInt("hash"));
+                user.setCode(rs.getString("orderConfirmationCode"));
+                user.setActive(rs.getInt("active"));
+                
+                users.add(user);
+            }
+        
+        }
+        return users;
     }
     
 }

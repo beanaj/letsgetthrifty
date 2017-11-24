@@ -4,6 +4,9 @@
     Author     : Addison
 --%>
 
+<%@page import="java.util.List"%>
+<%@page import="entity.User"%>
+<%@page import="entity.UserDAO"%>
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Statement"%>
@@ -77,84 +80,49 @@
                 </div>
                 
                 <!--THE TABLE:::-->
-                <%
-DatabaseUtility db = new DatabaseUtility();
-
-
-try {
-Class.forName(db.getDriver());
-} catch (ClassNotFoundException e) {
-e.printStackTrace();
-}
-
-Connection connection = null;
-Statement statement = null;
-ResultSet resultSet = null;
-%>
-
 <table id="bookTable" align="center" cellpadding="5" cellspacing="5" border="1">
 <tr>
 
 </tr>
-<!--<tr bgcolor="#A52A2A">-->
+
 <tr>
 <td><b>User ID</b></td>
 <td><b>First Name</b></td>
 <td><b>Last Name</b></td>
 <td><b>Phone</b></td>
 <td><b>Email</b></td>
-<td><b>Payment Info</b></td>
 <td><b>User Type</b></td>
-<td><b>User Password</b></td>
-<!--<td><b>Order Confirmation</b></td>-->
+<td><b>Order Confirmation</b></td>
 <td><b>Active</b></td>
 </tr>
 
 <%
-try{ 
-connection = DriverManager.getConnection(db.getURL(), db.getUser(), db.getPass());
-statement=connection.createStatement();
-String sql ="SELECT * FROM users";
-
-resultSet = statement.executeQuery(sql);
-while(resultSet.next()){
+    UserDAO db = new UserDAO();
+    List<User> userList = db.list();
+    
+    for (int i = 0; i < userList.size(); i++) {
 %>
-<!--<tr bgcolor="#DEB887">-->
+
 <tr>  
     <%
-        String primaryKey = resultSet.getString("userID");
+        String primaryKey = userList.get(i).getAccountID();
     %>
-<td><%=resultSet.getString("userID") %></td>
-<td><%=resultSet.getString("firstName") %></td>
-<td><%=resultSet.getString("lastName") %></td>
-<td><%=resultSet.getString("phone") %></td>
-<td><%=resultSet.getString("email") %></td>
-<td><%=resultSet.getString("paymentInfo") %></td>
-<td><%=resultSet.getString("userType") %></td>
-<td><%=resultSet.getString("userPassword") %></td>
-<!--ORDER CONFIRMATION-->
-<td><%=resultSet.getString("active") %></td>
-<!--<td>
-    <a href="deleteBook.jsp?deleteid=<%=primaryKey%>">Delete</a>
-</td>-->
+<td><%=userList.get(i).getAccountID() %></td>
+<td><%=userList.get(i).getFN() %></td>
+<td><%=userList.get(i).getLN()%></td>
+<td><%=userList.get(i).getPhone()%></td>
+<td><%=userList.get(i).getEmail()%></td>
+<td><%=userList.get(i).getType()%></td>
+<td><%=userList.get(i).getCode()%></td>
+<td><%=userList.get(i).getActive()%></td>
 
 </tr>
 
 <% 
 }
-connection.close();
-} catch (Exception e) {
-e.printStackTrace();
-}
 %>
 
-<!--<tr>
-    <td><input type="text" id="new_promoID"></td>
-    <td><input type="text" id="new_promoName"></td>
-    <td><input type="text" id="new_percentage"></td>
-    <td><input type="text" id="new_expiration"></td>
-    <td><input type="button" onclick="addBook()" value="Add Book"></td>
-</tr>-->
+
 
 </table>       
 <!--END OF TABLE-->
