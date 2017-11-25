@@ -50,7 +50,7 @@ public class PromoCheck extends HttpServlet {
         if (!found.equals("-1")) {
             applyPromo(found, userID);
         }
-        String encodedURL = response.encodeRedirectURL("homepage.jsp");
+        String encodedURL = response.encodeRedirectURL("checkout.jsp");
         response.sendRedirect(encodedURL);
     }
 

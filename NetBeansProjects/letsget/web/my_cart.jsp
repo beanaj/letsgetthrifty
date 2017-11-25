@@ -1,7 +1,7 @@
 <%-- 
-    Document   : homepage
-    Created on : Nov 5, 2017, 12:07:53 PM
-    Author     : Ian
+    Document   : hmy_cart
+    Created on : Nov 24, 2017
+    Author     : Andrew
 --%>
 <%@page import="java.text.DecimalFormat"%>
 <%@page import="java.util.logging.Logger"%>
