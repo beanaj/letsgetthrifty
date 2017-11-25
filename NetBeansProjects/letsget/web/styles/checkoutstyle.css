@@ -1,12 +1,4 @@
-/*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
-/* 
-    Created on : Nov 2, 2017, 8:55:42 PM
-    Author     : Ian
-*/
+
 html, body {
     width:100%;
 }
@@ -52,7 +44,7 @@ td{
     text-align: center;
     font-size: xx-large;
     font-weight: 800;
-    max-width: 300em;
+    min-width: 500px;
 }
 
 .placeOrder{

@@ -3,6 +3,7 @@
     Created on : Nov 24, 2017
     Author     : Andrew
 --%>
+<%@page import="entity.Address"%>
 <%@page import="java.text.DecimalFormat"%>
 <%@page import="java.util.logging.Logger"%>
 <%@page import="java.sql.SQLException"%>
@@ -30,7 +31,7 @@
         <!--<![endif]-->
         <link rel="stylesheet" href="styles/checkoutstyle.css">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <style src="hompagestyle.css"></style>
+        <script src="scripts/checkoutscript.js"></script>
     </head>
     <body>
         <%
@@ -68,7 +69,9 @@
                 isbns += cartContents[i].isbn + ",";
             }
             Double totalPrice = 0.0;
-
+            Double discount = cartDB.getCartPromo(userID);
+            String discountFormat = "" + discount;
+            discount = discount / 100;
         %>
 
         <!-- Menu toggle -->
@@ -99,7 +102,7 @@
                 </div>
 
                 <div class="pure-g">
-                    <form class="pure-form">
+                    <form class="pure-form" method = "post" action = "placeorder">
                         <div class="pure-u-3-4">
                             <div class="browseheader">
                                 ORDER CONTENTS
@@ -170,15 +173,25 @@
                                     }
                                 %>
                             </table>       
+                            <%
+                                //here is where I will gather all user information
+                                String addressID= "a"+userID.substring(2);
+                                Address userAddress = new Address(addressID, userID);
+                            
+                            %>
 
                             <div class="browseheader">
                                 SHIPPING ADDRESS  
                             </div>
+                            <label for="option-one" class="pure-checkbox">
+                                    <input id="defaultShipping" type="checkbox" value="" onchange="useDefault(this,'<%=userAddress.street%>','<%=userAddress.city%>','<%=userAddress.state%>','<%=userAddress.zip%>')">
+                                    Use my default shipping address
+                            </label>
                             <form class="pure-form" method = "post" action = "registered">
                                 <fieldset class="pure-group">
-                                    <input type="text" class="pure-input-1" placeholder="Street" name = "street" required>
-                                    <input type="text" class="pure-input-1" placeholder="City" name = "city" required>
-                                    <select id="select" class="pure-input-1" name= "state" required>
+                                    <input type="text" class="pure-input-1" placeholder="Street" name = "street" id="street" required>
+                                    <input type="text" class="pure-input-1" placeholder="City" name = "city" id="city" required>
+                                    <select class="pure-input-1" name= "state" id="state" required>
                                         <option disabled selected value>Select State</option>
                                         <option value="AL">Alabama</option>
                                         <option value="AK">Alaska</option>
@@ -233,15 +246,21 @@
                                         <option value="WY">Wyoming</option>
                                     </select>
                                     <input id = "zip" type="text" class="pure-input-1" placeholder="Zipcode" name = "zip" onchange="checkZip(this)" required>
+
                                 </fieldset>
+                                
 
                                 <div class="browseheader">
                                     PAYMENT
                                 </div>
+                                <label for="option-one" class="pure-checkbox">
+                                    <input id="defaultShipping" type="checkbox" value="" onchange="useDefaultPay(this)">
+                                    Use my saved payment
+                            </label>
                                 <fieldset class="pure-group">
                                     <input id="firstname" type="text" class="pure-input-1" placeholder="First Name" name = "firstname" onchange="checkFN(this)" required>
                                     <input id="lastname" type="text" class="pure-input-1" placeholder="Last Name" name = "lastname" onchange="checkLN(this)" required>
-                                    <input type="text" class="pure-input-1" placeholder="Card Number" name = "card" onchange="checkCard(this)" required>
+                                    <input id="card" type="text" class="pure-input-1" placeholder="Card Number" name = "card" onchange="checkCard(this)" required>
                                     <input id = "exp" type="text" class="pure-input-1" placeholder="Expiration" name = "exp" onchange="checkExp(this)" required>
                                     <select id="type" class="pure-input-1" name = "type" required>
                                         <option disabled selected value>Select Card Type</option>
@@ -255,10 +274,14 @@
                                 <div class="browseheader">
                                     BILLING ADDRESS
                                 </div>
+                                <label for="option-one" class="pure-checkbox">
+                                    <input id="defaultBilling" type="checkbox" value="" onclick="useDefaultBill(this,'<%=userAddress.street%>','<%=userAddress.city%>','<%=userAddress.state%>','<%=userAddress.zip%>')">
+                                    Use my default shipping address
+                                </label>
                                 <fieldset class="pure-group">
-                                    <input type="text" class="pure-input-1" placeholder="Street" name = "bstreet" required>
-                                    <input type="text" class="pure-input-1" placeholder="City" name = "bcity" required>
-                                    <select id="select" class="pure-input-1" name= "bstate" required>
+                                    <input type="text" class="pure-input-1" placeholder="Street" name = "bstreet" id="bstreet" required>
+                                    <input type="text" class="pure-input-1" placeholder="City" name = "bcity" id="bcity" required>
+                                    <select class="pure-input-1" name= "bstate" id="bstate" required>
                                         <option disabled selected value>Select State</option>
                                         <option value="AL">Alabama</option>
                                         <option value="AK">Alaska</option>
@@ -312,30 +335,38 @@
                                         <option value="WI">Wisconsin</option>
                                         <option value="WY">Wyoming</option>
                                     </select>
-                                    <input id = "zip" type="text" class="pure-input-1" placeholder="Zipcode" name = "bzip" onchange="checkZip(this)" required>
-                                </fieldset>
+                                    <input id = "bzip" type="text" class="pure-input-1" placeholder="Zipcode" name = "bzip" onchange="checkZip(this)" required>
 
+                                </fieldset>
+                                
                         </div>
                         <div class="pure-u-1-4"> 
                             <div class="placeOrder">
                                 <button type="submit" class="pure-button">PLACE ORDER</button>
                                 <div class="summary">
+
+
                                     <table>
                                         <tr>
                                             <td><b>Subtotal:</b></td> 
-                                            <td>0.00</td>
+                                            <td>$<%=totalPrice%></td>
                                         </tr>
+
                                         <tr>
                                             <td><b>Shipping:</b></td>
-                                            <td>0.00</td>
+                                            <td>$<%=Math.floor((totalPrice * .1) * 100) / 100%></td>
                                         </tr>
+                                        <%
+                                            totalPrice = (totalPrice + (totalPrice * .1)) * discount;
+                                            totalPrice = Math.floor(totalPrice * 100) / 100;
+                                        %>
                                         <tr>
                                             <td><b>Discount:</b></td>
-                                            <td>0.00</td>
+                                            <td><%=discountFormat%></td>
                                         </tr>
                                         <tr>
                                             <td><h3>Total Price:</h3></td>
-                                            <td><h3>0.00</h3></td>
+                                            <td><h3>$<%=totalPrice%></h3></td>
                                         </tr>
                                     </table>
                                 </div>

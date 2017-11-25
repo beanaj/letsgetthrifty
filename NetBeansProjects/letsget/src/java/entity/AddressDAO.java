@@ -7,6 +7,7 @@ package entity;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
@@ -46,5 +47,38 @@ public class AddressDAO {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Registration.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public Address getAddressByID(String addressID, String userID){
+       Address returnA = new Address();
+       Connection con = null;
+        Statement state = null;
+        ResultSet result = null;
+        DatabaseUtility db = new DatabaseUtility();
+        try {
+            //register the driver
+            Class.forName(db.getDriver());
+            //connect to the database
+            con = DriverManager.getConnection(db.getURL(), db.getUser(), db.getPass());
+            //generate sql statement
+            state = con.createStatement();
+            String sql = "SELECT * FROM addresses WHERE userID = '" + userID + "' AND addressID = '"+addressID+"'";
+            result = state.executeQuery(sql);
+            while (result.next()) {
+                returnA.addressID= addressID;
+                returnA.street=result.getString("street");
+                returnA.city=result.getString("city");
+                returnA.state=result.getString("state");
+                returnA.zip=result.getString("zip");
+                returnA.userID=result.getString("userID");
+                returnA.shippingAgencyID=result.getString("shippingAgencyID");
+                returnA.supplierID=result.getString("supplierID");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Registration.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       return returnA;
     }
 }

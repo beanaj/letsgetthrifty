@@ -40,6 +40,10 @@
         <servlet-name>PromoCheck</servlet-name>
         <servlet-class>services.PromoCheck</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PlaceOrder</servlet-name>
+        <servlet-class>services.PlaceOrder</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Registration</servlet-name>
         <url-pattern>/registered</url-pattern>
@@ -79,6 +83,10 @@
     <servlet-mapping>
         <servlet-name>PromoCheck</servlet-name>
         <url-pattern>/promocheck</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PlaceOrder</servlet-name>
+        <url-pattern>/placeorder</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

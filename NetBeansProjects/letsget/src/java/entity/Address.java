@@ -19,8 +19,21 @@ public class Address implements AddressI{
     public String shippingAgencyID;
     public String supplierID;
     
-    public Address(String addressID){
+    public Address(){
         
+    }
+    
+    public Address(String addressID, String userID){
+        AddressDAO addressDB = new AddressDAO();
+        Address newA = addressDB.getAddressByID(addressID, userID);
+        this.addressID=newA.addressID;
+        this.userID=newA.userID;
+        this.state=newA.state;
+        this.street=newA.street;
+        this.zip=newA.zip;
+        this.shippingAgencyID=newA.shippingAgencyID;
+        this.city=newA.city;
+        this.supplierID=newA.supplierID;                
     }
     
     public Address(String accountID, String street, String city, String zip, String state){
