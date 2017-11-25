@@ -138,13 +138,19 @@
                                 connection = DriverManager.getConnection(connectionUrl, userId, password);
                                 statement = connection.createStatement();
                                 String sql = "SELECT * FROM books WHERE isbn IN (" + isbns + ")";
-                                System.out.println(sql);
                                 resultSet = statement.executeQuery(sql);
                                 for (int i = 0; i < cartContents.length; i++) {
                                     resultSet.next();
-                                    totalPrice += Double.parseDouble(resultSet.getString("buyPrice"));
-                                    System.out.println("Title: " + resultSet.getString("title"));
-                                    System.out.println("Quantity"+cartContents[i].quantity);
+                                    String isbn = resultSet.getString("isbn");
+                                    int quantity = 0;
+                                    for (int j = 0; j < cartContents.length; j++) {
+                                        if (isbn.equals(cartContents[j].isbn)) {
+                                            quantity = cartContents[j].quantity;
+                                        }
+                                    }
+                                    double priceSingle = quantity * Double.parseDouble(resultSet.getString("buyPrice"));
+                                    totalPrice += priceSingle;
+                                    totalPrice = Math.floor(totalPrice * 100) / 100;
                     %>
                     <tr>  
                         <%
@@ -165,7 +171,7 @@
                                 <input type="hidden" name="isbn" value=<%=primaryKey%>>
                                 <input type="hidden" name="price" value=<%=resultSet.getString("buyPrice")%>>
                                 <input type="hidden" name="update" value="true">
-                                <input type="text" name="quantity" value=<%=cartContents[i].quantity%>>
+                                <input type="text" name="quantity" value=<%=quantity%>>
                                 <button type="submit" class="pure-button">UPDATE</button>
                             </form>
                             <form class="pure-form" method = "post" action = "remove">
@@ -196,32 +202,33 @@
                             SUMMARY
                         </div>
                         <div class="promo">
-                            <form class="pure-form" method = "post" action = "">
-                                <%
-                                    DecimalFormat df = new DecimalFormat("#.00");
-                                    String subtotal = df.format(totalPrice);
-                                    String shipping = df.format(totalPrice/10);
-                                    String total = df.format(totalPrice + totalPrice/10);
-                                %>
-                                <div class="summary">
-                                    <table>
-                                        <tr>
-                                            <td><b>Subtotal:</b></td> 
-                                            <td><%=totalPrice%></td>
-                                        </tr>
-                                        <tr>
-                                            <td><b>Shipping:</b></td>
-                                            <td><%=shipping%></td>
-                                        </tr>
-                                        <tr>
-                                            <td><h3>Total Price:</h3></td>
-                                            <td><h3><%=total%></h3></td>
-                                        </tr>
-                                    </table>
-                                </div>
-                                <input type="text" name="promo" placeholder="Enter Promo Code">
+                            <%
+                                DecimalFormat df = new DecimalFormat("#.00");
+                                String subtotal = df.format(totalPrice);
+                                String shipping = df.format(totalPrice / 10);
+                                String total = df.format(totalPrice + totalPrice / 10);
+                            %>
+                            <div class="summary">
+                                <table>
+                                    <tr>
+                                        <td><b>Subtotal:</b></td> 
+                                        <td><%=totalPrice%></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Shipping:</b></td>
+                                        <td><%=shipping%></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h3>Total Price:</h3></td>
+                                        <td><h3><%=total%></h3></td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <form method = "post" action = "promocheck">
+                                <input type="text" name="promo" placeholder="Enter Promo Code Here">
                                 <button type="submit" class="pure-button">PROCEED TO CHECKOUT</button>
                             </form>
+
                         </div>
                     </div>
                 </div>

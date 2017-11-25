@@ -36,6 +36,10 @@
         <servlet-name>UserTable</servlet-name>
         <servlet-class>services.UserTable</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PromoCheck</servlet-name>
+        <servlet-class>services.PromoCheck</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Registration</servlet-name>
         <url-pattern>/registered</url-pattern>
@@ -71,6 +75,10 @@
     <servlet-mapping>
         <servlet-name>UserTable</servlet-name>
         <url-pattern>/userTable</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PromoCheck</servlet-name>
+        <url-pattern>/promocheck</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

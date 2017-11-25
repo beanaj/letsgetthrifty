@@ -125,7 +125,7 @@
     <td><input type="text" name="new_promoID" required></td>
     <td><input type="text" name="new_promoName" required></td>
     <td><input type="text" name="new_percentage" required></td>
-    <td><input type="text" name="new_expiration" required></td>
+    <td><input type="datetime-local" name="new_expiration" required></td>
     <td><input name="addUpdate" type="submit" value="Add Promotion"></td>
 </tr>
 </form>
@@ -136,7 +136,7 @@
     <td><input type="text" name="new_promoID" required></td>
     <td><input type="text" name="new_promoName"></td>
     <td><input type="text" name="new_percentage"></td>
-    <td><input type="text" name="new_expiration"></td>
+    <td><input type="datetime-local" name="new_expiration"></td>
     <td><input name="addUpdate" type="submit" value="Update Promotion"></td>
     </tr>
 </form>

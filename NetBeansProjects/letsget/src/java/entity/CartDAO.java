@@ -45,7 +45,6 @@ public class CartDAO {
                 CartObject book = new CartObject();
                 book.isbn=result.getString("isbn");
                 book.quantity=Integer.parseInt(result.getString("qty"));
-                System.out.println(book.isbn);
                 cl.add(book);
             }
         } catch (SQLException e) {
@@ -61,7 +60,6 @@ public class CartDAO {
             String isbn = book.isbn;
             isbnset.add(isbn);
         }
-        
         String[] uniqueISBN = isbnset.toArray(new String[0]);
         
         int[] uniqueQty = new int[uniqueISBN.length];
