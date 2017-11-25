@@ -43,7 +43,7 @@ public class ShippingAgencyDAO {
                 agency.setAgencyName(rs.getString("agencyName"));
                 agency.setPhone(rs.getString("phone"));
                 agency.setContactName(rs.getString("contactName"));
-                agency.setContactName(rs.getString("contactPhone"));
+                agency.setContactPhone(rs.getString("contactPhone"));
                 agencies.add(agency);
             }
         
@@ -107,6 +107,7 @@ public class ShippingAgencyDAO {
                 stat.executeUpdate();
             }
             if (!cPhone.isEmpty()) {
+                System.out.println(cPhone);
                 String query = "UPDATE shippingagencies SET contactPhone = ? WHERE shippingAgencyID = ?";
                 stat = conn.prepareStatement(query);
                 stat.setString(1, cPhone);

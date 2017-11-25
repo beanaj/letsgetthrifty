@@ -135,7 +135,7 @@ for (int i = 0; i < userList.size(); i++) {
     <td><input type="text" name="new_userType"></td>
     <td><input type="text" name="new_orderConfirmationCode"></td>
     <td><input type="text" name="new_active"></td>
-    <td><input type="hidden" name = "tableType" value="employee"</td>
+    <input type="hidden" name = "tableType" value="employee">
     <td><input name="addUpdate" type="submit" value="Update User"></td>
     </tr>
 </form>
