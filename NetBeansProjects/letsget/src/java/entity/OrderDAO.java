@@ -104,6 +104,7 @@ public class OrderDAO {
             while (rs.next()) {
                 Order order = new Order();
                 order.setOrderID(rs.getInt("orderID"));
+                System.out.println("In resulst loop");
                 orderFound=true;
             }
 

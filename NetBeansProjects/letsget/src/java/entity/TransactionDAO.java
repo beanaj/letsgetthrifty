@@ -32,8 +32,7 @@ public class TransactionDAO {
             con = DriverManager.getConnection(db.getURL(), db.getUser(), db.getPass());
             //generate sql statement
             state = con.createStatement();
-            String sql = "INSERT INTO transactions (transactionID, orderID, isbn, qty, promoID, total) VALUES (\""
-                    + tr.getTransactionID()+ "\", \""//transactionID
+            String sql = "INSERT INTO transactions (orderID, isbn, qty, promoID, total) VALUES (\""
                     + tr.getOrderID() + "\", \""//orderID
                     + tr.getISBN() + "\", \""//isbn
                     + tr.getQTY() + "\", \""//qty

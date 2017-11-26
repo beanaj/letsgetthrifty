@@ -27,18 +27,16 @@ public class Transaction {
 
     public Transaction(String[] info){
         //info
-        //0 transactionID
         //1 orderID
         //2 isbn
         //3 qty
         //4 promoid
         //5 total
-        this.transactionID = info[0];
-        this.orderID = info[1];
-        this.isbn = info[2];
-        this.qty = info[3];
-        this.promoID = info[4];
-        this.total = info[5];
+        this.orderID = info[0];
+        this.isbn = info[1];
+        this.qty = info[2];
+        this.promoID = info[3];
+        this.total = info[4];
     }
     
     public void addToDatabase(){

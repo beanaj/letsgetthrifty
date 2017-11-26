@@ -5,9 +5,12 @@
  */
 package services;
 
+import entity.Book;
+import entity.BookDAO;
 import entity.CartDAO;
 import entity.CartObject;
 import entity.OrderDAO;
+import entity.Transaction;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.concurrent.ThreadLocalRandom;
@@ -38,7 +41,9 @@ public class PlaceOrder extends HttpServlet {
         Cookie[] cookies = request.getCookies();
         HttpSession session = request.getSession(false);
         //creat error string for out of stock inventory
-        String errorMsg = "";
+        String errorMsg = "Our apologies, some of the books in your order are out of stock. The books will remain in your cart, please try again in the future.";
+        errorMsg += "\nThe below books are out of stock: \n";
+        Boolean outOfStock = false;
         //user id for order being placed
         String userID = (String) session.getAttribute("userID");
 
@@ -84,27 +89,82 @@ public class PlaceOrder extends HttpServlet {
         for (int i = 0; i < cartContents.length; i++) {
             isbns += cartContents[i].isbn + ",";
         }
-        
+
         //generate an orderID
         boolean found = false;
         int orderID = 0;
-        while(!found){
+        //this is generating the id while also ensuring that the id is not already in use
+        do {
             orderID = ThreadLocalRandom.current().nextInt(10000, 99999 + 1);
             OrderDAO db = new OrderDAO();
             found = db.checkIDValidity(orderID);
-        }
-        System.out.println("OrderID"+orderID);
+        } while (found);
+
         //what I need to place an order is here:
         //orderID, shippintAgencyID, orderStatus, orderDate, shippingAddress, billingAddress
         //paymentMethod, confirmationNumber, userID, orderTotal, creditCardID
-
-        //first thing is to generate an order id
         //in order to add the book to the transaction:
         //1.) check to make sure it is in stock, if not leave in cart and add to not in stock error
+        boolean[] inStock = new boolean[cartContents.length];
+        for (int i = 0; i < cartContents.length; i++) {
+            Book book = new Book(cartContents[i].isbn);
+            int quantityInStock = book.getQtyInStock();
+            int quantityInOrder = cartContents[i].quantity;
+            System.out.println("Stock: " + quantityInStock);
+            System.out.println("Order: " + quantityInOrder);
+            if (quantityInStock < quantityInOrder) {
+                inStock[i] = false;
+                outOfStock = true;
+                errorMsg += "" + book.getTitle();
+            } else {
+                inStock[i] = true;
+            }
+        }
         //2.) if it is in stock, remove it from stock and from the cart
-        //3.) add a transaction record for the book and tag the orderID
+        //remove the books from stock
+        for (int i = 0; i < cartContents.length; i++) {
+            if (inStock[i] == true) {
+                Book book = new Book(cartContents[i].isbn);
+                int quantityInStock = book.getQtyInStock();
+                int quantityInOrder = cartContents[i].quantity;
+                int newTotal = quantityInStock - quantityInOrder;
+                book.setQtyInStock(newTotal);
+                BookDAO db = new BookDAO();
+                db.updateBook(book.getISBN(), book.getGenre(),
+                        book.getAuthor(), book.getTitle(), book.getRating(), book.getPicture(),
+                        book.getEdition(), book.getPublisher(), book.getPublicationYear(),
+                        book.getQtyInStock(), book.getMinThreshold(), book.getBuyPrice(), book.getSellPrice(), book.getSupplierID());
+
+            }
+        }
+        //remove the books from the cart
+        for (int i = 0; i < cartContents.length; i++) {
+            if (inStock[i] == true) {
+                Book book = new Book(cartContents[i].isbn);
+                CartDAO db = new CartDAO();
+                db.removeFromCart(book.getISBN(), userID);
+            }
+        }
         //transaction record has several fields
-        //transactionID, orderID, isbn, qty, promoID, total
+        //orderID, isbn, qty, promoID, total
+        //3.) add a transaction record for the book and tag the orderID
+        for (int i = 0; i < cartContents.length; i++) {
+            if (inStock[i] == true) {
+                Book book = new Book(cartContents[i].isbn);
+                CartDAO db = new CartDAO();
+                db.removeFromCart(book.getISBN(), userID);
+                String[] info = new String[5];
+                info[0] = ""+orderID;
+                info[1] = book.getISBN();
+                info[2] = ""+cartContents[i].quantity;
+                info[3] = ""+db.getCartPromo(userID);
+                Double price = (book.getSellPrice()*cartContents[i].quantity)*discount;
+                price = Math.floor(price * 100) / 100;
+                info[4] = ""+price;
+                Transaction tr = new Transaction(info);
+                tr.addToDatabase();
+            }
+        }
         //when all books are created as transactions
         //1.) create an order database entry
         //2. add shipping agency (default to ups)
