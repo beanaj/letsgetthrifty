@@ -7,6 +7,7 @@ package entity;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
@@ -19,6 +20,37 @@ import services.Registration;
  * @author andrewjacobsen
  */
 public class PaymentDAO {
+    
+    public Payment getPaymentByID(String payID){
+        Payment pay = new Payment();
+        Connection con = null;
+        Statement state = null;
+        ResultSet result = null;
+        DatabaseUtility db = new DatabaseUtility();
+        try {
+            //register the driver
+            Class.forName(db.getDriver());
+            //connect to the database
+            con = DriverManager.getConnection(db.getURL(), db.getUser(), db.getPass());
+            //generate sql statement
+            state = con.createStatement();
+            String sql = "SELECT * FROM creditcards WHERE creditCardID = '" + payID + "'";
+            
+            result = state.executeQuery(sql);
+            while (result.next()) {
+                pay.creditCardID = result.getString("creditCardID");
+                pay.userID = result.getString("userID");
+                pay.creditCardNumber = result.getString("creditCardNumber");
+                pay.creditCardType = result.getString("creditCardType");
+                pay.expirationDate = result.getString("expirationDate");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Registration.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return pay;
+    }
     
     public void addPayment(Payment pay){
         //insert user payment information into databse
@@ -50,5 +82,6 @@ public class PaymentDAO {
             Logger.getLogger(Registration.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
     
 }

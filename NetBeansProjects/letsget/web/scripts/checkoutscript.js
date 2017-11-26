@@ -114,10 +114,15 @@ function useDefaultBill(input, street, city, state, zip) {
     document.getElementById('bzip').value = zip;
 };
 
-function useDefaultPay(input) {
+function useDefaultPay(input, card, exp, type, firstname, lastname) {
     document.getElementById('card').disabled = input.checked;
+    document.getElementById('card').value = card;
     document.getElementById('exp').disabled = input.checked;
+    document.getElementById('exp').value = exp;
     document.getElementById('type').disabled = input.checked;
+    document.getElementById('type').value = type;
     document.getElementById('firstname').disabled = input.checked;
+    document.getElementById('firstname').value = firstname;
     document.getElementById('lastname').disabled = input.checked;
+    document.getElementById('lastname').value = lastname;
 };

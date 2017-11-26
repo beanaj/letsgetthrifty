@@ -24,10 +24,37 @@ import services.Registration;
  * @author andrewjacobsen
  */
 public class CartDAO {
+    
+    public String getCartPromoCode(String userID) {
+        String promoID = null;
+        //get promoID
+        Connection con = null;
+        Statement state = null;
+        ResultSet result = null;
+        DatabaseUtility db = new DatabaseUtility();
+        try {
+            //register the driver
+            Class.forName(db.getDriver());
+            //connect to the database
+            con = DriverManager.getConnection(db.getURL(), db.getUser(), db.getPass());
+            //generate sql statement
+            state = con.createStatement();
+            String sql = "SELECT * FROM carts WHERE userID = '" + userID + "'";
+            result = state.executeQuery(sql);
+            while (result.next()) {
+                promoID = result.getString("promoID");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Registration.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return promoID;
+    }
 
     public double getCartPromo(String userID) {
         double discount = 0.0;
-        String promoID = "";
+        String promoID = null;
         //get promoID
         Connection con = null;
         Statement state = null;
@@ -51,7 +78,7 @@ public class CartDAO {
             Logger.getLogger(Registration.class.getName()).log(Level.SEVERE, null, ex);
         }
         String percent = "";
-        if (promoID.length() >= 1) {
+        if (promoID!=null) {
             try {
                 //register the driver
                 Class.forName(db.getDriver());

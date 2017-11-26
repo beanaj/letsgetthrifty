@@ -24,6 +24,20 @@ public class Payment implements PaymentI{
         this.expirationDate = exp;
     }
     
+    public Payment(String accountID){
+        PaymentDAO db = new PaymentDAO();
+        String payID = "999"+accountID.replaceAll( "[^\\d]", "" ); 
+        Payment pay = db.getPaymentByID(payID);
+        this.creditCardID=pay.getCCID();
+        this.creditCardNumber=pay.getNum();
+        this.creditCardType=pay.getType();
+        this.expirationDate=pay.getExp();
+        this.userID=pay.getUserID();
+    }
+
+    Payment() {
+    }
+    
     @Override
     public void submit() {
             PaymentDAO db = new PaymentDAO();

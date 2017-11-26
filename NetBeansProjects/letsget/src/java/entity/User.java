@@ -45,7 +45,7 @@ public class User implements UserI {
     }
 
     public User(String accountID, String type) {
-
+        //type is whether it is an email or by accountID
         UserDAO db = new UserDAO();
         User current = db.getUser(accountID, type);
         this.userID = current.getAccountID();

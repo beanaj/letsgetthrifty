@@ -33,12 +33,35 @@ public class PlaceOrder extends HttpServlet {
             throws ServletException, IOException {
         Cookie[] cookies = request.getCookies();
         HttpSession session = request.getSession(false);
+        //creat error string for out of stock inventory
+        String errorMsg = "";
+        //user id for order being placed
         String userID = (String) session.getAttribute("userID");
         
+        boolean useShip = false;
+        boolean usePay = false;
+        boolean useBill = false;
+        
+        String value = request.getParameter("ship");
+        if(value!=null){
+            useShip = true;
+        }
+        value = request.getParameter("paybox");
+        if(value!=null){
+            usePay = true;
+        }
+        value = request.getParameter("bill");
+        if(value!=null){
+            useBill = true;
+        }
+        
+        System.out.println(useShip+" "+usePay+" "+useBill);
+        //shipping information
         String shippingStreet = request.getParameter("street");
         String shippingCity = request.getParameter("city");
         String shippingState = request.getParameter("state");
         String shippingZip = request.getParameter("zip");
+        //billing information
         String billingStreet = request.getParameter("bstreet");
         String billingCity = request.getParameter("bcity");
         String billingState = request.getParameter("bstate");
@@ -46,7 +69,36 @@ public class PlaceOrder extends HttpServlet {
         
         CartDAO cartDB= new CartDAO();
         Double discount = cartDB.getCartPromo(userID);
+        if(discount>0){
+            String promoCode = cartDB.getCartPromoCode(userID);
+        }
         
-        System.out.println(shippingStreet + "Discount: "+discount);
+        //what I need to place an order is here:
+        //orderID, shippintAgencyID, orderStatus, orderDate, shippingAddress, billingAddress
+        //paymentMethod, confirmationNumber, userID, orderTotal, creditCardID
+        
+        //first thing is to generate an order id
+        
+        //in order to add the book to the transaction:
+        //1.) check to make sure it is in stock, if not leave in cart and add to not in stock error
+        //2.) if it is in stock, remove it from stock and from the cart
+        //3.) add a transaction record for the book and tag the orderID
+        //transaction record has several fields
+        //transactionID, orderID, isbn, qty, promoID, total
+        
+        //when all books are created as transactions
+        //1.) create an order database entry
+        //2. add shipping agency (default to ups)
+        //3. order status will be set to ordered
+        //4. order date will be the current date
+        //5. shipping address if useShip is true, we will use the default user shipping address
+        //5a otherwise we will create a new shipping address and use that
+        //6. for now the type will be card
+        //7. if useBill is true we will use the default shipping address
+        //7a otherwise we will create a new address and use that
+        //8. we will create a confirmation number like in registration
+        //9. userID will be the current user
+        //10 order total will be the sum of all of the order linked transactions, after the promo code has been applied
+        //11 creditcardID if usePay is true, we will use the default user payment
     }
 }

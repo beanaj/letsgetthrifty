@@ -3,6 +3,8 @@
     Created on : Nov 24, 2017
     Author     : Andrew
 --%>
+<%@page import="entity.User"%>
+<%@page import="entity.Payment"%>
 <%@page import="entity.Address"%>
 <%@page import="java.text.DecimalFormat"%>
 <%@page import="java.util.logging.Logger"%>
@@ -177,14 +179,16 @@
                                 //here is where I will gather all user information
                                 String addressID= "a"+userID.substring(2);
                                 Address userAddress = new Address(addressID, userID);
-                            
+                                //gather the users default payment
+                                Payment userPayment = new Payment(userID);
+                                User user = new User(userID, "u");
                             %>
 
                             <div class="browseheader">
                                 SHIPPING ADDRESS  
                             </div>
                             <label for="option-one" class="pure-checkbox">
-                                    <input id="defaultShipping" type="checkbox" value="" onchange="useDefault(this,'<%=userAddress.street%>','<%=userAddress.city%>','<%=userAddress.state%>','<%=userAddress.zip%>')">
+                                    <input name="ship" id="defaultShipping" type="checkbox" value="" onchange="useDefault(this,'<%=userAddress.street%>','<%=userAddress.city%>','<%=userAddress.state%>','<%=userAddress.zip%>')">
                                     Use my default shipping address
                             </label>
                             <form class="pure-form" method = "post" action = "registered">
@@ -254,7 +258,7 @@
                                     PAYMENT
                                 </div>
                                 <label for="option-one" class="pure-checkbox">
-                                    <input id="defaultShipping" type="checkbox" value="" onchange="useDefaultPay(this)">
+                                    <input name="paybox" id="defaultShipping" type="checkbox" value="" onchange="useDefaultPay(this, '<%=userPayment.getNum()%>','<%=userPayment.getExp()%>','<%=userPayment.getType()%>','<%=user.getFN()%>','<%=user.getLN()%>')">
                                     Use my saved payment
                             </label>
                                 <fieldset class="pure-group">
@@ -275,7 +279,7 @@
                                     BILLING ADDRESS
                                 </div>
                                 <label for="option-one" class="pure-checkbox">
-                                    <input id="defaultBilling" type="checkbox" value="" onclick="useDefaultBill(this,'<%=userAddress.street%>','<%=userAddress.city%>','<%=userAddress.state%>','<%=userAddress.zip%>')">
+                                    <input name="bill" id="defaultBilling" type="checkbox" value="" onclick="useDefaultBill(this,'<%=userAddress.street%>','<%=userAddress.city%>','<%=userAddress.state%>','<%=userAddress.zip%>')">
                                     Use my default shipping address
                                 </label>
                                 <fieldset class="pure-group">
