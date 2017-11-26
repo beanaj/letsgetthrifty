@@ -47,7 +47,6 @@ public class OrderDAO {
                 order.setBillingAddress(rs.getString("billingAdress"));
                 order.setPaymentMethod(rs.getString("paymentMethod"));
                 order.setConfirmationNumber(rs.getInt("confirmationNumber"));
-                order.setTransactionID(rs.getInt("transactionID"));
                 order.setUserID(rs.getString("userID"));
                 order.setOrderTotal(rs.getString("orderTotal"));
                 order.setCreditCardID(rs.getString("creditCardID"));
@@ -68,7 +67,7 @@ public class OrderDAO {
         try {
             Class.forName(db.getDriver());
             conn = DriverManager.getConnection(db.getURL(), db.getUser(), db.getPass());
-            String query = "INSERT INTO orders (orderID, shippingAgencyID, orderStatus, orderDate, shippingAddress, billingAdress, paymentMethod, confirmationNumber, transactionID, userID, orderTotal, creditCardID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String query = "INSERT INTO orders (orderID, shippingAgencyID, orderStatus, orderDate, shippingAddress, billingAdress, paymentMethod, confirmationNumber, userID, orderTotal, creditCardID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             stat = conn.prepareStatement(query);
             stat.setInt(1, o.getOrderID());
             stat.setInt(2, o.getShippingAgencyID());
@@ -78,10 +77,9 @@ public class OrderDAO {
             stat.setString(6, o.getBillingAddress());
             stat.setString(7, o.getPaymentMethod());
             stat.setInt(8, o.getConfirmationNumber());
-            stat.setInt(9, o.getTransactionID());
-            stat.setString(10, o.getUserID());
-            stat.setString(11, o.getOrderTotal());
-            stat.setString(12, o.getCreditCardID());
+            stat.setString(9, o.getUserID());
+            stat.setString(10, o.getOrderTotal());
+            stat.setString(11, o.getCreditCardID());
             stat.execute();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);

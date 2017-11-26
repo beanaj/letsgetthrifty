@@ -18,13 +18,12 @@ public class Order {
     private String billingAdd;
     private String paymentMethod;
     private int confNum;
-    private int transID;
     private String userID;
     private String orderTotal;
     private String cCardID;
     
     //Constructor:
-    public Order(int oID, int sAID, String oStat, String oDate, String sAdd, String bAdd, String pay, int conf, int trans, String user, String orderT, String cCard) {
+    public Order(int oID, int sAID, String oStat, String oDate, String sAdd, String bAdd, String pay, int conf, String user, String orderT, String cCard) {
         this.orderID = oID;
         this.shippingAgencyID = sAID;
         this.orderStatus = oStat;
@@ -33,7 +32,6 @@ public class Order {
         this.billingAdd = bAdd;
         this.paymentMethod = pay;
         this.confNum = conf;
-        this.transID = trans;
         this.userID = user;
         this.orderTotal = orderT;
         this.cCardID = cCard;
@@ -91,12 +89,6 @@ public class Order {
     public int getConfirmationNumber() {
         return this.confNum;
     }
-    public void setTransactionID(int tID) {
-        this.transID = tID;
-    }
-    public int getTransactionID() {
-        return this.transID;
-    }
     public void setUserID(String uID) {
         this.userID = uID;
     }
@@ -114,5 +106,10 @@ public class Order {
     }
     public String getCreditCardID() {
         return this.cCardID;
+    }
+    
+    public void addOrder() {
+        OrderDAO db = new OrderDAO();
+        db.addOrder(this);
     }
 }
