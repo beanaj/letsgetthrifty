@@ -14,7 +14,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.PreparedStatement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -46,9 +46,9 @@ public class Search extends HttpServlet {
         //category of search
         String category = request.getParameter("option");
         //create list of search results
-        List searchResult = new ArrayList();
+        List <Book>searchResult = new <Book>ArrayList();
         Connection con = null;
-        Statement state = null;
+        PreparedStatement state = null;
         DatabaseUtility db = new DatabaseUtility();
         
          try {
@@ -57,14 +57,30 @@ public class Search extends HttpServlet {
             //connect to the database
             con = DriverManager.getConnection(db.getURL(), db.getUser(), db.getPass());
             //generate sql statement
-            state = con.createStatement();
+            String searchSQL = "SELECT * FROM books WHERE " + category + "=" + search;
+            state = con.prepareStatement(searchSQL);
+            ResultSet results = state.executeQuery();
+            
+            while(results.next()){
+                //Get search result info
+                
+                //Book resultBook = results.getObject(); ?? Trying to figure out how to place a book in the list
+                String title = results.getString("title");
+                String author = results.getString("author");
+                String genre = results.getString("genre");
+                String rating = results.getString("rating");
+                String price = results.getString("buyPrice");
+            }
+           
+            
+            state.close();
+            con.close();
             
         } catch (SQLException exception) {
             exception.printStackTrace();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Registration.class.getName()).log(Level.SEVERE, null, ex);
         }
-         
          
     }
 
