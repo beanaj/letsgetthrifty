@@ -84,7 +84,7 @@
         </div>
         <div class="pure-u-4-5">
             <div class="search"
-                <form class="pure-form" name="frm" method="get" action="search.jsp">
+                <form class="pure-form" name="frm" method="post" action="search">
                     <input class="searchbar" name ="input" type="search" placeholder="Search by Title, Author, Genre, or ISBN">
                     <button type="submit" class="pure-button pure-button-primary">Search by: </button>
                     <select class="searchOption" name="option">
@@ -136,6 +136,8 @@
                         sql = "SELECT * FROM books WHERE isbn = '"+searchInput+"'";
                     }
                     else if(request.getParameter("option") == "author"){
+                        
+                        
                         sql = "SELECT * FROM books WHERE author = '"+searchInput+"'";
                     }
                     try {
