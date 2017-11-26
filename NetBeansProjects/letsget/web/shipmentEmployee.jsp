@@ -63,7 +63,7 @@
             <div class="container">               
                 <div class="box">
                     <div class="header">
-                        <h1>Inventory</h1>
+                        <h1>Orders</h1>
                     </div>               
                 </div>
                 
@@ -74,20 +74,17 @@
 
 </tr>
 <tr>  
-    <td><b>ISBN</b></td>
-    <td><b>Genre</b></td>
-    <td><b>Author</b></td>
-    <td><b>Title</b></td>
-    <td><b>Rating</b></td>
-    <td><b>Picture Link</b></td>
-    <td><b>Edition</b></td>
-    <td><b>Publisher</b></td>
-    <td><b>Publication year</b></td>
-    <td><b>Quantity</b></td>
-    <td><b>Min Threshold</b></td>
-    <td><b>Buy Price</b></td>
-    <td><b>Sell Price</b></td>
-    <td><b>Supplier ID</b></td>
+    <td><b>Order ID</b></td>
+    <td><b>Shipping Agency ID</b></td>
+    <td><b>Order Status</b></td>
+    <td><b>Order Date</b></td>
+    <td><b>Shipping Address</b></td>
+    <td><b>Billing Address</b></td>
+    <td><b>Payment Method</b></td>
+    <td><b>Confirmation Number</b></td>
+    <td><b>User ID</b></td>
+    <td><b>Order Total</b></td>
+    <td><b>Credit Card ID</b></td>
 </tr>
 
 <%

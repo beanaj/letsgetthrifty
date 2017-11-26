@@ -41,14 +41,10 @@
         <!-- Hamburger icon -->
             <span></span>
         </a>
-
+    
         
-
-    <div id="main">
-            
-                    
         
-
+     
         <div id="menu">
         <div class="pure-menu">
             <a class="pure-menu-heading" href="#">Admin</a>
@@ -70,6 +66,34 @@
             </ul>
         </div>
         </div>
+        
+
+    <div id="main">
+            
+                    
+        
+<!--
+        <div id="menu">
+        <div class="pure-menu">
+            <a class="pure-menu-heading" href="#">Admin</a>
+
+            <ul class="pure-menu-list">
+                <li class="pure-menu-item"><a href="homepage.jsp" class="pure-menu-link">Home</a></li>
+                <li class="pure-menu-item"><a href="#" class="pure-menu-link">My Cart</a></li>
+                <li class="pure-menu-item"><a href="" class="pure-menu-link">Search</a></li>
+                <li class="pure-menu-item"><a href="my_accont.jsp" class="pure-menu-link">My Account</a></li>
+                <li class="pure-menu-item"><a href="login_register.jsp" class="pure-menu-link">Log In/Register</a></li>
+                <li class="pure-menu-item"><a href="#" class="pure-menu-link">Sign Out</a></li>
+                <li class="pure-menu-item menu-item-divided pure-menu-selected"><a href="adminInventory.jsp" class="pure-menu-link">Inventory</a></li>
+                <li class="pure-menu-item"><a href="adminPromotions.jsp" class="pure-menu-link">Promotions</a></li>
+
+                <li class="pure-menu-item"><a href="adminUsers.jsp" class="pure-menu-link">Users</a></li>
+
+                <li class="pure-menu-item"><a href="adminEmployees.jsp" class="pure-menu-link">Employees</a></li>
+                <li class="pure-menu-item"><a href="adminAgencies.jsp" class="pure-menu-link">Agencies</a></li>
+            </ul>
+        </div>
+        </div>-->
         
         <div class="content">
             <div class="container">               
