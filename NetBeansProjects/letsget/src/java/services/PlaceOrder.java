@@ -6,8 +6,11 @@
 package services;
 
 import entity.CartDAO;
+import entity.CartObject;
+import entity.OrderDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.concurrent.ThreadLocalRandom;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
@@ -20,6 +23,7 @@ import javax.servlet.http.HttpSession;
  * @author andrewjacobsen
  */
 public class PlaceOrder extends HttpServlet {
+
     /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -37,25 +41,25 @@ public class PlaceOrder extends HttpServlet {
         String errorMsg = "";
         //user id for order being placed
         String userID = (String) session.getAttribute("userID");
-        
+
         boolean useShip = false;
         boolean usePay = false;
         boolean useBill = false;
-        
+
         String value = request.getParameter("ship");
-        if(value!=null){
+        if (value != null) {
             useShip = true;
         }
         value = request.getParameter("paybox");
-        if(value!=null){
+        if (value != null) {
             usePay = true;
         }
         value = request.getParameter("bill");
-        if(value!=null){
+        if (value != null) {
             useBill = true;
         }
-        
-        System.out.println(useShip+" "+usePay+" "+useBill);
+
+        System.out.println(useShip + " " + usePay + " " + useBill);
         //shipping information
         String shippingStreet = request.getParameter("street");
         String shippingCity = request.getParameter("city");
@@ -66,26 +70,41 @@ public class PlaceOrder extends HttpServlet {
         String billingCity = request.getParameter("bcity");
         String billingState = request.getParameter("bstate");
         String billingZip = request.getParameter("bzip");
-        
-        CartDAO cartDB= new CartDAO();
+
+        CartDAO cartDB = new CartDAO();
         Double discount = cartDB.getCartPromo(userID);
-        if(discount>0){
-            String promoCode = cartDB.getCartPromoCode(userID);
+        String promoCode = "";
+        if (discount > 0) {
+            promoCode = cartDB.getCartPromoCode(userID);
+        }
+
+        CartObject[] cartContents = cartDB.getCartContents(userID);
+        //generatre isbn list of cart
+        String isbns = "";
+        for (int i = 0; i < cartContents.length; i++) {
+            isbns += cartContents[i].isbn + ",";
         }
         
+        //generate an orderID
+        boolean found = false;
+        int orderID = 0;
+        while(!found){
+            orderID = ThreadLocalRandom.current().nextInt(10000, 99999 + 1);
+            OrderDAO db = new OrderDAO();
+            found = db.checkIDValidity(orderID);
+        }
+        System.out.println("OrderID"+orderID);
         //what I need to place an order is here:
         //orderID, shippintAgencyID, orderStatus, orderDate, shippingAddress, billingAddress
         //paymentMethod, confirmationNumber, userID, orderTotal, creditCardID
-        
+
         //first thing is to generate an order id
-        
         //in order to add the book to the transaction:
         //1.) check to make sure it is in stock, if not leave in cart and add to not in stock error
         //2.) if it is in stock, remove it from stock and from the cart
         //3.) add a transaction record for the book and tag the orderID
         //transaction record has several fields
         //transactionID, orderID, isbn, qty, promoID, total
-        
         //when all books are created as transactions
         //1.) create an order database entry
         //2. add shipping agency (default to ups)

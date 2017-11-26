@@ -21,22 +21,22 @@ import services.DatabaseUtility;
  * @author Addison
  */
 public class OrderDAO {
+
     public List<Order> list() throws SQLException {
         DatabaseUtility db = new DatabaseUtility();
-        
+
         List<Order> orders = new ArrayList<Order>();
-        
+
         try {
             Class.forName(db.getDriver());
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        
+
         try (
-            Connection connection = DriverManager.getConnection(db.getURL(), db.getUser(), db.getPass());
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM orders");
-            ResultSet rs = statement.executeQuery();
-                ) {
+                Connection connection = DriverManager.getConnection(db.getURL(), db.getUser(), db.getPass());
+                PreparedStatement statement = connection.prepareStatement("SELECT * FROM orders");
+                ResultSet rs = statement.executeQuery();) {
             while (rs.next()) {
                 Order order = new Order();
                 order.setOrderID(rs.getInt("orderID"));
@@ -51,14 +51,14 @@ public class OrderDAO {
                 order.setUserID(rs.getString("userID"));
                 order.setOrderTotal(rs.getString("orderTotal"));
                 order.setCreditCardID(rs.getString("creditCardID"));
-                
+
                 orders.add(order);
             }
-        
+
         }
         return orders;
     }
-    
+
     //Add a book to the database
     public void addOrder(Order o) {
         //Set up database connection:
@@ -88,5 +88,30 @@ public class OrderDAO {
         } catch (SQLException ex) {
             Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public boolean checkIDValidity(int orderID){
+        boolean orderFound =false;
+        DatabaseUtility db = new DatabaseUtility();
+        try {
+            Class.forName(db.getDriver());
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        try (
+                Connection connection = DriverManager.getConnection(db.getURL(), db.getUser(), db.getPass());
+                PreparedStatement statement = connection.prepareStatement("SELECT * FROM orders WHERE orderID = '"+orderID+"'");
+                ResultSet rs = statement.executeQuery();) {
+            while (rs.next()) {
+                Order order = new Order();
+                order.setOrderID(rs.getInt("orderID"));
+                orderFound=true;
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return orderFound;
     }
 }

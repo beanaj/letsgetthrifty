@@ -45,7 +45,26 @@ public class Book {
        this.supplierID = sID;
    }
    
-   
+   public Book(String isbn){
+       Book dbBook = new Book();
+       BookDAO db = new BookDAO();
+       dbBook= db.getBookByID(isbn);
+       this.isbn = dbBook.getISBN();
+       this.genre = dbBook.getGenre();
+       this.author = dbBook.getAuthor();
+       this.title = dbBook.getTitle();
+       this.rating = dbBook.getRating();
+       this.picture = dbBook.getPicture();
+       this.edition = dbBook.getEdition();
+       this.publisher = dbBook.getPublisher();
+       this.publicationYear = dbBook.getPublicationYear();
+       this.qtyInStock = dbBook.getQtyInStock();
+       this.minThreshold = dbBook.getMinThreshold();
+       this.buyPrice = dbBook.getBuyPrice();
+       this.sellPrice = dbBook.getSellPrice();
+       this.supplierID = dbBook.getSupplierID();
+       
+   }
    
    public Book() {
        
