@@ -127,11 +127,11 @@ for (int i = 0; i < userList.size(); i++) {
 <!--Update User Row:-->
 <form name="updateUserButton" method="post" action="userTable">
     <tr>
-    <td><input type="text" name="new_userID" required></td>
-    <td><input type="text" name="new_firstName"></td>
-    <td><input type="text" name="new_lastName"></td>
-    <td><input type="text" name="new_phone"></td>
-    <td><input type="text" name="new_email"></td>
+    <td><input type="text" name="new_userID" onkeyup="checkID(this)" onclick="checkID(this)" onchange="checkID(this)" required></td>
+    <td><input type="text" name="new_firstName" onkeyup="checkName(this)" onclick="checkName(this)" onchange="checkName(this)"></td>
+    <td><input type="text" name="new_lastName" onkeyup="checkName(this)" onclick="checkName(this)" onchange="checkName(this)"></td>
+    <td><input type="text" name="new_phone" onkeyup="checkPhone(this)" onclick="checkPhone(this)" onchange="checkPhone(this)"></td>
+    <td><input type="text" name="new_email" onkeyup="checkEmail(this)" onclick="checkEmail(this)" onchange="checkEmail(this)"></td>
     <td><input type="text" name="new_userType"></td>
     <td><input type="text" name="new_orderConfirmationCode"></td>
     <td><input type="text" name="new_active"></td>
@@ -153,6 +153,7 @@ for (int i = 0; i < userList.size(); i++) {
 
 
 <script src="scripts/admin.js"></script>
+<script src="scripts/adminEmployeeVerification.js"></script>
 
 
     </body>
