@@ -76,27 +76,21 @@
 
 <%
     String userID = (String) session.getAttribute("userID");
-    
+
     UserDAO db = new UserDAO();
     User user = db.getUser(userID, "u");
     
 %>
 
-<tr>  
-
-                <form class="pure-form">
-                    <fieldset class="pure-group">
-                        <input type="text" class="pure-input-1" placeholder=<%=user.getFN() %> name="firstName">
-                        <input type="text" class="pure-input-1" placeholder=<%=user.getLN()%> name="firstName">
-                        <button type="submit" class="pure-button login pure-input-1 pure-button-primary">Update</button>
-                    </fieldset>
-                </form>
-    
-</tr>
-
-
-                
-
+<form class="pure-form" name="updateName" method="post" action="MyAccountName">
+    <fieldset class="pure-group">
+        <input type="text" class="pure-input-1" placeholder="<%=user.getFN()%>" name="firstName">
+        <input type="text" class="pure-input-1" placeholder="<%=user.getLN()%>" name="lastName">
+        <input type="hidden" name="userID" value="<%=userID%>">
+        <input name="updateName" type="submit" class="pure-button login pure-input-1 pure-button-primary" value="Update">
+    </fieldset>
+</form>
+               
             </div>
 
     </div>

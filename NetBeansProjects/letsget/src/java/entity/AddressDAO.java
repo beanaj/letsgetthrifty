@@ -7,6 +7,7 @@ package entity;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -81,5 +82,52 @@ public class AddressDAO {
             Logger.getLogger(Registration.class.getName()).log(Level.SEVERE, null, ex);
         }
         return returnA;
+    }
+    
+    public void updateAddress(String id, String street, String city, String state, String zip) {
+        //Set up database connection:
+        Connection conn = null;
+        PreparedStatement stat = null;
+        DatabaseUtility db = new DatabaseUtility();
+        
+        try {
+            Class.forName(db.getDriver());
+            conn = DriverManager.getConnection(db.getURL(), db.getUser(), db.getPass());
+            
+            if (!street.isEmpty()) {
+                String query = "UPDATE addresses SET street = ? WHERE addressID = ?";
+                stat = conn.prepareStatement(query);
+                stat.setString(1, street);
+                stat.setString(2, id);
+                stat.executeUpdate();
+            }
+            if (!city.isEmpty()) {
+                String query = "UPDATE addresses SET city = ? WHERE addressID = ?";
+                stat = conn.prepareStatement(query);
+                stat.setString(1, city);
+                stat.setString(2, id);
+                stat.executeUpdate();
+            }
+            if (!state.isEmpty()) {
+                String query = "UPDATE addresses SET state = ? WHERE addressID = ?";
+                stat = conn.prepareStatement(query);
+                stat.setString(1, state);
+                stat.setString(2, id);
+                stat.executeUpdate();
+            }
+            if (!zip.isEmpty()) {
+                String query = "UPDATE addresses SET zip = ? WHERE addressID = ?";
+                stat = conn.prepareStatement(query);
+                stat.setString(1, zip);
+                stat.setString(2, id);
+                stat.executeUpdate();
+            }
+           
+            conn.close();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
