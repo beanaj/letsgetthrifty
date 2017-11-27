@@ -361,7 +361,12 @@
                                             <td>$<%=Math.floor((totalPrice * .1) * 100) / 100%></td>
                                         </tr>
                                         <%
-                                            totalPrice = (totalPrice + (totalPrice * .1)) * discount;
+                                            if(discount>0){
+                                                totalPrice = (totalPrice + (totalPrice * .1)) * discount;
+                                            }else{
+                                                totalPrice = (totalPrice + (totalPrice * .1));
+                                            }
+                                            
                                             totalPrice = Math.floor(totalPrice * 100) / 100;
                                         %>
                                         <tr>

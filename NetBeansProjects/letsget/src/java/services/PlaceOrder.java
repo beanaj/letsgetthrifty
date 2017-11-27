@@ -13,6 +13,7 @@ import entity.Order;
 import entity.OrderDAO;
 import entity.Transaction;
 import entity.TransactionDAO;
+import entity.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
@@ -20,6 +21,7 @@ import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
@@ -32,6 +34,19 @@ import javax.servlet.http.HttpSession;
  * @author andrewjacobsen
  */
 public class PlaceOrder extends HttpServlet {
+
+    private String host;
+    private String port;
+    private String user;
+    private String pass;
+
+    public void init() {
+        ServletContext context = getServletContext();
+        host = context.getInitParameter("host");
+        port = context.getInitParameter("port");
+        user = context.getInitParameter("user");
+        pass = context.getInitParameter("pass");
+    }
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -168,7 +183,7 @@ public class PlaceOrder extends HttpServlet {
                 info[3] = promoID;
                 Double price = 0.0;
                 if (discount > 0) {
-                    price = (book.getSellPrice() * cartContents[i].quantity) * discount/100;
+                    price = (book.getSellPrice() * cartContents[i].quantity) * discount / 100;
                 } else {
                     price = (book.getSellPrice() * cartContents[i].quantity);
                 }
@@ -200,11 +215,11 @@ public class PlaceOrder extends HttpServlet {
         //6. for now the payment method will be card
         order.setPaymentMethod("card");
         //7. if useBill is true we will use the default shipping address
-        if(useBill){
+        if (useBill) {
             String addressID = "a" + userID.replaceAll("[^\\d]", "");
             order.setBillingAddress(addressID);
-        }else{
-                    //7a otherwise we will create a new address and use that
+        } else {
+            //7a otherwise we will create a new address and use that
         }
 
         //8. we will create a confirmation number like in registration
@@ -214,18 +229,256 @@ public class PlaceOrder extends HttpServlet {
         order.setUserID(userID);
         //10 order total will be the sum of all of the order linked transactions, after the promo code has been applied
         TransactionDAO dbT = new TransactionDAO();
-        double total = dbT.getPrice(""+orderID);
-        total = total + total*.1;
+        double total = dbT.getPrice("" + orderID);
+        total = total + total * .1;
         total = Math.floor(total * 100) / 100;
-        order.setOrderTotal(""+total);
+        order.setOrderTotal("" + total);
         //11 creditcardID if usePay is true, we will use the default user payment
         if (usePay) {
             String paymentID = "999" + userID.replaceAll("[^\\d]", "");
             order.setCreditCardID(paymentID);
         } else {
-            
+
         }
         OrderDAO dbO = new OrderDAO();
         dbO.updateOrder(order, order.getOrderID());
+
+        //now i need to send an email with a summary of the order
+        User userObj = new User(userID, "u");
+        String name = userObj.getFN() + " " + userObj.getLN();
+        String subject = "Let's Get Thrifty - Your Order has been Placed!";
+        String message = createOrderEmail(name, "" + orderID, "" + order.getShippingAgencyID(), order.getOrderDate(),
+                order.getOrderTotal(), order.getConfirmationNumber());
+
+        try {
+            String resultMessage = "";
+            //send email to registered user
+            try {
+                EmailSender.sendEmail(host, port, user, pass, userObj.getEmail(), subject, message);
+                resultMessage = "The e-mail was sent successfully";
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                resultMessage = "There were an error: " + ex.getMessage();
+            }
+        } finally {
+            //this will need to be changed to a non absolute address
+            response.sendRedirect("homepage.jsp");
+
+        }
+    }
+
+    private String createOrderEmail(String name, String orderID, String shippingAgency, String orderDate, String orderTotal,
+            String confirmationCode) {
+        //generate an HTML response email.
+        String msg = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n"
+                + "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
+                + " <head>\n"
+                + "  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n"
+                + "  <title>Order Details</title>\n"
+                + "  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>\n"
+                + "</head>\n"
+                + "    \n"
+                + "<body style=\"margin: 0; padding: 0;\">\n"
+                + " <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">\n"
+                + "  <tr>\n"
+                + "   <td>\n"
+                + "    <table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"600\" style=\"border-collapse: collapse;\">\n"
+                + "    \n"
+                + "    <tr>\n"
+                + "      <td>\n"
+                + "          <b>Your order has been successfully placed. <br>Here is your confirmation, check MyAccount for more details. <br></b><br><br>\n"
+                + "      </td>\n"
+                + "     </tr>\n"
+                + "     <tr>\n"
+                + "    <tr>\n"
+                + "      <td>\n"
+                + "       <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">\n"
+                + "         <tr>\n"
+                + "          <td width=\"260\" valign=\"top\">\n"
+                + "           Name:\n"
+                + "          </td>\n"
+                + "          <td style=\"font-size: 0; line-height: 0;\" width=\"20\">\n"
+                + "           &nbsp;\n"
+                + "          </td>\n"
+                + "          <td width=\"260\" valign=\"top\">\n"
+                + name
+                + "          </td>\n"
+                + "         </tr>\n"
+                + "        </table>\n"
+                + "      </td>\n"
+                + "     </tr>\n"
+                + "    <tr>\n"
+                + "      <td>\n"
+                + "      </td>\n"
+                + "     </tr>\n"
+                + "     <tr>\n"
+                + "     <tr>\n"
+                + "      <td>\n"
+                + "       <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">\n"
+                + "         <tr>\n"
+                + "          <td width=\"260\" valign=\"top\">\n"
+                + "           Order ID:\n"
+                + "          </td>\n"
+                + "          <td style=\"font-size: 0; line-height: 0;\" width=\"20\">\n"
+                + "           &nbsp;\n"
+                + "          </td>\n"
+                + "          <td width=\"260\" valign=\"top\">\n"
+                + orderID
+                + "          </td>\n"
+                + "         </tr>\n"
+                + "        </table>\n"
+                + "      </td>\n"
+                + "     </tr>\n"
+                + "     <tr>\n"
+                + "      <td>\n"
+                + "       <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">\n"
+                + "         <tr>\n"
+                + "          <td width=\"260\" valign=\"top\">\n"
+                + "           ShippingAgency:\n"
+                + "          </td>\n"
+                + "          <td style=\"font-size: 0; line-height: 0;\" width=\"20\">\n"
+                + "           &nbsp;\n"
+                + "          </td>\n"
+                + "          <td width=\"260\" valign=\"top\">\n"
+                + shippingAgency
+                + "          </td>\n"
+                + "         </tr>\n"
+                + "        </table>\n"
+                + "      </td>\n"
+                + "     </tr>\n"
+                + "     <tr>\n"
+                + "     <tr>\n"
+                + "      <td>\n"
+                + "       <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">\n"
+                + "         <tr>\n"
+                + "          <td width=\"260\" valign=\"top\">\n"
+                + "           Order Time:\n"
+                + "          </td>\n"
+                + "          <td style=\"font-size: 0; line-height: 0;\" width=\"20\">\n"
+                + "           &nbsp;\n"
+                + "          </td>\n"
+                + "          <td width=\"260\" valign=\"top\">\n"
+                + orderDate
+                + "          </td>\n"
+                + "         </tr>\n"
+                + "        </table>\n"
+                + "      </td>\n"
+                + "     </tr>\n"
+                + "     <tr>\n"
+                + "      <td>\n"
+                + "       <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">\n"
+                + "         <tr>\n"
+                + "          <td width=\"260\" valign=\"top\">\n"
+                + "           Total:\n"
+                + "          </td>\n"
+                + "          <td style=\"font-size: 0; line-height: 0;\" width=\"20\">\n"
+                + "           &nbsp;\n"
+                + "          </td>\n"
+                + "          <td width=\"260\" valign=\"top\">\n"
+                + "$"+orderTotal
+                + "          </td>\n"
+                + "         </tr>\n"
+                + "        </table>\n"
+                + "      </td>\n"
+                + "     </tr>\n"
+                + "       <tr>\n"
+                + "      <td>\n"
+                + "       <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">\n"
+                + "         <tr>\n"
+                + "          <td width=\"260\" valign=\"top\">\n"
+                + "           Confirmation Code:\n"
+                + "          </td>\n"
+                + "          <td style=\"font-size: 0; line-height: 0;\" width=\"20\">\n"
+                + "           &nbsp;\n"
+                + "          </td>\n"
+                + "          <td width=\"260\" valign=\"top\">\n"
+                + confirmationCode
+                + "          </td>\n"
+                + "         </tr>\n"
+                + "        </table>\n"
+                + "      </td>\n"
+                + "     </tr>\n"
+                + "     <tr>\n"
+                + "      <td>\n"
+                + "        <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">\n"
+                + "         <tr>\n"
+                + "          <td width=\"260\" valign=\"top\">\n"
+                + "           \n"
+                + "          </td>\n"
+                + "          <td style=\"font-size: 0; line-height: 0;\" width=\"20\">\n"
+                + "           &nbsp;\n"
+                + "          </td>\n"
+                + "          <td width=\"260\" valign=\"top\">\n"
+                //               + exp
+                + "          </td>\n"
+                + "         </tr>\n"
+                + "        </table>\n"
+                + "      </td>\n"
+                + "     </tr>\n"
+                + "     <tr>\n"
+                + "     <tr>\n"
+                + "      <td>\n"
+                + "       <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">\n"
+                + "         <tr>\n"
+                + "          <td width=\"260\" valign=\"top\">\n"
+                + "           \n"
+                + "          </td>\n"
+                + "          <td style=\"font-size: 0; line-height: 0;\" width=\"20\">\n"
+                + "           &nbsp;\n"
+                + "          </td>\n"
+                + "          <td width=\"260\" valign=\"top\">\n"
+                //             + type
+                + "          </td>\n"
+                + "         </tr>\n"
+                + "        </table>\n"
+                + "      </td>\n"
+                + "     </tr>\n"
+                + "     <tr>\n"
+                + "      <td>\n"
+                + "       <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">\n"
+                + "         <tr>\n"
+                + "          <td width=\"260\" valign=\"top\">\n"
+                + "           \n"
+                + "          </td>\n"
+                + "          <td style=\"font-size: 0; line-height: 0;\" width=\"20\">\n"
+                + "           &nbsp;\n"
+                + "          </td>\n"
+                + "          <td width=\"260\" valign=\"top\">\n"
+                //               + accountID
+                + "          </td>\n"
+                + "         </tr>\n"
+                + "        </table>\n"
+                + "      </td>\n"
+                + "     </tr>\n"
+                + "        <tr>\n"
+                + "      <td>\n"
+                + "       \n"
+                + "      </td>\n"
+                + "     </tr>\n"
+                + "     <tr>\n"
+                + "        <tr>\n"
+                + "      <td>\n"
+                + "       <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">\n"
+                + "         <tr>\n"
+                + "          <td width=\"260\" valign=\"top\"><br>\n"
+                + "           \n"
+                + "          </td>\n"
+                + "          <td style=\"font-size: 0; line-height: 0;\" width=\"20\">\n"
+                + "           &nbsp;\n"
+                + "          </td>\n"
+                + "          <td width=\"260\" valign=\"top\"><br>\n"
+                //                + code
+                + "          </td>\n"
+                + "         </tr>\n"
+                + "        </table>\n"
+                + "      </td>\n"
+                + "     </tr>\n"
+                + "    </table>\n"
+                + "   </td>\n"
+                + "  </tr>\n"
+                + " </table>\n"
+                + "</body>\n"
+                + "</html>";
+        return msg;
     }
 }
