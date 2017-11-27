@@ -1,4 +1,14 @@
 <!DOCTYPE html>
+
+<%@page import="java.util.List"%>
+<%@page import="entity.User"%>
+<%@page import="entity.UserDAO"%>
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.Statement"%>
+<%@page import="java.sql.Connection"%>
+<%@page import="services.DatabaseUtility"%>
+
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -63,13 +73,30 @@
 
     <div id="main">
             <div>
+
+<%
+    String userID = (String) session.getAttribute("userID");
+    
+    UserDAO db = new UserDAO();
+    User user = db.getUser(userID, "u");
+    
+%>
+
+<tr>  
+
                 <form class="pure-form">
                     <fieldset class="pure-group">
-                        <input type="text" class="pure-input-1" placeholder="First Name" name="firstName">
-                        <input type="text" class="pure-input-1" placeholder="Last Name" name="firstName">
+                        <input type="text" class="pure-input-1" placeholder=<%=user.getFN() %> name="firstName">
+                        <input type="text" class="pure-input-1" placeholder=<%=user.getLN()%> name="firstName">
                         <button type="submit" class="pure-button login pure-input-1 pure-button-primary">Update</button>
                     </fieldset>
                 </form>
+    
+</tr>
+
+
+                
+
             </div>
 
     </div>
