@@ -25,7 +25,8 @@ public class TransactionDAO {
         Connection con = null;
         Statement state = null;
         DatabaseUtility db = new DatabaseUtility();
-        try {
+        if(!tr.getPromoID().equals("0.0")){
+           try {
             //register the driver
             Class.forName(db.getDriver());
             //connect to the database
@@ -43,7 +44,28 @@ public class TransactionDAO {
             exception.printStackTrace();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Registration.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        }else{
+            try {
+            //register the driver
+            Class.forName(db.getDriver());
+            //connect to the database
+            con = DriverManager.getConnection(db.getURL(), db.getUser(), db.getPass());
+            //generate sql statement
+            state = con.createStatement();
+            String sql = "INSERT INTO transactions (orderID, isbn, qty, total) VALUES (\""
+                    + tr.getOrderID() + "\", \""//orderID
+                    + tr.getISBN() + "\", \""//isbn
+                    + tr.getQTY() + "\", \""//qty
+                    + tr.getTotal() + "\")";//total
+            state.executeUpdate(sql);
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Registration.class.getName()).log(Level.SEVERE, null, ex);
         }
+        }
+        
     }
     
 }

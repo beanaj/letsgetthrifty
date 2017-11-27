@@ -9,10 +9,14 @@ import entity.Book;
 import entity.BookDAO;
 import entity.CartDAO;
 import entity.CartObject;
+import entity.Order;
 import entity.OrderDAO;
 import entity.Transaction;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.concurrent.ThreadLocalRandom;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
@@ -63,8 +67,6 @@ public class PlaceOrder extends HttpServlet {
         if (value != null) {
             useBill = true;
         }
-
-        System.out.println(useShip + " " + usePay + " " + useBill);
         //shipping information
         String shippingStreet = request.getParameter("street");
         String shippingCity = request.getParameter("city");
@@ -110,8 +112,6 @@ public class PlaceOrder extends HttpServlet {
             Book book = new Book(cartContents[i].isbn);
             int quantityInStock = book.getQtyInStock();
             int quantityInOrder = cartContents[i].quantity;
-            System.out.println("Stock: " + quantityInStock);
-            System.out.println("Order: " + quantityInOrder);
             if (quantityInStock < quantityInOrder) {
                 inStock[i] = false;
                 outOfStock = true;
@@ -145,6 +145,11 @@ public class PlaceOrder extends HttpServlet {
                 db.removeFromCart(book.getISBN(), userID);
             }
         }
+        
+        //get current time
+        String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
+        Order order = new Order(orderID, 1, "oStat", timeStamp, "sAdd", "bAdd", "pay", "conf", userID, "orderT", "cCard");
+        order.addOrder();
         //transaction record has several fields
         //orderID, isbn, qty, promoID, total
         //3.) add a transaction record for the book and tag the orderID
@@ -158,8 +163,15 @@ public class PlaceOrder extends HttpServlet {
                 info[1] = book.getISBN();
                 info[2] = ""+cartContents[i].quantity;
                 info[3] = ""+db.getCartPromo(userID);
-                Double price = (book.getSellPrice()*cartContents[i].quantity)*discount;
+                Double price = 0.0; 
+                if(discount>0){
+                    price = (book.getSellPrice()*cartContents[i].quantity)*discount;
+                }else{
+                    price = (book.getSellPrice()*cartContents[i].quantity);
+                }
+                System.out.println("Price: "+price);
                 price = Math.floor(price * 100) / 100;
+                System.out.println("Price: "+price);
                 info[4] = ""+price;
                 Transaction tr = new Transaction(info);
                 tr.addToDatabase();

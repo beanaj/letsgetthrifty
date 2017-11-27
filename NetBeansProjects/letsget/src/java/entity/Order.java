@@ -17,13 +17,13 @@ public class Order {
     private String shippingAdd;
     private String billingAdd;
     private String paymentMethod;
-    private int confNum;
+    private String confNum;
     private String userID;
     private String orderTotal;
     private String cCardID;
     
     //Constructor:
-    public Order(int oID, int sAID, String oStat, String oDate, String sAdd, String bAdd, String pay, int conf, String user, String orderT, String cCard) {
+    public Order(int oID, int sAID, String oStat, String oDate, String sAdd, String bAdd, String pay, String conf, String user, String orderT, String cCard) {
         this.orderID = oID;
         this.shippingAgencyID = sAID;
         this.orderStatus = oStat;
@@ -83,10 +83,10 @@ public class Order {
     public String getPaymentMethod() {
         return this.paymentMethod;
     }
-    public void setConfirmationNumber(int cNum) {
+    public void setConfirmationNumber(String cNum) {
         this.confNum = cNum;
     }
-    public int getConfirmationNumber() {
+    public String getConfirmationNumber() {
         return this.confNum;
     }
     public void setUserID(String uID) {

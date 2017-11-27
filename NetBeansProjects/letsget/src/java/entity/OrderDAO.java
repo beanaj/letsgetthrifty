@@ -46,7 +46,7 @@ public class OrderDAO {
                 order.setShippingAddress(rs.getString("shippingAddress"));
                 order.setBillingAddress(rs.getString("billingAdress"));
                 order.setPaymentMethod(rs.getString("paymentMethod"));
-                order.setConfirmationNumber(rs.getInt("confirmationNumber"));
+                order.setConfirmationNumber(rs.getString("confirmationNumber"));
                 order.setUserID(rs.getString("userID"));
                 order.setOrderTotal(rs.getString("orderTotal"));
                 order.setCreditCardID(rs.getString("creditCardID"));
@@ -76,7 +76,7 @@ public class OrderDAO {
             stat.setString(5, o.getShippingAddress());
             stat.setString(6, o.getBillingAddress());
             stat.setString(7, o.getPaymentMethod());
-            stat.setInt(8, o.getConfirmationNumber());
+            stat.setString(8, o.getConfirmationNumber());
             stat.setString(9, o.getUserID());
             stat.setString(10, o.getOrderTotal());
             stat.setString(11, o.getCreditCardID());

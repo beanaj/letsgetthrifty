@@ -149,7 +149,7 @@
                                                         quantity = cartContents[j].quantity;
                                                     }
                                                 }
-                                                double priceSingle = quantity * Double.parseDouble(resultSet.getString("buyPrice"));
+                                                double priceSingle = quantity * Double.parseDouble(resultSet.getString("sellPrice"));
                                                 totalPrice += priceSingle;
                                                 totalPrice = Math.floor(totalPrice * 100) / 100;
                                 %>
@@ -162,7 +162,7 @@
                                         <%=resultSet.getString("title")%>
                                         <div class="spacer"><h1></h1></div></td>
                                     <td>Qty: <%=quantity%></td>
-                                    <td>$<%=resultSet.getString("buyPrice")%></td>
+                                    <td>$<%=resultSet.getString("sellPrice")%></td>
 
                                 </tr>
 

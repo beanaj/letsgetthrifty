@@ -148,7 +148,7 @@
                                             quantity = cartContents[j].quantity;
                                         }
                                     }
-                                    double priceSingle = quantity * Double.parseDouble(resultSet.getString("buyPrice"));
+                                    double priceSingle = quantity * Double.parseDouble(resultSet.getString("sellPrice"));
                                     totalPrice += priceSingle;
                                     totalPrice = Math.floor(totalPrice * 100) / 100;
                     %>
@@ -164,12 +164,12 @@
                             <%=resultSet.getString("genre")%><br>
                             <%=resultSet.getString("rating")%>/5
                             <div class="spacer"><h1></h1></div></td>
-                        <td><h4>$<%=resultSet.getString("buyPrice")%></h4></td>
+                        <td><h4>$<%=resultSet.getString("sellPrice")%></h4></td>
                         <td>
                             <br>
                             <form class="pure-form" method = "post" action = "cartmanager">
                                 <input type="hidden" name="isbn" value=<%=primaryKey%>>
-                                <input type="hidden" name="price" value=<%=resultSet.getString("buyPrice")%>>
+                                <input type="hidden" name="price" value=<%=resultSet.getString("sellPrice")%>>
                                 <input type="hidden" name="update" value="true">
                                 <input type="text" name="quantity" value=<%=quantity%>>
                                 <button type="submit" class="pure-button">UPDATE</button>

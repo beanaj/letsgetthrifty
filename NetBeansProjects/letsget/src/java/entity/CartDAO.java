@@ -169,7 +169,6 @@ public class CartDAO {
             //generate sql statement
             state = con.createStatement();
             String sql = "DELETE FROM carts WHERE userID = '" + userID + "' AND isbn = '" + isbn + "'";
-            System.out.println(sql);
             state.execute(sql);
 
         } catch (SQLException exception) {
