@@ -31,19 +31,22 @@ e.printStackTrace();
     switch (type) {
         case "book":
             String item = request.getParameter("deleteid");
-            preparedStatement = connection.prepareStatement("delete from books where isbn=" + item);
+            preparedStatement = connection.prepareStatement("delete from books where isbn = ?");
+            preparedStatement.setString(1, item);
             preparedStatement.execute();
             response.sendRedirect("adminInventory.jsp");
             break;
         case "agency":
             int itemB = Integer.parseInt(request.getParameter("deleteid"));
-            preparedStatement = connection.prepareStatement("delete from shippingagencies where shippingAgencyID=" + itemB);
+            preparedStatement = connection.prepareStatement("delete from shippingagencies where shippingAgencyID = ?");
+            preparedStatement.setInt(1, itemB);
             preparedStatement.execute();
             response.sendRedirect("adminAgencies.jsp");
             break;
         case "promotion":
             int itemC = Integer.parseInt(request.getParameter("deleteid"));
-            preparedStatement = connection.prepareStatement("delete from promotions where promoID=" + itemC);
+            preparedStatement = connection.prepareStatement("delete from promotions where promoID = ?");
+            preparedStatement.setInt(1, itemC);
             preparedStatement.execute();
             response.sendRedirect("adminPromotions.jsp");
             break;

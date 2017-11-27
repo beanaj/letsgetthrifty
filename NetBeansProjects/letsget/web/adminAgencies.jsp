@@ -121,7 +121,7 @@ for (int i = 0; i < agencyList.size(); i++) {
 %>
 
 <!--Add Agency row:-->
-<form name="addAgencyButton" method="post" action="agency">
+<form name="addAgencyForm" method="post" action="agency" onsubmit="return validateAddAgency()">
 <tr>
     <td><input type="text" name="new_shippingAgencyID" required></td>
     <td><input type="text" name="new_agencyName" required></td>
@@ -157,6 +157,7 @@ for (int i = 0; i < agencyList.size(); i++) {
 
 
 <script src="scripts/admin.js"></script>
+<script src="scripts/adminAgencyValidation.js"></script>
 
 
     </body>
