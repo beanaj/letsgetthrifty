@@ -126,8 +126,8 @@ for (int i = 0; i < agencyList.size(); i++) {
     <td><input type="text" name="new_shippingAgencyID" onkeyup="checkID(this)" onclick="checkID(this)" onchange="checkID(this)" required></td>
     <td><input type="text" name="new_agencyName" onkeyup="checkName(this)" onclick="checkName(this)" onchange="checkName(this)" required></td>
     <td><input type="text" name="new_phone" onkeyup="checkPhone(this)" onclick="checkPhone(this)" onchange="checkPhone(this)" required></td>
-    <td><input type="text" name="new_contactName" required></td>
-    <td><input type="text" name="new_contactPhone" required></td>
+    <td><input type="text" name="new_contactName" onkeyup="checkName(this)" onclick="checkName(this)" onchange="checkName(this)" required></td>
+    <td><input type="text" name="new_contactPhone" onkeyup="checkPhone(this)" onclick="checkPhone(this)" onchange="checkPhone(this)" required></td>
     <td><input name="addUpdate" type="submit" value="Add Agency"></td>
 </tr>
 </form>
@@ -135,11 +135,11 @@ for (int i = 0; i < agencyList.size(); i++) {
 <!--Update Agency Row:-->
 <form name="addAgencyButton" method="post" action="agency">
     <tr>
-    <td><input type="text" name="new_shippingAgencyID" required></td>
-    <td><input type="text" name="new_agencyName"></td>
-    <td><input type="text" name="new_phone"></td>
-    <td><input type="text" name="new_contactName"></td>
-    <td><input type="text" name="new_contactPhone"></td>
+    <td><input type="text" name="new_shippingAgencyID" onkeyup="checkID(this)" onclick="checkID(this)" onchange="checkID(this)" required></td>
+    <td><input type="text" name="new_agencyName" onkeyup="checkName(this)" onclick="checkName(this)" onchange="checkName(this)"></td>
+    <td><input type="text" name="new_phone" onkeyup="checkPhone(this)" onclick="checkPhone(this)" onchange="checkPhone(this)"></td>
+    <td><input type="text" name="new_contactName" onkeyup="checkName(this)" onclick="checkName(this)" onchange="checkName(this)"></td>
+    <td><input type="text" name="new_contactPhone" onkeyup="checkPhone(this)" onclick="checkPhone(this)" onchange="checkPhone(this)"></td>
     <td><input name="addUpdate" type="submit" value="Update Agency"></td>
     </tr>
 </form>
