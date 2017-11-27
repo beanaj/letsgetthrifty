@@ -10,6 +10,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -58,6 +59,38 @@ public class OrderDAO {
         return orders;
     }
 
+    public void updateOrder(Order o, int orderID) {
+        //Set up database connection:
+        Connection con = null;
+        PreparedStatement stat = null;
+        DatabaseUtility db = new DatabaseUtility();
+        try {
+            Class.forName(db.getDriver());
+            con = DriverManager.getConnection(db.getURL(), db.getUser(), db.getPass());
+            String sql = "UPDATE orders SET "
+                    + "shippingAgencyID = '" + o.getShippingAgencyID() + "', "
+                    + "orderStatus = '" + o.getOrderStatus() + "', "
+                    + "orderDate = '" + o.getOrderDate() + "', "
+                    + "shippingAddress = '" + o.getShippingAddress() + "', "
+                    + "billingAdress = '" + o.getBillingAddress() + "', "
+                    + "paymentMethod = '" + o.getPaymentMethod()+ "', "
+                    + "confirmationNumber = '" + o.getConfirmationNumber() + "', "
+                    + "userID = '" + o.getUserID() + "', "
+                    + "orderTotal = '" + o.getOrderTotal() + "', "
+                    + "creditCardID = '" + o.getCreditCardID() + "' "
+                    + "WHERE orderID = '" + orderID + "'";
+            System.out.println(sql);
+            stat = con.prepareStatement(sql);
+            stat.executeUpdate();
+            con.close();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+
     //Add a book to the database
     public void addOrder(Order o) {
         //Set up database connection:
@@ -81,6 +114,7 @@ public class OrderDAO {
             stat.setString(10, o.getOrderTotal());
             stat.setString(11, o.getCreditCardID());
             stat.execute();
+            conn.close();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
@@ -88,8 +122,8 @@ public class OrderDAO {
         }
     }
 
-    public boolean checkIDValidity(int orderID){
-        boolean orderFound =false;
+    public boolean checkIDValidity(int orderID) {
+        boolean orderFound = false;
         DatabaseUtility db = new DatabaseUtility();
         try {
             Class.forName(db.getDriver());
@@ -99,15 +133,15 @@ public class OrderDAO {
 
         try (
                 Connection connection = DriverManager.getConnection(db.getURL(), db.getUser(), db.getPass());
-                PreparedStatement statement = connection.prepareStatement("SELECT * FROM orders WHERE orderID = '"+orderID+"'");
+                PreparedStatement statement = connection.prepareStatement("SELECT * FROM orders WHERE orderID = '" + orderID + "'");
                 ResultSet rs = statement.executeQuery();) {
             while (rs.next()) {
                 Order order = new Order();
                 order.setOrderID(rs.getInt("orderID"));
                 System.out.println("In resulst loop");
-                orderFound=true;
+                orderFound = true;
             }
-
+            connection.close();
         } catch (SQLException ex) {
             Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -56,7 +56,7 @@ public class BookDAO {
                 book.setSupplierID(rs.getInt("supplierID"));
                 book.setTitle(rs.getString("title"));
             }
-        
+            connection.close();
         } catch (SQLException ex) {
             Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -98,7 +98,7 @@ public class BookDAO {
                 
                 books.add(book);
             }
-        
+            connection.close();
         }
         return books;
     }
@@ -129,6 +129,7 @@ public class BookDAO {
             stat.setDouble(13, b.getSellPrice());
             stat.setInt(14, b.getSupplierID());
             stat.execute();
+            conn.close();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
@@ -236,7 +237,7 @@ public class BookDAO {
                 stat.setString(2, is);
                 stat.executeUpdate();
             }
-            
+            conn.close();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {

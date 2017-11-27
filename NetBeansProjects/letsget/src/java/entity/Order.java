@@ -48,7 +48,7 @@ public class Order {
         return this.orderID;
     }
     public void setShippingAgencyID(int sAID) {
-        this.orderID = sAID;
+        this.shippingAgencyID = sAID;
     }
     public int getShippingAgencyID() {
         return this.shippingAgencyID;

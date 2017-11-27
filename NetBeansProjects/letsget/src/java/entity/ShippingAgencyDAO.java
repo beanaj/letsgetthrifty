@@ -46,6 +46,7 @@ public class ShippingAgencyDAO {
                 agency.setContactPhone(rs.getString("contactPhone"));
                 agencies.add(agency);
             }
+            connection.close();
         
         }
         return agencies;
@@ -68,6 +69,7 @@ public class ShippingAgencyDAO {
             stat.setString(4, a.getContactName());
             stat.setString(5, a.getContactPhone());
             stat.execute();
+            conn.close();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
@@ -114,6 +116,7 @@ public class ShippingAgencyDAO {
                 stat.setInt(2, saID);
                 stat.executeUpdate();
             }
+            conn.close();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {

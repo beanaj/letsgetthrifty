@@ -20,8 +20,8 @@ import services.Registration;
  * @author andrewjacobsen
  */
 public class PaymentDAO {
-    
-    public Payment getPaymentByID(String payID){
+
+    public Payment getPaymentByID(String payID) {
         Payment pay = new Payment();
         Connection con = null;
         Statement state = null;
@@ -35,7 +35,7 @@ public class PaymentDAO {
             //generate sql statement
             state = con.createStatement();
             String sql = "SELECT * FROM creditcards WHERE creditCardID = '" + payID + "'";
-            
+
             result = state.executeQuery(sql);
             while (result.next()) {
                 pay.creditCardID = result.getString("creditCardID");
@@ -44,6 +44,7 @@ public class PaymentDAO {
                 pay.creditCardType = result.getString("creditCardType");
                 pay.expirationDate = result.getString("expirationDate");
             }
+            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException ex) {
@@ -51,8 +52,8 @@ public class PaymentDAO {
         }
         return pay;
     }
-    
-    public void addPayment(Payment pay){
+
+    public void addPayment(Payment pay) {
         //insert user payment information into databse
         Connection con = null;
         Statement state = null;
@@ -60,22 +61,22 @@ public class PaymentDAO {
         try {
             String expiration = pay.getExp();
             //remove anything but numbers from the payment
-            
+
             //register the driver
             Class.forName(db.getDriver());
             //connect to the database
             con = DriverManager.getConnection(db.getURL(), db.getUser(), db.getPass());
             //generate sql statement
             state = con.createStatement();
-            expiration = expiration.substring(0,2)+"/01"+expiration.substring(2);
+            expiration = expiration.substring(0, 2) + "/01" + expiration.substring(2);
             String sql = "INSERT INTO creditcards (creditCardID, userID, creditCardNumber, creditCardType, expirationDate) VALUES (\""
-                    + pay.getCCID()+ "\", \""//creditCardID
+                    + pay.getCCID() + "\", \""//creditCardID
                     + pay.getUserID() + "\", \""//userID
                     + pay.getNum() + "\", \""//creditcardnumber
                     + pay.getType() + "\", \""//creditcardtype
                     + expiration + "\")";//expiration
             state.executeUpdate(sql);
-
+            con.close();
         } catch (SQLException exception) {
             exception.printStackTrace();
         } catch (ClassNotFoundException ex) {
@@ -83,5 +84,4 @@ public class PaymentDAO {
         }
     }
 
-    
 }

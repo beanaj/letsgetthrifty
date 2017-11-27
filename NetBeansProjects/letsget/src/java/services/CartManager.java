@@ -86,6 +86,7 @@ public class CartManager extends HttpServlet {
                         + price + "\")";//price
                 state.executeUpdate(sql);
             }
+            con.close();
         } catch (SQLException exception) {
             exception.printStackTrace();
         } catch (ClassNotFoundException ex) {

@@ -21,38 +21,37 @@ import services.DatabaseUtility;
  * @author Addison
  */
 public class PromotionDAO {
-        public List<Promotion> list() throws SQLException {
+
+    public List<Promotion> list() throws SQLException {
         DatabaseUtility db = new DatabaseUtility();
-        
+
         List<Promotion> promotions = new ArrayList<Promotion>();
-        
+
         try {
             Class.forName(db.getDriver());
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        
+
         try (
-            Connection connection = DriverManager.getConnection(db.getURL(), db.getUser(), db.getPass());
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM promotions");
-            ResultSet rs = statement.executeQuery();
-                ) {
+                Connection connection = DriverManager.getConnection(db.getURL(), db.getUser(), db.getPass());
+                PreparedStatement statement = connection.prepareStatement("SELECT * FROM promotions");
+                ResultSet rs = statement.executeQuery();) {
             while (rs.next()) {
                 Promotion promo = new Promotion();
                 promo.setPromoID(rs.getInt("promoID"));
                 promo.setPromoName(rs.getString("promoName"));
                 promo.setPercentage(rs.getDouble("percentage"));
                 promo.setExpiration(rs.getString("expiration"));
-                
+
                 promotions.add(promo);
             }
-        
+            connection.close();
         }
         return promotions;
     }
-        
-        
-        public void addPromo(Promotion p) {
+
+    public void addPromo(Promotion p) {
         //Set up database connection:
         Connection conn = null;
         PreparedStatement stat = null;
@@ -66,25 +65,26 @@ public class PromotionDAO {
             stat.setString(2, p.getPromoName());
             stat.setDouble(3, p.getPercentage());
             stat.setString(4, p.getExpiration());
-            
+
             stat.execute();
+            conn.close();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-        
-        public void updatePromotion(int pID, String name, double perc, String exp) {
-            //Set up database connection:
+
+    public void updatePromotion(int pID, String name, double perc, String exp) {
+        //Set up database connection:
         Connection conn = null;
         PreparedStatement stat = null;
         DatabaseUtility db = new DatabaseUtility();
-        
+
         try {
             Class.forName(db.getDriver());
             conn = DriverManager.getConnection(db.getURL(), db.getUser(), db.getPass());
-            
+
             if (!name.isEmpty()) {
                 String query = "UPDATE promotions SET promoName = ? WHERE promoID = ?";
                 stat = conn.prepareStatement(query);
@@ -106,10 +106,11 @@ public class PromotionDAO {
                 stat.setInt(2, pID);
                 stat.executeUpdate();
             }
+            conn.close();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        }
+    }
 }

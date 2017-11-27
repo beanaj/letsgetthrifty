@@ -44,6 +44,7 @@ public class CartDAO {
             while (result.next()) {
                 promoID = result.getString("promoID");
             }
+            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException ex) {
@@ -72,6 +73,7 @@ public class CartDAO {
             while (result.next()) {
                 promoID = result.getString("promoID");
             }
+            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException ex) {
@@ -91,6 +93,7 @@ public class CartDAO {
                 while (result.next()) {
                     percent = result.getString("percentage");
                 }
+                con.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             } catch (ClassNotFoundException ex) {
@@ -122,6 +125,7 @@ public class CartDAO {
                 book.quantity = Integer.parseInt(result.getString("qty"));
                 cl.add(book);
             }
+            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException ex) {
@@ -170,7 +174,7 @@ public class CartDAO {
             state = con.createStatement();
             String sql = "DELETE FROM carts WHERE userID = '" + userID + "' AND isbn = '" + isbn + "'";
             state.execute(sql);
-
+            con.close();
         } catch (SQLException exception) {
             exception.printStackTrace();
         } catch (ClassNotFoundException ex) {

@@ -54,7 +54,7 @@ public class UserDAO {
                     + user.getCode() + "\", \""//confirmationcode
                     + 0 + "\")";//active
             state.executeUpdate(sql);
-
+            con.close();
         } catch (SQLException exception) {
             exception.printStackTrace();
         } catch (ClassNotFoundException ex) {
@@ -132,7 +132,7 @@ public class UserDAO {
             user.setHash(hash);
             user.setCode(orderConfirmationCode);
             user.setActive(active);
-            
+            con.close();
         } catch (SQLException exception) {
             exception.printStackTrace();
         } catch (ClassNotFoundException ex) {
@@ -166,7 +166,7 @@ public class UserDAO {
             } else{
                 found = true;
             }
-            
+            con.close();
         } catch (SQLException exception) {
             System.out.println("not found");
             found = false;
@@ -205,6 +205,7 @@ public class UserDAO {
             }else{
                 found = false;
             }
+            con.close();
         } catch (SQLException exception) {
             found = false;
         } 
@@ -243,6 +244,7 @@ public class UserDAO {
                 
                 users.add(user);
             }
+            connection.close();
         
         }
         return users;
@@ -307,6 +309,7 @@ public class UserDAO {
                 stat.setString(2, id);
                 stat.executeUpdate();
             }
+            conn.close();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {

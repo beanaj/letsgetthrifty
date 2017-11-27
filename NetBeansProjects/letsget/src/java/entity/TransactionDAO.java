@@ -7,6 +7,7 @@ package entity;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
@@ -40,6 +41,7 @@ public class TransactionDAO {
                     + tr.getPromoID() + "\", \""//promoID
                     + tr.getTotal() + "\")";//total
             state.executeUpdate(sql);
+            con.close();
         } catch (SQLException exception) {
             exception.printStackTrace();
         } catch (ClassNotFoundException ex) {
@@ -52,13 +54,15 @@ public class TransactionDAO {
             //connect to the database
             con = DriverManager.getConnection(db.getURL(), db.getUser(), db.getPass());
             //generate sql statement
-            state = con.createStatement();
+            PreparedStatement stat = null;
             String sql = "INSERT INTO transactions (orderID, isbn, qty, total) VALUES (\""
                     + tr.getOrderID() + "\", \""//orderID
                     + tr.getISBN() + "\", \""//isbn
                     + tr.getQTY() + "\", \""//qty
                     + tr.getTotal() + "\")";//total
-            state.executeUpdate(sql);
+            stat = con.prepareStatement(sql);
+            stat.executeUpdate();
+            con.close();
         } catch (SQLException exception) {
             exception.printStackTrace();
         } catch (ClassNotFoundException ex) {
