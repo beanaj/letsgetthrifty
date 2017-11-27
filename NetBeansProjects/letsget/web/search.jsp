@@ -84,97 +84,19 @@
         </div>
         <div class="pure-u-4-5">
             <div class="search"
-                <form class="pure-form" name="frm" method="post" action="search">
-                    <input class="searchbar" name ="input" type="search" placeholder="Search by Title, Author, Genre, or ISBN">
-                    <button type="submit" class="pure-button pure-button-primary">Search by: </button>
+                <form class="pure-form" action="SearchResult" method="post">
+                    <input class="searchbar" name ="input" placeholder="Search by Title, Author, Genre, or ISBN">
                     <select class="searchOption" name="option">
                         <option value="title">Title</option>
                         <option value="author">Author</option>
                         <option value="genre">Genre</option>
                         <option vlaue="ISBN">ISBN</option>
                     </select>
+                    <input type="submit" class="pure-button pure-button-primary" value="SHOW ME WHAT YOU GOT">
                 </form>
             </div>
-            <%
-//String driverName = "com.mysql.jdbc.Driver";
-//String connectionUrl = "letsgetthrifty-database.cgg5mwmrnbyi.us-east-1.rds.amazonaws.com:3306/";
-//String dbName = "letsget";
-//String userId = "admin";
-//String password = "password";
-                String driverName = "com.mysql.jdbc.Driver";
-                String connectionUrl = "jdbc:mysql://letsgetthrifty-database.cgg5mwmrnbyi.us-east-1.rds.amazonaws.com:3306/letsget?zeroDateTimeBehavior=convertToNull";
-                String dbName = "letsget";
-                String userId = "admin";
-                String password = "password";
-
-                try {
-                    Class.forName(driverName);
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
-
-                Connection connection = null;
-                Statement statement = null;
-                ResultSet resultSet = null;
-            %>
-
-            <table>
-                <tr>
-
-                </tr>
-
-                <%
-                    String searchInput = request.getParameter("input");
-                    String sql = "";
-                    if(request.getParameter("option") == "title"){
-                        sql = "SELECT * FROM books WHERE title = '"+searchInput+"'";
-                    }
-                    else if(request.getParameter("option") == "genre"){
-                        sql = "SELECT * FROM books WHERE genre = '"+searchInput+"'";
-                    }
-                    else if(request.getParameter("option") == "ISBN"){
-                        sql = "SELECT * FROM books WHERE isbn = '"+searchInput+"'";
-                    }
-                    else if(request.getParameter("option") == "author"){
-                        
-                        
-                        sql = "SELECT * FROM books WHERE author = '"+searchInput+"'";
-                    }
-                    try {
-                        connection = DriverManager.getConnection(connectionUrl, userId, password);
-                        statement = connection.createStatement();
-                        resultSet = statement.executeQuery(sql);
-                        //.for (int i = 0; i < 15; i++) {
-                            while(resultSet.next()){
-                %>
-                <tr>  
-                    <%
-                        String primaryKey = resultSet.getString("isbn");
-                        String pic = resultSet.getString("picture");
-                    %>
-                    <td><image src ="<%=pic%>" height="200" width=130"></td>    
-                    <td><h3><%=resultSet.getString("title")%></h3>
-                        <b><%=resultSet.getString("author")%></b><br><br>
-                        <%=resultSet.getString("genre")%><br>
-                        <%=resultSet.getString("rating")%>/5</td>
-                    <td><h4>$<%=resultSet.getString("buyPrice")%></h4><br>
-                        <form class="pure-form" method = "post" action = "cartmanager">
-                            <input type="hidden" name="isbn" value=<%=primaryKey%>>
-                            <input type="hidden" name="price" value=<%=resultSet.getString("buyPrice")%>>
-                            <button type="submit" class="pure-button">ADD TO CART</button>
-                        </form>
-                </tr>
-
-                <%
-                        }
-                        connection.close();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                %>
-            </table>       
-            <!--END OF TABLE-->
         </div>
+           
         <script src="scripts/homepage.js"></script>
     </body>
 </html>
