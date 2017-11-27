@@ -4,6 +4,8 @@
     Author     : Addison
 --%>
 
+<%@page import="entity.Order"%>
+<%@page import="entity.OrderDAO"%>
 <%@page import="java.util.List"%>
 <%@page import="java.sql.Connection"%>
 <%@page import="java.sql.DriverManager"%>
@@ -76,6 +78,7 @@
 <tr>  
     <td><b>Order ID</b></td>
     <td><b>Shipping Agency ID</b></td>
+    <td><b>Update Order Status</b></td>
     <td><b>Order Status</b></td>
     <td><b>Order Date</b></td>
     <td><b>Shipping Address</b></td>
@@ -88,37 +91,48 @@
 </tr>
 
 <%
-//Create a BookDAO Object to access a list of the books
-BookDAO db = new BookDAO();
-List<Book> bookList = db.list();
+//Create a OrderDAO Object to access a list of the orders
+OrderDAO db = new OrderDAO();
+List<Order> orderList = db.list();
 
 //Loop through the book list and put the books in a table:
-for (int i = 0; i < bookList.size(); i++) {
+for (int i = 0; i < orderList.size(); i++) {
 %>
 
  
     <%
-        String primaryKey = bookList.get(i).getISBN();
-        String deleteType = "book";
+        int primaryKey = orderList.get(i).getOrderID();
+        String deleteType = "order";
     %>
 <tr> 
-    <td><%=bookList.get(i).getISBN() %></td>
-    <td><%=bookList.get(i).getGenre() %></td>
-    <td><%=bookList.get(i).getAuthor() %></td>
-    <td><%=bookList.get(i).getTitle() %></td>
-    <td><%=bookList.get(i).getRating() %></td>
-    <td><%=bookList.get(i).getPicture() %></td>
-    <td><%=bookList.get(i).getEdition() %></td>
-    <td><%=bookList.get(i).getPublisher() %></td>
-    <td><%=bookList.get(i).getPublicationYear() %></td>
-    <td><%=bookList.get(i).getQtyInStock()%></td>
-    <td><%=bookList.get(i).getMinThreshold()%></td>
-    <td><%=bookList.get(i).getBuyPrice() %></td>
-    <td><%=bookList.get(i).getSellPrice() %></td>
-    <td><%=bookList.get(i).getSupplierID()%></td>
+    <form name="updateOrder" method="post" action="order">
+    <td><%=orderList.get(i).getOrderID()%></td>
+    <td><%=orderList.get(i).getShippingAgencyID()%></td> 
+    <td ALIGN="center">
+       <select name="orderStatus">        
+            <option value="ordered">Ordered</option>
+            <option value="preparing for shipment">Preparing For Shipment</option>
+            <option value="shipped">Shipped</option>
+            <option value="delivered">Delivered</option>
+       </select>
+    </td>      
+    <td><%=orderList.get(i).getOrderStatus()%></td>
+    <td><%=orderList.get(i).getOrderDate()%></td>
+    <td><%=orderList.get(i).getShippingAddress()%></td>
+    <td><%=orderList.get(i).getBillingAddress()%></td>
+    <td><%=orderList.get(i).getPaymentMethod()%></td>
+    <td><%=orderList.get(i).getConfirmationNumber()%></td>
+    <td><%=orderList.get(i).getUserID()%></td>
+    <td><%=orderList.get(i).getOrderTotal()%></td>
+    <td><%=orderList.get(i).getCreditCardID()%></td>
     <td>
-        <a href="deleteBook.jsp?deleteid=<%=primaryKey%>&type=<%=deleteType%>">Delete</a>
+        <!--Update Order Status:-->
+        
+            <input  type="hidden" name="orderID" value=<%=primaryKey%>>
+            <input name="update" type="submit" value="Update Status">
+        
     </td>
+    </form>
 </tr>
 
 <% 

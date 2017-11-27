@@ -147,4 +147,28 @@ public class OrderDAO {
         }
         return orderFound;
     }
+    
+    public void updateOrderStatus(String ordID, String orderStat) {
+        Connection conn = null;
+        PreparedStatement stat = null;
+        DatabaseUtility db = new DatabaseUtility();
+        System.out.println(ordID);
+        System.out.println(orderStat);
+        try {
+            Class.forName(db.getDriver());
+            conn = DriverManager.getConnection(db.getURL(), db.getUser(), db.getPass());
+            
+            if (!orderStat.isEmpty()) {
+                String query = "UPDATE orders SET orderStatus = ? WHERE orderID = ?";
+                stat = conn.prepareStatement(query);
+                stat.setString(1, orderStat);
+                stat.setString(2, ordID);
+                stat.executeUpdate();  
+            } 
+            
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
 }

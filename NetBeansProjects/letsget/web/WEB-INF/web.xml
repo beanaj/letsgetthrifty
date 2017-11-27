@@ -44,6 +44,10 @@
         <servlet-name>PlaceOrder</servlet-name>
         <servlet-class>services.PlaceOrder</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>OrderTable</servlet-name>
+        <servlet-class>services.OrderTable</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Registration</servlet-name>
         <url-pattern>/registered</url-pattern>
@@ -87,6 +91,10 @@
     <servlet-mapping>
         <servlet-name>PlaceOrder</servlet-name>
         <url-pattern>/placeorder</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrderTable</servlet-name>
+        <url-pattern>/order</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
