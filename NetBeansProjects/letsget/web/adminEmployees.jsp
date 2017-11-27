@@ -131,10 +131,10 @@ for (int i = 0; i < userList.size(); i++) {
     <td><input type="text" name="new_firstName" onkeyup="checkName(this)" onclick="checkName(this)" onchange="checkName(this)"></td>
     <td><input type="text" name="new_lastName" onkeyup="checkName(this)" onclick="checkName(this)" onchange="checkName(this)"></td>
     <td><input type="text" name="new_phone" onkeyup="checkPhone(this)" onclick="checkPhone(this)" onchange="checkPhone(this)"></td>
-    <td><input type="text" name="new_email" onkeyup="checkEmail(this)" onclick="checkEmail(this)" onchange="checkEmail(this)"></td>
-    <td><input type="text" name="new_userType"></td>
-    <td><input type="text" name="new_orderConfirmationCode"></td>
-    <td><input type="text" name="new_active"></td>
+    <td><input type="text" name="new_email" onkeyup= "checkEmail(this)" onclick="checkEmail(this)" onchange="checkEmail(this)"></td>
+    <td><input type="text" name="new_userType" onkeyup= "checkType(this)" onclick="checkType(this)" onchange="checkType(this)"></td>
+    <td><input type="text" name="new_orderConfirmationCode" onkeyup="checkCode(this)" onclick="checkCode(this)" onchange="checkCode(this)"></td>
+    <td><input type="text" name="new_active" onkeyup="checkActive(this)" onclick="checkActive(this)" onchange="checkActive(this)"></td>
     <input type="hidden" name = "tableType" value="employee">
     <td><input name="addUpdate" type="submit" value="Update User"></td>
     </tr>
