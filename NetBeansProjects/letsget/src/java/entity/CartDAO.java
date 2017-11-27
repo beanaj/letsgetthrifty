@@ -50,10 +50,11 @@ public class CartDAO {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Registration.class.getName()).log(Level.SEVERE, null, ex);
         }
+        System.out.println(promoID);
         return promoID;
     }
 
-    public double getCartPromo(String userID) {
+    public double getCartPromoDiscount(String userID) {
         double discount = 0.0;
         String promoID = null;
         //get promoID
@@ -102,6 +103,39 @@ public class CartDAO {
             discount = Double.parseDouble(percent);
         }
         return discount;
+    }
+    
+    public String getCartPromoID(String userID) {
+        String promoID = null;
+        //get promoID
+        Connection con = null;
+        Statement state = null;
+        ResultSet result = null;
+        DatabaseUtility db = new DatabaseUtility();
+        try {
+            //register the driver
+            Class.forName(db.getDriver());
+            //connect to the database
+            con = DriverManager.getConnection(db.getURL(), db.getUser(), db.getPass());
+            //generate sql statement
+            state = con.createStatement();
+            String sql = "SELECT * FROM carts WHERE userID = '" + userID + "'";
+            result = state.executeQuery(sql);
+            while (result.next()) {
+                promoID = result.getString("promoID");
+            }
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Registration.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        String percent = "";
+        if (promoID!=null) {
+            return promoID;
+        }else{
+            return null;
+        }
     }
 
     public CartObject[] getCartContents(String userID) {

@@ -12,6 +12,7 @@ import entity.CartObject;
 import entity.Order;
 import entity.OrderDAO;
 import entity.Transaction;
+import entity.TransactionDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
@@ -80,7 +81,7 @@ public class PlaceOrder extends HttpServlet {
         String billingZip = request.getParameter("bzip");
 
         CartDAO cartDB = new CartDAO();
-        Double discount = cartDB.getCartPromo(userID);
+        Double discount = cartDB.getCartPromoDiscount(userID);
         String promoCode = "";
         if (discount > 0) {
             promoCode = cartDB.getCartPromoCode(userID);
@@ -139,10 +140,12 @@ public class PlaceOrder extends HttpServlet {
             }
         }
         //remove the books from the cart
+        //fetch the promoid first 
+        CartDAO db = new CartDAO();
+        String promoID = db.getCartPromoCode(userID);
         for (int i = 0; i < cartContents.length; i++) {
             if (inStock[i] == true) {
                 Book book = new Book(cartContents[i].isbn);
-                CartDAO db = new CartDAO();
                 db.removeFromCart(book.getISBN(), userID);
             }
         }
@@ -157,16 +160,15 @@ public class PlaceOrder extends HttpServlet {
         for (int i = 0; i < cartContents.length; i++) {
             if (inStock[i] == true) {
                 Book book = new Book(cartContents[i].isbn);
-                CartDAO db = new CartDAO();
                 db.removeFromCart(book.getISBN(), userID);
                 String[] info = new String[5];
                 info[0] = "" + orderID;
                 info[1] = book.getISBN();
                 info[2] = "" + cartContents[i].quantity;
-                info[3] = "" + db.getCartPromo(userID);
+                info[3] = promoID;
                 Double price = 0.0;
                 if (discount > 0) {
-                    price = (book.getSellPrice() * cartContents[i].quantity) * discount;
+                    price = (book.getSellPrice() * cartContents[i].quantity) * discount/100;
                 } else {
                     price = (book.getSellPrice() * cartContents[i].quantity);
                 }
@@ -211,7 +213,11 @@ public class PlaceOrder extends HttpServlet {
         //9. userID will be the current user
         order.setUserID(userID);
         //10 order total will be the sum of all of the order linked transactions, after the promo code has been applied
-        order.setOrderTotal("100.0");
+        TransactionDAO dbT = new TransactionDAO();
+        double total = dbT.getPrice(""+orderID);
+        total = total + total*.1;
+        total = Math.floor(total * 100) / 100;
+        order.setOrderTotal(""+total);
         //11 creditcardID if usePay is true, we will use the default user payment
         if (usePay) {
             String paymentID = "999" + userID.replaceAll("[^\\d]", "");
@@ -219,7 +225,7 @@ public class PlaceOrder extends HttpServlet {
         } else {
             
         }
-        OrderDAO db = new OrderDAO();
-        db.updateOrder(order, order.getOrderID());
+        OrderDAO dbO = new OrderDAO();
+        dbO.updateOrder(order, order.getOrderID());
     }
 }

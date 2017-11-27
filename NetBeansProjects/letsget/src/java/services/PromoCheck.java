@@ -67,6 +67,7 @@ public class PromoCheck extends HttpServlet {
             state = con.createStatement();
             String sql = "UPDATE carts SET promoID = '" + promoID + "' WHERE userID = '" + userID + "'";
             state.executeUpdate(sql);
+            con.close();
         } catch (SQLException exception) {
             exception.printStackTrace();
         } catch (ClassNotFoundException ex) {
@@ -92,6 +93,7 @@ public class PromoCheck extends HttpServlet {
             while (result.next()) {//check date too
                 found = result.getString("promoID");
             }
+            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException ex) {

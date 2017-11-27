@@ -8,6 +8,7 @@ package entity;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
@@ -21,12 +22,39 @@ import services.Registration;
  */
 public class TransactionDAO {
     
+    public double getPrice(String orderID){
+        double price = 0.0;
+        Connection con = null;
+        Statement state = null;
+        DatabaseUtility db = new DatabaseUtility();
+           try {
+            //register the driver
+            Class.forName(db.getDriver());
+            //connect to the database
+            con = DriverManager.getConnection(db.getURL(), db.getUser(), db.getPass());
+            //generate sql statement
+            state = con.createStatement();
+            String sql = "SELECT * FROM transactions WHERE orderID = '"+orderID+"'";
+            ResultSet result = null;
+            result = state.executeQuery(sql);
+            while (result.next()) {
+                price += Double.parseDouble(result.getString("total"));
+            }
+            con.close();
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Registration.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        return price;
+    }
+    
     public void add(Transaction tr){
         //insert transaction information into databse
         Connection con = null;
         Statement state = null;
         DatabaseUtility db = new DatabaseUtility();
-        if(!tr.getPromoID().equals("0.0")){
+        if(tr.getPromoID() != null && !tr.getPromoID().isEmpty()){
            try {
             //register the driver
             Class.forName(db.getDriver());

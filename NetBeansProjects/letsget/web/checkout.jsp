@@ -71,7 +71,7 @@
                 isbns += cartContents[i].isbn + ",";
             }
             Double totalPrice = 0.0;
-            Double discount = cartDB.getCartPromo(userID);
+            Double discount = cartDB.getCartPromoDiscount(userID);
             String discountFormat = "" + discount;
             discount = discount / 100;
         %>
