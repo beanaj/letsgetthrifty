@@ -1,4 +1,14 @@
 <!DOCTYPE html>
+
+<%@page import="java.util.List"%>
+<%@page import="entity.User"%>
+<%@page import="entity.UserDAO"%>
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.Statement"%>
+<%@page import="java.sql.Connection"%>
+<%@page import="services.DatabaseUtility"%>
+
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -65,12 +75,21 @@
 
     <div id="main">
             <div>
-                <form class="pure-form">
-                    <fieldset class="pure-group">
-                        <input type="text" class="pure-input-1" placeholder="Email Adress" name="email">
-                        <button type="submit" class="pure-button login pure-input-1 pure-button-primary">Update</button>
-                    </fieldset>
-                </form>
+<%
+    String userID = (String) session.getAttribute("userID");
+
+    UserDAO db = new UserDAO();
+    User user = db.getUser(userID, "u");
+    
+%>
+<form class="pure-form" name="updateEmail" method="post" action="MyAccountEmail">
+    <fieldset class="pure-group">
+        <input type="text" class="pure-input-1" placeholder="<%=user.getEmail()%>" name="email">
+        <input type="hidden" name="userID" value="<%=userID%>">
+        <input name="updateEmail" type="submit" class="pure-button login pure-input-1 pure-button-primary" value="Update">
+    </fieldset>
+</form>
+
             </div>
 
     </div>

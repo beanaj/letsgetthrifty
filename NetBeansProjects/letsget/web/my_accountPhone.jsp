@@ -1,3 +1,5 @@
+<%@page import="entity.User"%>
+<%@page import="entity.UserDAO"%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -66,12 +68,21 @@
     <div id="main">
 
             <div>
-                <form class="pure-form">
-                    <fieldset class="pure-group">
-                        <input type="text" class="pure-input-1" placeholder="Phone Number" name="phone">
-                        <button type="submit" class="pure-button login pure-input-1 pure-button-primary">Update</button>
-                    </fieldset>
-                </form>
+<%
+    String userID = (String) session.getAttribute("userID");
+
+    UserDAO db = new UserDAO();
+    User user = db.getUser(userID, "u");
+    
+%>
+<form class="pure-form" name="updatePhone" method="post" action="MyAccountPhone">
+    <fieldset class="pure-group">
+        <input type="text" class="pure-input-1" placeholder="<%=user.getPhone()%>" name="phone">
+        <input type="hidden" name="userID" value="<%=userID%>">
+        <input name="updatePhone" type="submit" class="pure-button login pure-input-1 pure-button-primary" value="Update">
+    </fieldset>
+</form>
+
             </div>
 
     </div>
