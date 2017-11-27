@@ -108,10 +108,10 @@
                     </h1>
                 </div>
                 <div class="search">
-                    <form class="pure-form">
+                    <form class="pure-form"method="post" action="searchresult">
                         <div class="pure-g">
                             <div class="pure-u-3-4"> 
-                                <input class="searchbar" type="search" placeholder="Search for books">
+                                <input class="searchbar" name="input" type="search" placeholder="Search for books">
                             </div>
                             <div class="pure-u-1-4">     
                                 <button type="submit" class="pure-button pure-button-primary" id="searchbutton">SEARCH</button>

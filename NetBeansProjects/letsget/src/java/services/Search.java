@@ -6,25 +6,25 @@
 
 package services;
 
-import entity.BookDAO;
-import entity.Book;
+//import entity.BookDAO;
+//import entity.Book;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.PreparedStatement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+//import java.io.PrintWriter;
+//import java.sql.Connection;
+//import java.sql.DriverManager;
+//import java.sql.ResultSet;
+//import java.sql.SQLException;
+//import java.sql.PreparedStatement;
+//import java.util.logging.Level;
+//import java.util.logging.Logger;
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
+//import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.servlet.RequestDispatcher;
-import java.util.*;
+//import javax.servlet.RequestDispatcher;
+//import java.util.*;
 /**
  *
  * @author Ian
@@ -47,12 +47,12 @@ public class Search extends HttpServlet {
         //category of search
         String category = request.getParameter("option");
         //create list of search results
-       HttpSession session = request.getSession(false);
-       session.setAttribute("input", search);
-       session.setAttribute("option", category);
+        HttpSession session = request.getSession(false);
+        session.setAttribute("input", search);
+        session.setAttribute("option", category);
     
-       request.getRequestDispatcher("results.jsp").forward(request, response);
-       response.sendRedirect("homepage.jsp");
+        request.getRequestDispatcher("results.jsp").forward(request, response);
+        response.sendRedirect("homepage.jsp");
         /*Connection con = null;
         PreparedStatement state = null;
         DatabaseUtility db = new DatabaseUtility();

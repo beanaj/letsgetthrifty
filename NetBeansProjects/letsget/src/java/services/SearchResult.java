@@ -33,18 +33,22 @@ public class SearchResult extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        HttpSession session = request.getSession(false);
         //search string
         String search = request.getParameter("input");
         //category of search
         String category = request.getParameter("option");
         //create list of search results
-       HttpSession session = request.getSession(false);
-       session.setAttribute("input", search);
-       session.setAttribute("option", category);
-    
-       request.getRequestDispatcher("results.jsp").forward(request, response);
-       response.sendRedirect("homepage.jsp");
-       System.out.println("button works");
+        if(category == null){
+            session.setAttribute("option", "title");
+            session.setAttribute("input", search);
+        }
+        else{
+            session.setAttribute("option", category);
+            session.setAttribute("input", search);
+        }
+        request.getRequestDispatcher("results.jsp").forward(request, response);
+        response.sendRedirect("results.jsp");
     }
 
 }
