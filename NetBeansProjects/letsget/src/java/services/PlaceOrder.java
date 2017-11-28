@@ -16,6 +16,7 @@ import entity.TransactionDAO;
 import entity.User;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -147,10 +148,17 @@ public class PlaceOrder extends HttpServlet {
                 int newTotal = quantityInStock - quantityInOrder;
                 book.setQtyInStock(newTotal);
                 BookDAO db = new BookDAO();
+                try {
                 db.updateBook(book.getISBN(), book.getGenre(),
                         book.getAuthor(), book.getTitle(), book.getRating(), book.getPicture(),
                         book.getEdition(), book.getPublisher(), book.getPublicationYear(),
                         book.getQtyInStock(), book.getMinThreshold(), book.getBuyPrice(), book.getSellPrice(), book.getSupplierID());
+                } catch (SQLException ex) {
+                    String error = "Error: Invalid input";
+                    //DO SOMETHING WITH ERROR
+//                    request.setAttribute("error", error);
+//                    request.getRequestDispatcher("adminPromotions.jsp").forward(request, response);
+                }
 
             }
         }

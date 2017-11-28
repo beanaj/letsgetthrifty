@@ -82,6 +82,12 @@
         <input name="updatePhone" type="submit" class="pure-button login pure-input-1 pure-button-primary" value="Update">
     </fieldset>
 </form>
+        
+        
+<div id="error">
+    ${requestScope.error}
+</div>  
+
 
             </div>
 

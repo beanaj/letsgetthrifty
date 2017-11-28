@@ -8,6 +8,7 @@ package services;
 import entity.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -73,7 +74,13 @@ public class MyAccountEmail extends HttpServlet {
                 
         //Update agency in the database:
         UserDAO db = new UserDAO();
-        db.updateUser(id, fN, lN, phone, email, type, code, active);
+        try {
+            db.updateUser(id, fN, lN, phone, email, type, code, active);
+        } catch (SQLException ex) {
+                    String error = "Error: Invalid input";
+                    request.setAttribute("error", error);
+                    request.getRequestDispatcher("my_accountEmail.jsp").forward(request, response);
+        }
 
         response.sendRedirect("my_accountEmail.jsp");    
         out.close();
