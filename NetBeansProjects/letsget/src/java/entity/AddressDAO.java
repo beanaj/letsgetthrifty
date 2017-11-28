@@ -49,6 +49,34 @@ public class AddressDAO {
             Logger.getLogger(Registration.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public void addAddress(Address addr) {
+        //insert user address information into database
+        Connection con = null;
+        Statement stmnt = null;
+        DatabaseUtility db = new DatabaseUtility();
+        try {
+            //register the driver
+            Class.forName(db.getDriver());
+            //connect to the database
+            con = DriverManager.getConnection(db.getURL(), db.getUser(), db.getPass());
+            //generate sql statement
+            stmnt = con.createStatement();
+            String sql = "INSERT INTO addresses (addressID, street, city, state, zip, userID) VALUES (\""
+                    + addr.getAddressID()+ "\", \""//addressID
+                    + addr.getStreet() + "\", \""//street
+                    + addr.getCity() + "\", \""//city
+                    + addr.getState() + "\", \""//state
+                    + addr.getZip() + "\", \""//zip code
+                    + addr.getUser() + "\")";//userID
+            stmnt.executeUpdate(sql);
+            con.close();
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Registration.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     public Address getAddressByID(String addressID, String userID) {
         Address returnA = new Address();
