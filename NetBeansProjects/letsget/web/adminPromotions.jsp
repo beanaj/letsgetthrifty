@@ -122,9 +122,9 @@
 <!--Add Promotion row:-->
 <form name="addPromoButton" method="post" action="promotion">
 <tr>
-    <td><input type="text" name="new_promoID" required></td>
-    <td><input type="text" name="new_promoName" required></td>
-    <td><input type="text" name="new_percentage" required></td>
+    <td><input type="text" name="new_promoID" onkeyup="checkID(this)" onclick="checkID(this)" onchange="checkID(this)" required></td>
+    <td><input type="text" name="new_promoName" onkeyup="checkPromoName(this)" onclick="checkPromoName(this)" onchange="checkPromoName(this)" required></td>
+    <td><input type="text" name="new_percentage" onkeyup="checkPerc(this)" onclick="checkPerc(this)" onchange="checkPerc(this)" required></td>
     <td><input type="datetime-local" name="new_expiration" required></td>
     <td><input name="addUpdate" type="submit" value="Add Promotion"></td>
 </tr>
@@ -133,9 +133,9 @@
 <!--Update promotion Row:-->
 <form name="addPromoButton" method="post" action="promotion">
     <tr>
-    <td><input type="text" name="new_promoID" required></td>
-    <td><input type="text" name="new_promoName"></td>
-    <td><input type="text" name="new_percentage"></td>
+    <td><input type="text" name="new_promoID" onkeyup="checkID(this)" onclick="checkID(this)" onchange="checkID(this)" required></td>
+    <td><input type="text" name="new_promoName" onkeyup="checkPromoName(this)" onclick="checkPromoName(this)" onchange="checkPromoName(this)"></td>
+    <td><input type="text" name="new_percentage" onkeyup="checkPerc(this)" onclick="checkPerc(this)" onchange="checkPerc(this)"></td>
     <td><input type="datetime-local" name="new_expiration"></td>
     <td><input name="addUpdate" type="submit" value="Update Promotion"></td>
     </tr>
@@ -154,6 +154,7 @@
 
 
 <script src="scripts/admin.js"></script>
+<script src="scripts/adminPromoValidation.js"></script>
 
 
     </body>
