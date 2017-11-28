@@ -250,7 +250,7 @@ public class UserDAO {
         return users;
     }
     
-    public void updateUser(String id, String fN, String lN, String pho, String ema, String type, String code, int act) {
+    public void updateUser(String id, String fN, String lN, String pho, String ema, String type, String code, int act) throws SQLException {
         //Set up database connection:
         Connection conn = null;
         PreparedStatement stat = null;
@@ -312,9 +312,7 @@ public class UserDAO {
             conn.close();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        } 
     }
     
 }

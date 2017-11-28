@@ -9,6 +9,7 @@ import entity.Promotion;
 import entity.PromotionDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -85,7 +86,13 @@ public class PromotionTable extends HttpServlet {
                 String exp = request.getParameter("new_expiration");
 
                 Promotion promo = new Promotion(promoID, promoName, perc, exp);
-                promo.addPromo();
+                try {
+                    promo.addPromo();
+                } catch (SQLException ex) {
+                    String error = "Error: Invalid input, please ensure your ID is unique.";
+                    request.setAttribute("error", error);
+                    request.getRequestDispatcher("adminPromotions.jsp").forward(request, response);
+                }
                 
                 break;
             case "Update Promotion":
@@ -110,7 +117,13 @@ public class PromotionTable extends HttpServlet {
                 
                 //Update agency in the database:
                 PromotionDAO db = new PromotionDAO();
-                db.updatePromotion(pID, name, per, expi);
+                try {
+                    db.updatePromotion(pID, name, per, expi);
+                } catch (SQLException ex) {
+                    String error = "Error: Invalid input";
+                    request.setAttribute("error", error);
+                    request.getRequestDispatcher("adminPromotions.jsp").forward(request, response);
+                }
                 
                 break;
         } // switch

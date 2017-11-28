@@ -208,7 +208,11 @@ for (int i = 0; i < bookList.size(); i++) {
 
 </table>       
 <!--END OF TABLE-->
-               
+
+
+<div id="error">
+    ${requestScope.error}
+</div> 
 
             </div>      
         </div>

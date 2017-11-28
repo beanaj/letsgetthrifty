@@ -104,7 +104,7 @@ public class BookDAO {
     }
     
     //Add a book to the database
-    public void addBook(Book b) {
+    public void addBook(Book b) throws SQLException {
         //Set up database connection:
         Connection conn = null;
         PreparedStatement stat = null;
@@ -132,12 +132,10 @@ public class BookDAO {
             conn.close();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        } 
     }
     
-    public void updateBook(String is, String gen, String author, String tit, double rat, String pic, int ed, String pub, int pubYear, int qty, int minT, double buyP, double sellP, int supID) {
+    public void updateBook(String is, String gen, String author, String tit, double rat, String pic, int ed, String pub, int pubYear, int qty, int minT, double buyP, double sellP, int supID) throws SQLException {
         //Set up database connection:
         Connection conn = null;
         PreparedStatement stat = null;
@@ -239,8 +237,6 @@ public class BookDAO {
             }
             conn.close();
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
             Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

@@ -51,7 +51,7 @@ public class PromotionDAO {
         return promotions;
     }
 
-    public void addPromo(Promotion p) {
+    public void addPromo(Promotion p) throws SQLException {
         //Set up database connection:
         Connection conn = null;
         PreparedStatement stat = null;
@@ -70,12 +70,10 @@ public class PromotionDAO {
             conn.close();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        } 
     }
 
-    public void updatePromotion(int pID, String name, double perc, String exp) {
+    public void updatePromotion(int pID, String name, double perc, String exp) throws SQLException {
         //Set up database connection:
         Connection conn = null;
         PreparedStatement stat = null;
@@ -109,8 +107,6 @@ public class PromotionDAO {
             conn.close();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        } 
     }
 }

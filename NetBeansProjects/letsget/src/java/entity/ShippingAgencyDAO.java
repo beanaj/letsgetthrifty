@@ -53,7 +53,7 @@ public class ShippingAgencyDAO {
     }
     
     //Add a book to the database
-    public void addAgency(ShippingAgency a) {
+    public void addAgency(ShippingAgency a) throws SQLException {
         //Set up database connection:
         Connection conn = null;
         PreparedStatement stat = null;
@@ -72,12 +72,10 @@ public class ShippingAgencyDAO {
             conn.close();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        } 
     }
     
-    public void updateAgency(int saID, String aName, String phone, String cName, String cPhone) {
+    public void updateAgency(int saID, String aName, String phone, String cName, String cPhone) throws SQLException {
         //Set up database connection:
         Connection conn = null;
         PreparedStatement stat = null;
@@ -109,7 +107,6 @@ public class ShippingAgencyDAO {
                 stat.executeUpdate();
             }
             if (!cPhone.isEmpty()) {
-                System.out.println(cPhone);
                 String query = "UPDATE shippingagencies SET contactPhone = ? WHERE shippingAgencyID = ?";
                 stat = conn.prepareStatement(query);
                 stat.setString(1, cPhone);
@@ -119,8 +116,6 @@ public class ShippingAgencyDAO {
             conn.close();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        } 
     }
 }
