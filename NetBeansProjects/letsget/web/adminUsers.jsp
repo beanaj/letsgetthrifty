@@ -118,6 +118,7 @@
 <td>
     <!--Promote User-->
     <form name="promoteUserButton" method="post" action="userTable">
+        <input type="hidden" name = "tableType" value="user">
         <input type="hidden" name="new_userID" value="<%=primaryKey%>">
         <input name="addUpdate" type="submit" value="Promote User">
     </form>
@@ -125,6 +126,7 @@
 <td>
     <!--Suspend User-->
     <form name="suspendUserButton" method="post" action="userTable">
+        <input type="hidden" name = "tableType" value="user">
         <input type="hidden" name="new_userID" value="<%=primaryKey%>">
         <input name="addUpdate" type="submit" value="Suspend User">
     </form>

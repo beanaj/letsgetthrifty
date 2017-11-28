@@ -51,7 +51,7 @@ public class UserTable extends HttpServlet {
         PrintWriter out = response.getWriter();
         
         String hiddenParam = request.getParameter("addUpdate");
-        
+      
         switch (hiddenParam) {
             case "Update User":
                 String id = "";
@@ -107,6 +107,7 @@ public class UserTable extends HttpServlet {
                 
                 if (!request.getParameter("new_userID").isEmpty()) {
                     idB = request.getParameter("new_userID");
+                    System.out.println(idB);
                 } 
                 
                 UserDAO dbB = new UserDAO();
