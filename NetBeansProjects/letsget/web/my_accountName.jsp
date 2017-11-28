@@ -82,7 +82,7 @@
     
 %>
 
-<form class="pure-form" name="updateName" method="post" action="MyAccountName">
+<form class="pure-form" name="updateName" method="post" action="myaccountname">
     <fieldset class="pure-group">
         <input type="text" class="pure-input-1" placeholder="<%=user.getFN()%>" name="firstName">
         <input type="text" class="pure-input-1" placeholder="<%=user.getLN()%>" name="lastName">

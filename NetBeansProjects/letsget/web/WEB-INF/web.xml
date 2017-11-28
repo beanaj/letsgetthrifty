@@ -52,6 +52,26 @@
         <servlet-name>SearchResult</servlet-name>
         <servlet-class>services.SearchResult</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MyAccount</servlet-name>
+        <servlet-class>services.MyAccount</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MyAccountAddress</servlet-name>
+        <servlet-class>services.MyAccountAddress</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MyAccountEmail</servlet-name>
+        <servlet-class>services.MyAccountEmail</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MyAccountName</servlet-name>
+        <servlet-class>services.MyAccountName</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MyAccountPhone</servlet-name>
+        <servlet-class>services.MyAccountPhone</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Registration</servlet-name>
         <url-pattern>/registered</url-pattern>
@@ -103,6 +123,26 @@
     <servlet-mapping>
         <servlet-name>SearchResult</servlet-name>
         <url-pattern>/searchresult</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MyAccount</servlet-name>
+        <url-pattern>/myaccount</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MyAccountAddress</servlet-name>
+        <url-pattern>/myaccountaddress</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MyAccountEmail</servlet-name>
+        <url-pattern>/myaccountemail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MyAccountName</servlet-name>
+        <url-pattern>/myaccountname</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MyAccountPhone</servlet-name>
+        <url-pattern>/myaccountphone</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

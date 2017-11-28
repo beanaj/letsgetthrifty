@@ -83,7 +83,7 @@
     
 %>
 
-<form class="pure-form" name="updateAddress" method="post" action="MyAccountAddress">
+<form class="pure-form" name="updateAddress" method="post" action="myaccountaddress">
     <fieldset class="pure-group">
         <input type="text" class="pure-input-1" placeholder="<%=address.getStreet()%>" name="street">
         <input type="text" class="pure-input-1" placeholder="<%=address.getCity()%>" name="city">

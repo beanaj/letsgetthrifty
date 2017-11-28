@@ -82,7 +82,7 @@
     User user = db.getUser(userID, "u");
     
 %>
-<form class="pure-form" name="updateEmail" method="post" action="MyAccountEmail">
+<form class="pure-form" name="updateEmail" method="post" action="myaccountemail">
     <fieldset class="pure-group">
         <input type="text" class="pure-input-1" placeholder="<%=user.getEmail()%>" name="email">
         <input type="hidden" name="userID" value="<%=userID%>">

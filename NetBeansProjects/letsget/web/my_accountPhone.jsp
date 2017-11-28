@@ -75,7 +75,7 @@
     User user = db.getUser(userID, "u");
     
 %>
-<form class="pure-form" name="updatePhone" method="post" action="MyAccountPhone">
+<form class="pure-form" name="updatePhone" method="post" action="myaccountphone">
     <fieldset class="pure-group">
         <input type="text" class="pure-input-1" placeholder="<%=user.getPhone()%>" name="phone">
         <input type="hidden" name="userID" value="<%=userID%>">
