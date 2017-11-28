@@ -87,7 +87,6 @@
     <fieldset class="pure-group">
         <input type="text" class="pure-input-1" placeholder="<%=address.getStreet()%>" name="street">
         <input type="text" class="pure-input-1" placeholder="<%=address.getCity()%>" name="city">
-        <!-- <input type="select" class="pure-input-1" placeholder="<%=address.getState()%>" name="state"> -->
         <select id="select" class="pure-input-1" name= "state">
             <option disabled selected value><%=address.getState()%></option>
             <option value="AL">Alabama</option>
