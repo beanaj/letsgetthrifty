@@ -11,6 +11,8 @@
 
 package entity;
 
+import java.sql.SQLException;
+
 public class Book {
    private String isbn;
    private String genre;
@@ -70,7 +72,7 @@ public class Book {
        
    }
    
-   public void addBook() {
+   public void addBook() throws SQLException {
        BookDAO db = new BookDAO();
        db.addBook(this);
    }

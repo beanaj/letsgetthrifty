@@ -97,7 +97,12 @@ public class UserTable extends HttpServlet {
                 } catch (SQLException ex) {
                     String error = "Error: Invalid input";
                     request.setAttribute("error", error);
-                    request.getRequestDispatcher("adminAgencies.jsp").forward(request, response);
+                    String tableType = request.getParameter("tableType");
+                    if (tableType.equals("user")) {
+                        request.getRequestDispatcher("adminUsers.jsp").forward(request, response);
+                    } else if (tableType.equals("employee")) {
+                        request.getRequestDispatcher("adminEmployees.jsp").forward(request, response);
+                    }
                 }
                 
                 break;
@@ -122,7 +127,12 @@ public class UserTable extends HttpServlet {
                 } catch (SQLException ex) {
                     String error = "Error: Invalid input";
                     request.setAttribute("error", error);
-                    request.getRequestDispatcher("adminAgencies.jsp").forward(request, response);
+                    String tableType = request.getParameter("tableType");
+                    if (tableType.equals("user")) {
+                        request.getRequestDispatcher("adminUsers.jsp").forward(request, response);
+                    } else if (tableType.equals("employee")) {
+                        request.getRequestDispatcher("adminEmployees.jsp").forward(request, response);
+                    }
                 }
                 break;
             case "Suspend User":
@@ -145,7 +155,12 @@ public class UserTable extends HttpServlet {
                 } catch (SQLException ex) {
                     String error = "Error: Invalid input";
                     request.setAttribute("error", error);
-                    request.getRequestDispatcher("adminAgencies.jsp").forward(request, response);
+                    String tableType = request.getParameter("tableType");
+                    if (tableType.equals("user")) {
+                        request.getRequestDispatcher("adminUsers.jsp").forward(request, response);
+                    } else if (tableType.equals("employee")) {
+                        request.getRequestDispatcher("adminEmployees.jsp").forward(request, response);
+                    }
                 }
                 break;
                 

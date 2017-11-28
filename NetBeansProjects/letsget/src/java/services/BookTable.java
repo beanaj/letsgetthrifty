@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import entity.Book;
 import entity.BookDAO;
+import java.sql.SQLException;
 
 /**
  *
@@ -71,7 +72,13 @@ public class BookTable extends HttpServlet {
 
                 //Create Book object and add to database:
                 Book book = new Book(isbn, genre, author, title, rating, picture, edition, pub, pubYear, quantity, minT, buyPrice, sellPrice, supplierID);
-                book.addBook();
+                try {
+                    book.addBook();
+                } catch (SQLException ex) {
+                    String error = "Error: Invalid input, please ensure your isbn is unique.";
+                    request.setAttribute("error", error);
+                    request.getRequestDispatcher("adminInventory.jsp").forward(request, response);
+                }
                 break;
             case "Update Book":
                 String i = "";
@@ -134,7 +141,13 @@ public class BookTable extends HttpServlet {
                 
                 //Update book in the database:
                 BookDAO db = new BookDAO();
-                db.updateBook(i, g, a, t, r, p, e, pu, pubY, q, m, b, s, sup);
+                try {
+                    db.updateBook(i, g, a, t, r, p, e, pu, pubY, q, m, b, s, sup);
+                } catch (SQLException ex) {
+                    String error = "Error: Invalid input";
+                    request.setAttribute("error", error);
+                    request.getRequestDispatcher("adminInventory.jsp").forward(request, response);
+                }
 
                 break;
         } // switch
