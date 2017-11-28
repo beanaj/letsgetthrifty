@@ -167,20 +167,20 @@ for (int i = 0; i < bookList.size(); i++) {
 <!--Add book row:-->
 <form name="addBookButton" method="post" action="book">
 <tr>
-    <td><input type="text" name="new_isbn" required></td>
-    <td><input type="text" name="new_genre" required></td>
-    <td><input type="text" name="new_author" required></td>
-    <td><input type="text" name="new_title" required></td>
-    <td><input type="text" name="new_rating" required></td>
-    <td><input type="text" name="new_picture" required></td>
-    <td><input type="text" name="new_edition" required></td>
-    <td><input type="text" name="new_publisher" required></td>
-    <td><input type="text" name="new_publicationyear" required></td>
-    <td><input type="text" name="new_quantity" required></td>
-    <td><input type="text" name="new_minthreshold" required></td>
-    <td><input type="text" name="new_buyprice" required></td>
-    <td><input type="text" name="new_sellprice" required></td>
-    <td><input type="text" name="new_supplierID" required></td>
+    <td><input type="text" name="new_isbn" onkeyup="checkISBN(this)" onclick="checkISBN(this)" onchange="checkISBN(this)" required></td>
+    <td><input type="text" name="new_genre" onkeyup="checkGenre(this)" onclick="checkGenre(this)" onchange="checkGenre(this)" required></td>
+    <td><input type="text" name="new_author" onkeyup="checkAuthor(this)" onclick="checkAuthor(this)" onchange="checkAuthor(this)" required></td>
+    <td><input type="text" name="new_title" onkeyup="checkTitle(this)" onclick="checkTitle(this)" onchange="checkTitle(this)" required></td>
+    <td><input type="text" name="new_rating" onkeyup="checkRating(this)" onclick="checkRating(this)" onchange="checkRating(this)" required></td>
+    <td><input type="text" name="new_picture" onkeyup="checkLink(this)" onclick="checkLink(this)" onchange="checkLink(this)" required></td>
+    <td><input type="text" name="new_edition" onkeyup="checkEdition(this)" onclick="checkEdition(this)" onchange="checkEdition(this)" required></td>
+    <td><input type="text" name="new_publisher" onkeyup="checkPublisher(this)" onclick="checkPublisher(this)" onchange="checkPublisher(this)" required></td>
+    <td><input type="text" name="new_publicationyear" onkeyup="checkPubYear(this)" onclick="checkPubYear(this)" onchange="checkPubYear(this)" required></td>
+    <td><input type="text" name="new_quantity" onkeyup="checkQuantity(this)" onclick="checkQuantity(this)" onchange="checkQuantity(this)" required></td>
+    <td><input type="text" name="new_minthreshold" onkeyup="checkThreshold(this)" onclick="checkThreshold(this)" onchange="checkThreshold(this)" required></td>
+    <td><input type="text" name="new_buyprice" onkeyup="checkBuyP(this)" onclick="checkBuyP(this)" onchange="checkBuyP(this)" required></td>
+    <td><input type="text" name="new_sellprice" onkeyup="checkSellP(this)" onclick="checkSellP(this)" onchange="checkSellP(this)" required></td>
+    <td><input type="text" name="new_supplierID" onkeyup="checkSID(this)" onclick="checkSID(this)" onchange="checkSID(this)" required></td>
     <td><input name="addUpdate" type="submit" value="Add Book"></td>
 </tr>
 </form>
@@ -188,20 +188,20 @@ for (int i = 0; i < bookList.size(); i++) {
 <!--Update Book Row:-->
 <form name="addBookButton" method="post" action="book">
     <tr>
-    <td><input type="text" name="new_isbn" required></td>
-    <td><input type="text" name="new_genre"></td>
-    <td><input type="text" name="new_author"></td>
-    <td><input type="text" name="new_title"></td>
-    <td><input type="text" name="new_rating"></td>
-    <td><input type="text" name="new_picture"></td>
-    <td><input type="text" name="new_edition"></td>
-    <td><input type="text" name="new_publisher"></td>
-    <td><input type="text" name="new_publicationyear"></td>
-    <td><input type="text" name="new_quantity"></td>
-    <td><input type="text" name="new_minthreshold"></td>
-    <td><input type="text" name="new_buyprice"></td>
-    <td><input type="text" name="new_sellprice"></td>
-    <td><input type="text" name="new_supplierID"></td>
+    <td><input type="text" name="new_isbn" onkeyup="checkISBN(this)" onclick="checkISBN(this)" onchange="checkISBN(this)" required></td>
+    <td><input type="text" name="new_genre" onkeyup="checkGenre(this)" onclick="checkGenre(this)" onchange="checkGenre(this)"></td>
+    <td><input type="text" name="new_author" onkeyup="checkAuthor(this)" onclick="checkAuthor(this)" onchange="checkAuthor(this)"></td>
+    <td><input type="text" name="new_title" onkeyup="checkTitle(this)" onclick="checkTitle(this)" onchange="checkTitle(this)"></td>
+    <td><input type="text" name="new_rating" onkeyup="checkRating(this)" onclick="checkRating(this)" onchange="checkRating(this)"></td>
+    <td><input type="text" name="new_picture" onkeyup="checkLink(this)" onclick="checkLink(this)" onchange="checkLink(this)"></td>
+    <td><input type="text" name="new_edition" onkeyup="checkEdition(this)" onclick="checkEdition(this)" onchange="checkEdition(this)"></td>
+    <td><input type="text" name="new_publisher" onkeyup="checkPublisher(this)" onclick="checkPublisher(this)" onchange="checkPublisher(this)"></td>
+    <td><input type="text" name="new_publicationyear" onkeyup="checkPubYear(this)" onclick="checkPubYear(this)" onchange="checkPubYear(this)"></td>
+    <td><input type="text" name="new_quantity" onkeyup="checkQuantity(this)" onclick="checkQuantity(this)" onchange="checkQuantity(this)"></td>
+    <td><input type="text" name="new_minthreshold" onkeyup="checkThreshold(this)" onclick="checkThreshold(this)" onchange="checkThreshold(this)"></td>
+    <td><input type="text" name="new_buyprice" onkeyup="checkBuyP(this)" onclick="checkBuyP(this)" onchange="checkBuyP(this)"></td>
+    <td><input type="text" name="new_sellprice" onkeyup="checkSellP(this)" onclick="checkSellP(this)" onchange="checkSellP(this)"></td>
+    <td><input type="text" name="new_supplierID" onkeyup="checkSID(this)" onclick="checkSID(this)" onchange="checkSID(this)"></td>
     <td><input name="addUpdate" type="submit" value="Update Book"></td>
     </tr>
 </form>
@@ -219,6 +219,7 @@ for (int i = 0; i < bookList.size(); i++) {
 
 
 <script src="scripts/admin.js"></script>
+<script src="scripts/adminInventoryValidation.js"></script>
 
 
     </body>
