@@ -8,6 +8,7 @@ package services;
 import entity.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -91,7 +92,13 @@ public class UserTable extends HttpServlet {
                 
                 //Update agency in the database:
                 UserDAO db = new UserDAO();
-                db.updateUser(id, fN, lN, phone, email, type, code, active);
+                try {
+                    db.updateUser(id, fN, lN, phone, email, type, code, active);
+                } catch (SQLException ex) {
+                    String error = "Error: Invalid input";
+                    request.setAttribute("error", error);
+                    request.getRequestDispatcher("adminAgencies.jsp").forward(request, response);
+                }
                 
                 break;
                 
@@ -107,11 +114,16 @@ public class UserTable extends HttpServlet {
                 
                 if (!request.getParameter("new_userID").isEmpty()) {
                     idB = request.getParameter("new_userID");
-                    System.out.println(idB);
                 } 
                 
                 UserDAO dbB = new UserDAO();
-                dbB.updateUser(idB, fNB, lNB, phoneB, emailB, typeB, codeB, activeB);
+                try {
+                    dbB.updateUser(idB, fNB, lNB, phoneB, emailB, typeB, codeB, activeB);
+                } catch (SQLException ex) {
+                    String error = "Error: Invalid input";
+                    request.setAttribute("error", error);
+                    request.getRequestDispatcher("adminAgencies.jsp").forward(request, response);
+                }
                 break;
             case "Suspend User":
                 String idC = "";
@@ -128,7 +140,13 @@ public class UserTable extends HttpServlet {
                 } 
                 
                 UserDAO dbC = new UserDAO();
-                dbC.updateUser(idC, fNC, lNC, phoneC, emailC, typeC, codeC, activeC);
+                try {
+                    dbC.updateUser(idC, fNC, lNC, phoneC, emailC, typeC, codeC, activeC);
+                } catch (SQLException ex) {
+                    String error = "Error: Invalid input";
+                    request.setAttribute("error", error);
+                    request.getRequestDispatcher("adminAgencies.jsp").forward(request, response);
+                }
                 break;
                 
         } // switch

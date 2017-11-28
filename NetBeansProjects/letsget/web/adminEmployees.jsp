@@ -142,7 +142,11 @@ for (int i = 0; i < userList.size(); i++) {
 
 </table>       
 <!--END OF TABLE-->
-               
+
+
+<div id="error">
+    ${requestScope.error}
+</div>  
 
             </div>      
         </div>

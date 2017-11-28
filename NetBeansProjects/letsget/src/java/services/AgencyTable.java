@@ -71,7 +71,6 @@ public class AgencyTable extends HttpServlet {
                     agency.addAgency();
                 } catch (SQLException ex) {
                     String error = "Error: Invalid input, please ensure your ID is unique.";
-                    System.out.println(error);
                     request.setAttribute("error", error);
                     request.getRequestDispatcher("adminAgencies.jsp").forward(request, response);
                 }
@@ -102,7 +101,13 @@ public class AgencyTable extends HttpServlet {
                 
                 //Update agency in the database:
                 ShippingAgencyDAO db = new ShippingAgencyDAO();
-                db.updateAgency(saIDB, aNameB, phoneB, cNameB, cPhoneB);
+                try {
+                    db.updateAgency(saIDB, aNameB, phoneB, cNameB, cPhoneB);
+                } catch (SQLException ex) {
+                    String error = "Error: Invalid input";
+                    request.setAttribute("error", error);
+                    request.getRequestDispatcher("adminAgencies.jsp").forward(request, response);
+                }
                 
                 break;
         } // switch
