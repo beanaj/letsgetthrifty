@@ -132,6 +132,7 @@ for (int i = 0; i < agencyList.size(); i++) {
 </tr>
 </form>
 
+
 <!--Update Agency Row:-->
 <form name="addAgencyButton" method="post" action="agency">
     <tr>
@@ -146,7 +147,10 @@ for (int i = 0; i < agencyList.size(); i++) {
 
 </table>       
 <!--END OF TABLE-->
-               
+          
+<div id="error">
+    ${requestScope.error}
+</div>     
 
             </div>      
         </div>

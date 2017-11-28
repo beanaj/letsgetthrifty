@@ -53,7 +53,7 @@ public class ShippingAgencyDAO {
     }
     
     //Add a book to the database
-    public void addAgency(ShippingAgency a) {
+    public void addAgency(ShippingAgency a) throws SQLException {
         //Set up database connection:
         Connection conn = null;
         PreparedStatement stat = null;
@@ -72,9 +72,7 @@ public class ShippingAgencyDAO {
             conn.close();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        } 
     }
     
     public void updateAgency(int saID, String aName, String phone, String cName, String cPhone) {
