@@ -62,10 +62,10 @@ function checkType(input) {
     if (!type) {
         input.setCustomValidity('');
     } else {
-        if (type == "u" || type == "e") {
+        if (type == "u" || type == "e" || type =="m" || type == "a") {
             input.setCustomValidity('');
         } else {
-            input.setCustomValidity('Please enter valid user type: \'u\' for user, \'e\' for employee');
+            input.setCustomValidity('Please enter valid user type: \'u\' for user, \'e\' for employee, \'m\' for manager, \'a\' for admin');
         }
     }
 }
