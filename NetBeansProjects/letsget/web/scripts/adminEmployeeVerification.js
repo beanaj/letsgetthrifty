@@ -23,7 +23,7 @@ function checkName(input) {
 }
 
 function checkPhone(input) {
-    var phoneNum = /^\(?([0-9]{3})\)?[-]?([0-9]{3})[-. ]?([0-9]{4})$/; 
+    var phoneNum = /^\(?([0-9]{3})\)?[-]([0-9]{3})[-]([0-9]{4})$/; 
     var enteredNum = input.value;
     
     //Check if phone number is properly formatted:

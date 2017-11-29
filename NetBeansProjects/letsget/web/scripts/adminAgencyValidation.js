@@ -5,15 +5,18 @@
  */
 
 function checkID(input) {
-    var id = input.value;
+    var inputVal = input.value;
+    var id = Number(input.value);
+    
     //if id is null:
-    if (!id) {
+    if (!inputVal) {
         input.setCustomValidity('');
     } else {
-        if (isNaN(id)) {
-            input.setCustomValidity("Agency ID must be integer");
-        } else {
+        //if ID is a number and an integer
+        if ((typeof id ==='number') && ((id%1)===0)) {
             input.setCustomValidity('');
+        } else {
+            input.setCustomValidity('Agency ID must be integer');
         }
     }
 }
@@ -24,8 +27,8 @@ function checkName(input) {
     if (!name) {
         input.setCustomValidity('');
     } else {
-        if (name.length<=1||name.length>30) {
-            input.setCustomValidity("Name must be between 2 and 30 characters");
+        if (name.length<=1||name.length>45) {
+            input.setCustomValidity("Name must be between 2 and 45 characters");
         } else {
             input.setCustomValidity('');
         }
@@ -33,7 +36,7 @@ function checkName(input) {
 }
 
 function checkPhone(input) {
-    var phoneNum = /^\(?([0-9]{3})\)?[-]?([0-9]{3})[-. ]?([0-9]{4})$/; 
+    var phoneNum = /^\(?([0-9]{3})\)?[-]([0-9]{3})[-]([0-9]{4})$/; 
     var enteredNum = input.value;
     
     //Check if phone number is properly formatted:
