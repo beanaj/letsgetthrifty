@@ -75,6 +75,8 @@ public class ShippingAgencyDAO {
         } 
     }
     
+    //get agency from the database
+ 
     public void updateAgency(int saID, String aName, String phone, String cName, String cPhone) throws SQLException {
         //Set up database connection:
         Connection conn = null;

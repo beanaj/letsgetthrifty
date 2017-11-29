@@ -151,10 +151,10 @@ public class PlaceOrder extends HttpServlet {
                 book.setQtyInStock(newTotal);
                 BookDAO db = new BookDAO();
                 try {
-                db.updateBook(book.getISBN(), book.getGenre(),
-                        book.getAuthor(), book.getTitle(), book.getRating(), book.getPicture(),
-                        book.getEdition(), book.getPublisher(), book.getPublicationYear(),
-                        book.getQtyInStock(), book.getMinThreshold(), book.getBuyPrice(), book.getSellPrice(), book.getSupplierID());
+                    db.updateBook(book.getISBN(), book.getGenre(),
+                            book.getAuthor(), book.getTitle(), book.getRating(), book.getPicture(),
+                            book.getEdition(), book.getPublisher(), book.getPublicationYear(),
+                            book.getQtyInStock(), book.getMinThreshold(), book.getBuyPrice(), book.getSellPrice(), book.getSupplierID());
                 } catch (SQLException ex) {
                     String error = "Error: Invalid input";
                     //DO SOMETHING WITH ERROR
@@ -221,7 +221,7 @@ public class PlaceOrder extends HttpServlet {
         } else {
             //5a otherwise we will create a new shipping address and use that
             Address newAddress = new Address();
-            newAddress.addressID = ""+orderID;
+            newAddress.addressID = "" + orderID;
             newAddress.street = request.getParameter("street");
             newAddress.city = request.getParameter("city");
             newAddress.state = request.getParameter("state");
@@ -239,7 +239,7 @@ public class PlaceOrder extends HttpServlet {
         } else {
             //7a otherwise we will create a new address and use that
             Address newAddress = new Address();
-            newAddress.addressID = ""+orderID+"-B";
+            newAddress.addressID = "" + orderID + "-B";
             newAddress.street = request.getParameter("bstreet");
             newAddress.city = request.getParameter("bcity");
             newAddress.state = request.getParameter("bstate");
@@ -266,7 +266,7 @@ public class PlaceOrder extends HttpServlet {
             order.setCreditCardID(paymentID);
         } else {
             Payment card = new Payment();
-            card.setCCID(""+orderID);
+            card.setCCID("" + orderID);
             card.setExp(request.getParameter("exp"));
             card.setNum(request.getParameter("card"));
             card.setType(request.getParameter("type"));
@@ -296,7 +296,11 @@ public class PlaceOrder extends HttpServlet {
             }
         } finally {
             //this will need to be changed to a non absolute address
-            response.sendRedirect("homepage.jsp");
+            Cookie orderIDCookie = new Cookie("orderID", ""+orderID);
+            response.addCookie(orderIDCookie);
+            //Get the encoded URL string
+            String encodedURL = response.encodeRedirectURL("orderconfirmation.jsp");
+            response.sendRedirect(encodedURL);
 
         }
     }
@@ -409,7 +413,7 @@ public class PlaceOrder extends HttpServlet {
                 + "           &nbsp;\n"
                 + "          </td>\n"
                 + "          <td width=\"260\" valign=\"top\">\n"
-                + "$"+orderTotal
+                + "$" + orderTotal
                 + "          </td>\n"
                 + "         </tr>\n"
                 + "        </table>\n"

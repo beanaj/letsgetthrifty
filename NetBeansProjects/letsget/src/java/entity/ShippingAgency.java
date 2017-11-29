@@ -27,8 +27,9 @@ public class ShippingAgency {
        this.contactPhone = coPhone;
    }
    
+   
+   
    public ShippingAgency() {
-       
    }
    
    public int getAgencyID() {
