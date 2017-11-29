@@ -85,7 +85,7 @@ public class PaymentDAO {
         }
     }
     
-    public void updateAddress(String id, String num, String exp, String type) {
+    public void updatePayment(String id, String num, String exp, String type) {
         //Set up database connection:
         Connection conn = null;
         PreparedStatement stat = null;

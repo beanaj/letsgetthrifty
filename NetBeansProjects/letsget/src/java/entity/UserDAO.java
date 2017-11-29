@@ -315,4 +315,22 @@ public class UserDAO {
         } 
     }
     
+    public void updatePassword(String id, String oldPass, String newPass, String newPassV) throws SQLException {
+        //Set up database connection:
+        Connection conn = null;
+        PreparedStatement stat = null;
+        DatabaseUtility db = new DatabaseUtility();
+        
+        try {
+            Class.forName(db.getDriver());
+            conn = DriverManager.getConnection(db.getURL(), db.getUser(), db.getPass());
+            
+            
+            
+            conn.close();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+    }
+
 }
