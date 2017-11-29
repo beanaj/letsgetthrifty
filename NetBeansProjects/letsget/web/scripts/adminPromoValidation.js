@@ -4,17 +4,23 @@
  * and open the template in the editor.
  */
 
-//CHECK IF INT!!
 function checkID(input) {
-    var id = input.value;
+    var inputVal = input.value;
+    var id = Number(input.value);
     //if the sp is null:
-    if (!id) {
+    if (!inputVal) {
         input.setCustomValidity('');
     } else {
-        if ((isNaN(id)) || (id < 0)) {
-            input.setCustomValidity("Promo ID Must be valid number");
+        //make sure id is an integer:
+        if ((typeof id ==='number') && ((id%1)===0)) {
+            //make sure id is greater than 0:
+            if (id > 0 && (id <= (Math.pow(2,31)-1))) {
+                input.setCustomValidity("");
+            } else {
+                input.setCustomValidity("Promo ID Must be valid integer above 0 and below 2,147,483,647")
+            }
         } else {
-            input.setCustomValidity('');
+            input.setCustomValidity('Promo ID Must be valid integer above 0');
         }
     }
 }
@@ -40,8 +46,8 @@ function checkPerc(input) {
         input.setCustomValidity('');
     } else {
         //check if number is integer or float and is b/w 0 and 5
-        if ((isNaN(perc)) || (perc < 0) || (rating > 100)) {
-            input.setCustomValidity('Please enter a valid number between 0 and 100');
+        if ((isNaN(perc)) || (perc < 0) || (perc > 100)) {
+            input.setCustomValidity('Please enter a valid percentage between 0 and 100');
         } else {
             input.setCustomValidity('');
         }
