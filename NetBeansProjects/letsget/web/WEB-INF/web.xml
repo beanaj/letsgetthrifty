@@ -72,6 +72,10 @@
         <servlet-name>MyAccountPhone</servlet-name>
         <servlet-class>services.MyAccountPhone</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MyAccountPayment</servlet-name>
+        <servlet-class>services.MyAccountPayment</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Registration</servlet-name>
         <url-pattern>/registered</url-pattern>
@@ -143,6 +147,10 @@
     <servlet-mapping>
         <servlet-name>MyAccountPhone</servlet-name>
         <url-pattern>/myaccountphone</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MyAccountPayment</servlet-name>
+        <url-pattern>/myaccountpayment</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
