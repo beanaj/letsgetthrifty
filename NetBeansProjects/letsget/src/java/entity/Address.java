@@ -50,6 +50,9 @@ public class Address implements AddressI{
         if(type.equals("u")){//add a user address
             AddressDAO db = new AddressDAO();
             db.addAddressUser(this);
+        }else if(type.equals("o")){//add other address
+            AddressDAO db = new AddressDAO();
+            db.addAddress(this);
         }     
     }
     

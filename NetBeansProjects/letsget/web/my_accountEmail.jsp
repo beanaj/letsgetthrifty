@@ -90,6 +90,10 @@
     </fieldset>
 </form>
 
+<div id="error">
+    ${requestScope.error}
+</div>  
+        
             </div>
 
     </div>

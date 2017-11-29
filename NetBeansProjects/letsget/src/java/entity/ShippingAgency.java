@@ -5,6 +5,8 @@
  */
 package entity;
 
+import java.sql.SQLException;
+
 /**
  *
  * @author Addison
@@ -59,7 +61,7 @@ public class ShippingAgency {
    public void setContactPhone(String phoneNum) {
        this.contactPhone = phoneNum;
    }
-   public void addAgency() {
+   public void addAgency() throws SQLException {
        ShippingAgencyDAO db = new ShippingAgencyDAO();
        db.addAgency(this);
    }

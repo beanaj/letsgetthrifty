@@ -156,7 +156,10 @@
 
 </table>       
 <!--END OF TABLE-->
-               
+      
+<div id="error">
+    ${requestScope.error}
+</div> 
 
             </div>      
         </div>

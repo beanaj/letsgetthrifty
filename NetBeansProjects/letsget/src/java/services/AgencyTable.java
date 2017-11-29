@@ -9,6 +9,9 @@ import entity.ShippingAgency;
 import entity.ShippingAgencyDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -63,8 +66,15 @@ public class AgencyTable extends HttpServlet {
                 String cPhone = request.getParameter("new_contactPhone");
 
                 ShippingAgency agency = new ShippingAgency(saID, aName, phone, cName, cPhone);
-                agency.addAgency();
-                
+               
+                try {
+                    agency.addAgency();
+                } catch (SQLException ex) {
+                    String error = "Error: Invalid input, please ensure your ID is unique.";
+                    request.setAttribute("error", error);
+                    request.getRequestDispatcher("adminAgencies.jsp").forward(request, response);
+                }
+            
                 break;
             case "Update Agency":
                 int saIDB = -1;
@@ -91,7 +101,13 @@ public class AgencyTable extends HttpServlet {
                 
                 //Update agency in the database:
                 ShippingAgencyDAO db = new ShippingAgencyDAO();
-                db.updateAgency(saIDB, aNameB, phoneB, cNameB, cPhoneB);
+                try {
+                    db.updateAgency(saIDB, aNameB, phoneB, cNameB, cPhoneB);
+                } catch (SQLException ex) {
+                    String error = "Error: Invalid input";
+                    request.setAttribute("error", error);
+                    request.getRequestDispatcher("adminAgencies.jsp").forward(request, response);
+                }
                 
                 break;
         } // switch

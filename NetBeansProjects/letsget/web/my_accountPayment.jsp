@@ -1,3 +1,5 @@
+<%@page import="entity.Payment"%>
+<%@page import="entity.PaymentDAO"%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -64,24 +66,32 @@
     </div>
 
     <div id="main">
+<%
+    String userID = (String) session.getAttribute("userID");
+    String creditCardID = "999" + userID.substring(userID.length() - 3);
+    //System.out.print(userID + " " + addressID);
+    PaymentDAO db = new PaymentDAO();
+    Payment payment = db.getPaymentByID(creditCardID);
+    
+%>
 
-            <div>
-                <form class="pure-form">
-                    <fieldset class="pure-group">
-                        <input type="text" class="pure-input-1" placeholder="Card Number" name = "card" onchange="checkCard(this)" required>
-                        <input id = "exp" type="text" class="pure-input-1" placeholder="Expiration" name = "exp" onchange="checkExp(this)" required>
-                        <select id="type" class="pure-input-1" name = "type" required>
-                            <option disabled selected value>Select Card Type</option>
-                            <option>Visa</option>
-                            <option>MasterCard</option>
-                            <option>American Express</option>
-                            <option>Discover</option>
-                            <option>Capital One</option>
-                            </select>                        
-                        <button type="submit" class="pure-button login pure-input-1 pure-button-primary">Update</button>
-                    </fieldset>
-                </form>
-            </div>
+<form class="pure-form" name="updatePayment" method="post" action="myaccountpayment">
+    <fieldset class="pure-group">
+        <input type="text" class="pure-input-1" placeholder="<%=payment.getNum()%>" name="cardNum">
+        <input type="text" class="pure-input-1" placeholder="<%=payment.getExp()%>" name="exp">
+        <select id="select" class="pure-input-1" name= "state">
+            <option disabled selected value><%=payment.getType()%></option>
+            <option>Visa</option>
+            <option>MasterCard</option>
+            <option>American Express</option>
+            <option>Discover</option>
+            <option>Capital One</option>
+        </select>
+        
+        <input type="hidden" name="creditCardID" value="<%=creditCardID%>">
+        <input name="updatePayment" type="submit" class="pure-button login pure-input-1 pure-button-primary" value="Update">
+    </fieldset>
+</form>
 
     </div>
 </div>

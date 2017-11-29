@@ -5,6 +5,8 @@
  */
 package entity;
 
+import java.sql.SQLException;
+
 /**
  *
  * @author Addison
@@ -52,7 +54,7 @@ public class Promotion {
         this.expiration = exp;
     }
     
-    public void addPromo() {
+    public void addPromo() throws SQLException {
         PromotionDAO db = new PromotionDAO();
         db.addPromo(this);
     }

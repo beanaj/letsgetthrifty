@@ -5,17 +5,20 @@
  */
 package services;
 
+import entity.Address;
 import entity.Book;
 import entity.BookDAO;
 import entity.CartDAO;
 import entity.CartObject;
 import entity.Order;
 import entity.OrderDAO;
+import entity.Payment;
 import entity.Transaction;
 import entity.TransactionDAO;
 import entity.User;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -147,10 +150,17 @@ public class PlaceOrder extends HttpServlet {
                 int newTotal = quantityInStock - quantityInOrder;
                 book.setQtyInStock(newTotal);
                 BookDAO db = new BookDAO();
+                try {
                 db.updateBook(book.getISBN(), book.getGenre(),
                         book.getAuthor(), book.getTitle(), book.getRating(), book.getPicture(),
                         book.getEdition(), book.getPublisher(), book.getPublicationYear(),
                         book.getQtyInStock(), book.getMinThreshold(), book.getBuyPrice(), book.getSellPrice(), book.getSupplierID());
+                } catch (SQLException ex) {
+                    String error = "Error: Invalid input";
+                    //DO SOMETHING WITH ERROR
+//                    request.setAttribute("error", error);
+//                    request.getRequestDispatcher("adminPromotions.jsp").forward(request, response);
+                }
 
             }
         }
@@ -210,7 +220,15 @@ public class PlaceOrder extends HttpServlet {
             order.setShippingAddress(addressID);
         } else {
             //5a otherwise we will create a new shipping address and use that
-
+            Address newAddress = new Address();
+            newAddress.addressID = ""+orderID;
+            newAddress.street = request.getParameter("street");
+            newAddress.city = request.getParameter("city");
+            newAddress.state = request.getParameter("state");
+            newAddress.zip = request.getParameter("zip");
+            newAddress.userID = userID;
+            newAddress.submit("o");
+            order.setShippingAddress(newAddress.addressID);
         }
         //6. for now the payment method will be card
         order.setPaymentMethod("card");
@@ -220,6 +238,15 @@ public class PlaceOrder extends HttpServlet {
             order.setBillingAddress(addressID);
         } else {
             //7a otherwise we will create a new address and use that
+            Address newAddress = new Address();
+            newAddress.addressID = ""+orderID+"-B";
+            newAddress.street = request.getParameter("bstreet");
+            newAddress.city = request.getParameter("bcity");
+            newAddress.state = request.getParameter("bstate");
+            newAddress.zip = request.getParameter("bzip");
+            newAddress.userID = userID;
+            newAddress.submit("o");
+            order.setShippingAddress(newAddress.addressID);
         }
 
         //8. we will create a confirmation number like in registration
@@ -238,7 +265,14 @@ public class PlaceOrder extends HttpServlet {
             String paymentID = "999" + userID.replaceAll("[^\\d]", "");
             order.setCreditCardID(paymentID);
         } else {
-
+            Payment card = new Payment();
+            card.setCCID(""+orderID);
+            card.setExp(request.getParameter("exp"));
+            card.setNum(request.getParameter("card"));
+            card.setType(request.getParameter("type"));
+            card.setUserID(userID);
+            card.submit();
+            order.setCreditCardID(card.getCCID());
         }
         OrderDAO dbO = new OrderDAO();
         dbO.updateOrder(order, order.getOrderID());

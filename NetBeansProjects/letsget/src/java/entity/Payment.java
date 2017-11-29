@@ -35,7 +35,7 @@ public class Payment implements PaymentI{
         this.userID=pay.getUserID();
     }
 
-    Payment() {
+    public Payment() {
     }
     
     @Override
@@ -62,6 +62,26 @@ public class Payment implements PaymentI{
     
     public String getExp(){
         return this.expirationDate;
+    }
+    
+    public void setCCID(String id){
+        this.creditCardID=id;
+    }
+    
+    public void setUserID(String id){
+        this.userID = id;
+    }
+    
+    public void setNum(String id){
+        this.creditCardNumber=id;
+    }
+    
+    public void setType(String id){
+        this.creditCardType=id;
+    }
+    
+    public void setExp(String id){
+        this.expirationDate=id;
     }
     
 }

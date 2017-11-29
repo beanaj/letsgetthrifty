@@ -7,6 +7,7 @@ package entity;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -81,6 +82,46 @@ public class PaymentDAO {
             exception.printStackTrace();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Registration.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void updateAddress(String id, String num, String exp, String type) {
+        //Set up database connection:
+        Connection conn = null;
+        PreparedStatement stat = null;
+        DatabaseUtility db = new DatabaseUtility();
+        
+        try {
+            Class.forName(db.getDriver());
+            conn = DriverManager.getConnection(db.getURL(), db.getUser(), db.getPass());
+            
+            if (!num.isEmpty()) {
+                String query = "UPDATE creditcards SET num = ? WHERE creditCardID = ?";
+                stat = conn.prepareStatement(query);
+                stat.setString(1, num);
+                stat.setString(2, id);
+                stat.executeUpdate();
+            }
+            if (!exp.isEmpty()) {
+                String query = "UPDATE creditcards SET exp = ? WHERE creditCardID = ?";
+                stat = conn.prepareStatement(query);
+                stat.setString(1, exp);
+                stat.setString(2, id);
+                stat.executeUpdate();
+            }
+            if (!type.isEmpty()) {
+                String query = "UPDATE creditcards SET type = ? WHERE creditCardID = ?";
+                stat = conn.prepareStatement(query);
+                stat.setString(1, type);
+                stat.setString(2, id);
+                stat.executeUpdate();
+            }
+           
+            conn.close();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

@@ -69,7 +69,7 @@ public class MyAccountAddress extends HttpServlet {
         id = request.getParameter("addressID");
         street = request.getParameter("street");
         city = request.getParameter("city");
-        state = request.getParameter("city");
+        state = request.getParameter("state");
         zip = request.getParameter("zip");
 
                 
