@@ -88,17 +88,23 @@ function checkLink(input) {
     input.setCustomValidity('');
 }
 
-//NEED TO CHECK IF INTEGER!!!!!
 function checkEdition(input) { 
-    var edition = input.value;
-    //if the name is null:
-    if (!edition) {
+    var inputVal = input.value;
+    var edition = Number(input.value);
+    //if the edition is null:
+    if (!inputVal) {
         input.setCustomValidity('');
     } else {
-        if (isNaN(edition)) {
-            input.setCustomValidity('Please enter a valid number');
+        //make sure edition is integer and 
+        if ((typeof edition ==='number') && ((edition%1)===0)) {
+            //Now make sure edition is between 1 and 7:
+            if (edition >=1 && edition <= 15) {
+                input.setCustomValidity('');
+            } else {
+                input.setCustomValidity('Please enter a valid integer between 1 and 15');
+            }
         } else {
-            input.setCustomValidity('');
+            input.setCustomValidity('Please enter a valid number');
         }
     }
 }
@@ -117,47 +123,64 @@ function checkPublisher(input) {
     }
 }
 
-//CHECK IF INTEGER!!
 function checkPubYear(input) {
-    var pubYear = input.value;
+    var inputVal = input.value;
+    var pubYear = Number(input.value);
     //if the pubYear is null:
-    if (!pubYear) {
+    if (!inputVal) {
         input.setCustomValidity('');
     } else {
-        if ((isNaN(pubYear)) || (pubYear < 0) || (pubYear > 2300)) {
-            input.setCustomValidity("Publication Year must be valid year");
+        //make sure pubYear is an integer
+        if ((typeof pubYear ==='number') && ((pubYear%1)===0)) {
+            if (pubYear >= 0 && pubYear <= 2300) {
+                input.setCustomValidity('');
+            } else {
+                input.setCustomValidity('Please enter a year between 0 and 2300');
+            }
         } else {
-            input.setCustomValidity('');
+            input.setCustomValidity('Please enter a year between 0 and 2300');
         }
     }
 }
 
-//CHECK IF INTEGER!!
 function checkQuantity(input) {
-    var quantity = input.value;
+    var inputVal = input.value;
+    var quantity = Number(input.value);
     //if the quantity is null:
-    if (!quantity) {
+    if (!inputVal) {
         input.setCustomValidity('');
     } else {
-        if ((isNaN(quantity)) || (quantity < 0)) {
-            input.setCustomValidity("Quantity must be valid number greater than 0");
+        //check if quantity is integer:
+        if ((typeof quantity ==='number') && ((quantity%1)===0)) {
+            //make sure quantity is 1 or greater:
+            if (quantity >= 1) {
+                input.setCustomValidity('');
+            } else {
+                input.setCustomValidity("Quantity must be valid number greater than 0");
+            }
         } else {
-            input.setCustomValidity('');
+            input.setCustomValidity('Quantity must be valid number greater than 0');
         }
     }
 }
 
-//CHECK IF INTEGER!!
 function checkThreshold(input) {
-    var thresh = input.value;
+    var inputVal = input.value;
+    var thresh = Number(input.value);
     //if the quantity is null:
-    if (!thresh) {
+    if (!inputVal) {
         input.setCustomValidity('');
     } else {
-        if ((isNaN(thresh)) || (thresh < 0)) {
-            input.setCustomValidity("Min threshold must be valid number greater than 0");
+        //check if min threshold is integer:
+        if ((typeof thresh ==='number') && ((thresh%1)===0)) {
+            //make sure thresh is 1 or greater:
+            if (thresh >= 1) {
+                input.setCustomValidity('');
+            } else {
+                input.setCustomValidity("Min Threshold must be valid number greater than 0");
+            }
         } else {
-            input.setCustomValidity('');
+            input.setCustomValidity('Min Threshold must be valid number greater than 0');
         }
     }
 }
@@ -190,17 +213,23 @@ function checkSellP(input) {
     }
 }
 
-//Check if INT!!!!!
 function checkSID(input) {
     var s = input.value;
+    var sid = Number(input.value);
     //if the sp is null:
     if (!s) {
         input.setCustomValidity('');
     } else {
-        if ((isNaN(s)) || (s < 0)) {
-            input.setCustomValidity("Supplier ID Must be valid number");
+        //check if supplier id is integer:
+        if ((typeof sid ==='number') && ((sid%1)===0)) {
+            //make sure Supplier id is 0 or greater:
+            if (sid >= 0) {
+                input.setCustomValidity('');
+            } else {
+                input.setCustomValidity("Please enter a valid supplier ID");
+            }
         } else {
-            input.setCustomValidity('');
+            input.setCustomValidity('Please enter a valid supplier ID');
         }
     }
 }
