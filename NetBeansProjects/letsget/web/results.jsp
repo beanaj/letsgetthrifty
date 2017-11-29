@@ -29,7 +29,6 @@
         <!--<![endif]-->
         <link rel="stylesheet" href="styles/search.css">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <style src="search.css"></style>
     </head>
     <body>
     <%
@@ -69,21 +68,21 @@
             <span></span>
         </a>
     <div class="pure-g">
-        <div class="pure-u-1-5"> 
+        <div class="pure-u-1-4"> 
         <div id ="menu" class="pure-menu">
-            <a class="pure-menu-heading" href="#">Welcome, <%="\n " + userName%>!</a>
+            <a class="pure-menu-heading" href="#">Welcome <%="\n " + userName%></a>
 
             <ul class="pure-menu-list">
                 <li class="pure-menu-item"><a href="homepage.jsp" class="pure-menu-link">Home</a></li>
-                <li class="pure-menu-item"><a href="#" class="pure-menu-link">My Cart</a></li>
-                <li class="pure-menu-item menu-item-divided pure-menu-selected"><a href="" class="pure-menu-link">Search</a></li>
+                <li class="pure-menu-item"><a href="my_cart.jsp" class="pure-menu-link">My Cart</a></li>
+                <li class="pure-menu-item menu-item-divided pure-menu-selected"><a href="search.jsp" class="pure-menu-link">Search</a></li>
                 <li class="pure-menu-item"><a href="my_account.jsp" class="pure-menu-link">My Account</a></li>
                 <li class="pure-menu-item"><a href="login_register.jsp" class="pure-menu-link">Log In/Register</a></li>
                 <li class="pure-menu-item"><a href="#" class="pure-menu-link">Sign Out</a></li>
             </ul>
         </div>
         </div>
-        <div class="pure-u-4-5">
+        <div class="pure-u-5-8">
             <div class="search">
                 <form class="pure-form" action="searchresult" method="post">
                     <input class="searchbar" name ="input" placeholder="Search by Title, Author, Genre, or ISBN">
@@ -93,9 +92,11 @@
                         <option value="genre">Genre</option>
                         <option value="ISBN">ISBN</option>
                     </select>
-                    <input type="submit" class="pure-button pure-button-primary" value="SHOW ME WHAT YOU GOT">
+                    <button type="submit" class="pure-button pure-button-primary" value="SHOW ME WHAT YOU GOT"></button>
                 </form>
             </div>
+        <div class="browseheader">
+            WHAT WE GOT
         </div>
         <table>
             <%try {
@@ -105,7 +106,7 @@
                 con = DriverManager.getConnection(db.getURL(), db.getUser(), db.getPass());
                 //generate sql statement
                 state = con.createStatement();
-                String sql = "SELECT * FROM books WHERE "+session.getAttribute("option")+" like '"+session.getAttribute("input")+"%'";
+                String sql = "SELECT * FROM books WHERE "+session.getAttribute("option")+" like '%"+session.getAttribute("input")+"%' ORDER BY title";
                 result = state.executeQuery(sql);
                 while(result.next()){%>
                     <tr>  
@@ -133,9 +134,14 @@
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(Registration.class.getName()).log(Level.SEVERE, null, ex);
             }
+            con.close();
             %>
             
-        </table>   
+        </table>  
+            <div class="pure-u-1-8">
+            </div>
+        </div>
+    </div>
         <script src="scripts/homepage.js"></script>
     </body>
 </html>

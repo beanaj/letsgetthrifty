@@ -69,7 +69,8 @@
 <%
     String userID = (String) session.getAttribute("userID");
     String creditCardID = "999" + userID.substring(userID.length() - 3);
-    //System.out.print(userID + " " + addressID);
+    //int creditCardID = Integer.parseInt(creditCardIDString);
+    
     PaymentDAO db = new PaymentDAO();
     Payment payment = db.getPaymentByID(creditCardID);
     
@@ -77,9 +78,9 @@
 
 <form class="pure-form" name="updatePayment" method="post" action="myaccountpayment">
     <fieldset class="pure-group">
-        <input type="text" class="pure-input-1" placeholder="<%=payment.getNum()%>" name="cardNum">
+        <input type="text" class="pure-input-1" placeholder="<%=payment.getNum()%>" name="num">
         <input type="text" class="pure-input-1" placeholder="<%=payment.getExp()%>" name="exp">
-        <select id="select" class="pure-input-1" name= "state">
+        <select id="select" class="pure-input-1" name= "type">
             <option disabled selected value><%=payment.getType()%></option>
             <option>Visa</option>
             <option>MasterCard</option>

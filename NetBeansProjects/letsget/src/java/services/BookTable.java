@@ -75,7 +75,7 @@ public class BookTable extends HttpServlet {
                 try {
                     book.addBook();
                 } catch (SQLException ex) {
-                    String error = "Error: Invalid input, please ensure your isbn is unique.";
+                    String error = "Error: Invalid input, please ensure your isbn is unique and supplier id exists.";
                     request.setAttribute("error", error);
                     request.getRequestDispatcher("adminInventory.jsp").forward(request, response);
                 }

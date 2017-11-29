@@ -38,17 +38,20 @@ public class SearchResult extends HttpServlet {
         String search = request.getParameter("input");
         //category of search
         String category = request.getParameter("option");
-        //create list of search results
+      
         if(category == null){
             session.setAttribute("option", "title");
             session.setAttribute("input", search);
+            request.getRequestDispatcher("results.jsp").forward(request, response);
+        }
+        else if(search == null){
+            return;
         }
         else{
             session.setAttribute("option", category);
             session.setAttribute("input", search);
+            request.getRequestDispatcher("results.jsp").forward(request, response);
         }
-        request.getRequestDispatcher("results.jsp").forward(request, response);
-        response.sendRedirect("results.jsp");
     }
 
 }

@@ -23,7 +23,7 @@ function checkName(input) {
 }
 
 function checkPhone(input) {
-    var phoneNum = /^\(?([0-9]{3})\)?[-]?([0-9]{3})[-. ]?([0-9]{4})$/; 
+    var phoneNum = /^\(?([0-9]{3})\)?[-]([0-9]{3})[-]([0-9]{4})$/; 
     var enteredNum = input.value;
     
     //Check if phone number is properly formatted:
@@ -50,6 +50,8 @@ function checkEmail(input) {
     } else {
         if (atSymbol == -1) {
             input.setCustomValidity('Invalid Email Address');
+        } else if (email.length<=1||email.length>45){
+            input.setCustomValidity("Email must be between 2 and 45 characters")
         } else {
             input.setCustomValidity('');
         }

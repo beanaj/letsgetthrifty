@@ -106,7 +106,7 @@ for (int i = 0; i < userList.size(); i++) {
         String primaryKey = userList.get(i).getAccountID();
         String type = userList.get(i).getType();
         //Only display the users that are employees:
-        if (type.equals("e")) {
+        if (type.equals("e") || type.equals("m")) {
     %>
 <td><%=userList.get(i).getAccountID() %></td>
 <td><%=userList.get(i).getFN() %></td>
