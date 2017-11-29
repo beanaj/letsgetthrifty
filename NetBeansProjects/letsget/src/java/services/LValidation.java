@@ -15,7 +15,7 @@ import java.util.logging.Logger;
  */
 public class LValidation implements IValidator {
 
-    private String error="";
+    private String error = "";
 
     @Override
     public Boolean isValid(String[] information) {
@@ -30,6 +30,7 @@ public class LValidation implements IValidator {
         UserDAO uDAO = new UserDAO();
         Boolean isRegistered = false;
         Boolean isConfirmed = false;
+        Boolean isSuspended = false;
         //check to see if the user is registered
         try {
             isRegistered = uDAO.isRegistered(id, type);
@@ -41,15 +42,18 @@ public class LValidation implements IValidator {
             //check to see if user is confirmed
             try {
                 isConfirmed = uDAO.isConfirmed(id, type);
+                isSuspended = uDAO.isSuspended(id, type);
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(LValidation.class.getName()).log(Level.SEVERE, null, ex);
             }
-            if(isConfirmed){
-                
-            }else{
-                error+= "<b>Invalid AccountID/Email</b><br>Please confirm your account";
+            if (!isConfirmed) {
+                error += "<b>Invalid AccountID/Email</b><br>Please confirm your account";
                 valid = false;
-            }
+                if (isSuspended) {
+                error = "<b>Invalid AccountID/Email</b><br>Your account has been suspended";
+                valid = false;
+                }
+            } 
 
         } else {
             error += "<b>Invalid AccountID/Email or Password</b><br>Please enter a valid accountID/email or password";

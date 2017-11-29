@@ -212,6 +212,44 @@ public class UserDAO {
         return found;
     }
     
+     public Boolean isSuspended(String accountID, String type) throws ClassNotFoundException{
+        Boolean found;
+        Connection con;
+        Statement state;
+        DatabaseUtility db = new DatabaseUtility();
+        if(type.equals("e")){
+            type = "email";
+        }else{
+            type = "userID";
+        }
+
+        try {
+            //register the driver
+            Class.forName(db.getDriver());
+            //connect to the database
+            con = DriverManager.getConnection(db.getURL(), db.getUser(), db.getPass());
+            //generate sql statement
+            state = con.createStatement();
+            String sql = "SELECT * FROM users WHERE " + type +" = "+"'"+accountID+"'";
+
+            ResultSet result = state.executeQuery(sql);
+            String active = "";
+            while(result.next()){
+                active = result.getString("active");
+            }
+            
+            if(active.equals("2")){
+                found = true;
+            }else{
+                found = false;
+            }
+            con.close();
+        } catch (SQLException exception) {
+            found = false;
+        } 
+        return found;
+    }
+    
     public List<User> list() throws SQLException {
         DatabaseUtility db = new DatabaseUtility();
         

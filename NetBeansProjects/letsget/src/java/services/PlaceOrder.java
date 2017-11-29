@@ -246,7 +246,7 @@ public class PlaceOrder extends HttpServlet {
             newAddress.zip = request.getParameter("bzip");
             newAddress.userID = userID;
             newAddress.submit("o");
-            order.setShippingAddress(newAddress.addressID);
+            order.setBillingAddress(newAddress.addressID);
         }
 
         //8. we will create a confirmation number like in registration

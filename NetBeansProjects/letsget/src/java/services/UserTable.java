@@ -143,7 +143,7 @@ public class UserTable extends HttpServlet {
                 String emailC = "";
                 String typeC = "";
                 String codeC = "";
-                int activeC = 0; 
+                int activeC = 2; 
                 
                 if (!request.getParameter("new_userID").isEmpty()) {
                     idC = request.getParameter("new_userID");
