@@ -5,7 +5,26 @@
  */
 
 function checkISBN(input) {
-    input.setCustomValidity('');
+    //Check if ISBN is 13 digits and an integer:
+    var inputVal = input.value;
+    var isbn = Number(input.value);
+    
+    //if isbn is null:
+    if (!inputVal) {
+        input.setCustomValidity('');
+    } else {
+        //if isbn is a number and an integer
+        if ((typeof isbn ==='number') && ((isbn%1)===0)) {
+            //Now check to see if it's 13 digits:
+            if (!(isbn.toString().length == 13)) {
+                input.setCustomValidity('ISBN must be a 13 digit integer')
+            } else {
+                input.setCustomValidity('');
+            }
+        } else {
+            input.setCustomValidity('ISBN must be a 13 digit integer');
+        }
+    }
 }
 
 function checkGenre(input) {
