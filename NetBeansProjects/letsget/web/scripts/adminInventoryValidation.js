@@ -153,7 +153,7 @@ function checkQuantity(input) {
         //check if quantity is integer:
         if ((typeof quantity ==='number') && ((quantity%1)===0)) {
             //make sure quantity is 1 or greater:
-            if (quantity >= 1) {
+            if (quantity >= 1 && quantity <= (Math.pow(2,31)-1)) {
                 input.setCustomValidity('');
             } else {
                 input.setCustomValidity("Quantity must be valid number greater than 0");
@@ -174,7 +174,7 @@ function checkThreshold(input) {
         //check if min threshold is integer:
         if ((typeof thresh ==='number') && ((thresh%1)===0)) {
             //make sure thresh is 1 or greater:
-            if (thresh >= 1) {
+            if (thresh >= 1 && thresh <= (Math.pow(2,31)-1)) {
                 input.setCustomValidity('');
             } else {
                 input.setCustomValidity("Min Threshold must be valid number greater than 0");
@@ -223,13 +223,13 @@ function checkSID(input) {
         //check if supplier id is integer:
         if ((typeof sid ==='number') && ((sid%1)===0)) {
             //make sure Supplier id is 0 or greater:
-            if (sid >= 0) {
+            if (sid >= 0 && sid <= (Math.pow(2,31)-1)) {
                 input.setCustomValidity('');
             } else {
-                input.setCustomValidity("Please enter a valid supplier ID");
+                input.setCustomValidity("Please enter a valid supplier ID between 1 and 2,147,483,647");
             }
         } else {
-            input.setCustomValidity('Please enter a valid supplier ID');
+            input.setCustomValidity('Please enter a valid supplier ID between 1 and 2,147,483,647');
         }
     }
 }

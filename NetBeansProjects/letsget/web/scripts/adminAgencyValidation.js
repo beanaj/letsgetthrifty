@@ -14,9 +14,14 @@ function checkID(input) {
     } else {
         //if ID is a number and an integer
         if ((typeof id ==='number') && ((id%1)===0)) {
-            input.setCustomValidity('');
+            //check to see if between 0 and 2,147,483,647:
+            if (id > 0 && id <= (Math.pow(2,31)-1)) {
+                input.setCustomValidity('');
+            } else {
+                input.setCustomValidity('Agency ID must be valid number between 1 and 2,147,483,647')
+            }
         } else {
-            input.setCustomValidity('Agency ID must be integer');
+            input.setCustomValidity('Agency ID must be valid number between 1 and 2,147,483,647');
         }
     }
 }

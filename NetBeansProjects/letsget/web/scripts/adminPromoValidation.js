@@ -45,7 +45,7 @@ function checkPerc(input) {
     if (!perc) {
         input.setCustomValidity('');
     } else {
-        //check if number is integer or float and is b/w 0 and 5
+        //check if number is integer or float and is b/w 0 and 100
         if ((isNaN(perc)) || (perc < 0) || (perc > 100)) {
             input.setCustomValidity('Please enter a valid percentage between 0 and 100');
         } else {
