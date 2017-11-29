@@ -76,6 +76,10 @@
         <servlet-name>MyAccountPayment</servlet-name>
         <servlet-class>services.MyAccountPayment</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MyAccountPassword</servlet-name>
+        <servlet-class>services.MyAccountPassword</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Registration</servlet-name>
         <url-pattern>/registered</url-pattern>
@@ -151,6 +155,10 @@
     <servlet-mapping>
         <servlet-name>MyAccountPayment</servlet-name>
         <url-pattern>/myaccountpayment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MyAccountPassword</servlet-name>
+        <url-pattern>/MyAccountPassword</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -1,3 +1,5 @@
+<%@page import="entity.User"%>
+<%@page import="entity.UserDAO"%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -64,16 +66,23 @@
     </div>
 
     <div id="main">
-            <div>
-                <form class="pure-form">
-                    <fieldset class="pure-group">
-                        <input type="text" class="pure-input-1" placeholder="Old Password" name="oldPass">
-                        <input type="text" class="pure-input-1" placeholder="New Password" name="newPass">               
-                        <input type="text" class="pure-input-1" placeholder="Verify New Password" name="newPassVerify">
-                        <button type="submit" class="pure-button login pure-input-1 pure-button-primary">Update</button>
-                    </fieldset>
-                </form>
-            </div>  
+<%
+    String userID = (String) session.getAttribute("userID");
+
+    UserDAO db = new UserDAO();
+    User user = db.getUser(userID, "u");
+    
+%>
+
+<form class="pure-form" name="updateName" method="post" action="myaccountname">
+    <fieldset class="pure-group">
+        <input type="text" class="pure-input-1" placeholder="Old Password" name="oldPass">
+        <input type="text" class="pure-input-1" placeholder="New Password" name="newPass">
+        <input type="text" class="pure-input-1" placeholder="Verify New Password" name="newPassV">
+        <input type="hidden" name="userID" value="<%=userID%>">
+        <input name="updateName" type="submit" class="pure-button login pure-input-1 pure-button-primary" value="Update">
+    </fieldset>
+</form>
 
 
     </div>
