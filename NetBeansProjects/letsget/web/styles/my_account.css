@@ -23,6 +23,15 @@ body {
     color: #777;
 }
 
+table, td, tr {
+    border: 1px solid black;
+    color: black;
+    font-weight: 200;
+    font-size: .9em;
+    text-align: center;
+    padding: .3em .3em;
+}
+
 .pure-img-responsive {
     max-width: 100%;
     height: auto;

@@ -89,6 +89,8 @@ public class MyAccountPayment extends HttpServlet {
 
         //Update agency in the database:
         PaymentDAO db = new PaymentDAO();
+                    System.out.println(type);
+
         db.updatePayment(id, num, exp, type);
 
         response.sendRedirect("my_accountPayment.jsp");    

@@ -370,5 +370,36 @@ public class UserDAO {
             Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, ex);
         } 
     }
+    
+    
+    public List<String> listUserEmails() throws SQLException {
+        DatabaseUtility db = new DatabaseUtility();
+        
+        List<String> userEmails = new ArrayList<String>();
+        
+        try {
+            Class.forName(db.getDriver());
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        
+        try (
+            Connection connection = DriverManager.getConnection(db.getURL(), db.getUser(), db.getPass());
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM users");
+            ResultSet rs = statement.executeQuery();
+                ) {
+            while (rs.next()) {
+                //Check to see if the user is a u type:
+                if (rs.getString("userType").equals("u")) {
+                    //Get their email and add it to the userEmailList
+                    String email = rs.getString("email");
+                    userEmails.add(email);
+                }
+            }
+            connection.close();
+        
+        }
+        return userEmails;
+    }
 
 }

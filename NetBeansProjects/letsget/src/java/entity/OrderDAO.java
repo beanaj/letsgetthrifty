@@ -170,6 +170,46 @@ public class OrderDAO {
             Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public List<Order> getUserOrders(String userID) throws SQLException {
+      DatabaseUtility db = new DatabaseUtility();
+
+        List<Order> orders = new ArrayList<Order>();
+
+        try {
+            Class.forName(db.getDriver());
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        try (
+                Connection connection = DriverManager.getConnection(db.getURL(), db.getUser(), db.getPass());
+                PreparedStatement statement = connection.prepareStatement("SELECT * FROM orders");
+                ResultSet rs = statement.executeQuery();) {
+            while (rs.next()) {
+                //if the user ID equals the order's user id, then add order to the list
+                if (userID.equals(rs.getString("userID"))) {
+                    Order order = new Order();
+                    order.setOrderID(rs.getInt("orderID"));
+                    order.setShippingAgencyID(rs.getInt("shippingAgencyID"));
+                    order.setOrderStatus(rs.getString("orderStatus"));
+                    order.setOrderDate(rs.getString("orderDate"));
+                    order.setShippingAddress(rs.getString("shippingAddress"));
+                    order.setBillingAddress(rs.getString("billingAdress"));
+                    order.setPaymentMethod(rs.getString("paymentMethod"));
+                    order.setConfirmationNumber(rs.getString("confirmationNumber"));
+                    order.setUserID(rs.getString("userID"));
+                    order.setOrderTotal(rs.getString("orderTotal"));
+                    order.setCreditCardID(rs.getString("creditCardID"));
+
+                    orders.add(order);
+                }
+            }
+            connection.close();
+
+        }
+        return orders;
+    }
 
     public Order getOrder(String orderID) {
         Order od = new Order();

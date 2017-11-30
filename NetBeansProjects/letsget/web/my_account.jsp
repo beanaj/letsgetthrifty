@@ -1,3 +1,8 @@
+<%@page import="entity.Order"%>
+<%@page import="entity.OrderDAO"%>
+<%@page import="java.util.List"%>
+<%@page import="entity.User"%>
+<%@page import="entity.UserDAO"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -89,43 +94,74 @@
             </div>
 
             <div id="main">
+                <div class="content">
+            <div class="container">               
+                <div class="box">
+                    <div class="header">
+                        <h1>Orders</h1>
+                    </div>               
+                </div>
+                
+                <!--THE TABLE:::-->
+<table id="orderTable" align="center" cellpadding="5" cellspacing="5" border="1">
+<tr>
 
-                <!--        <div class="header">
-                            <h1>Page Title</h1>
-                            <h2>A subtitle for your page goes here</h2>
-                        </div>
+</tr>
+<td><b>Order ID</b></td>
+<td><b>Shipping Agency ID</b></td>
+<td><b>Order Status</b></td>
+<td><b>Order Date</b></td>
+<td><b>Shipping Address</b></td>
+<td><b>Billing Address</b></td>
+<td><b>Payment Method</b></td>
+<td><b>Confirmation Number</b></td>
+<td><b>User ID</b></td>
+<td><b>Order Total</b></td>
+<td><b>Credit Card ID</b></td>
+</tr>
+
+<%
+OrderDAO db = new OrderDAO();
+//make an array of the user's orders:
+List<Order> orders = db.getUserOrders(userID);
+
+for (int i = 0; i < orders.size(); i++) {
+%>
+
+<tr>  
+    <%
+        int primaryKey = orders.get(i).getOrderID();
+        
+    %>
+    <td><%=orders.get(i).getOrderID() %></td>
+    <td><%=orders.get(i).getShippingAgencyID()%></td>
+    <td><%=orders.get(i).getOrderStatus()%></td>
+    <td><%=orders.get(i).getOrderDate()%></td>
+    <td><%=orders.get(i).getShippingAddress()%></td>
+    <td><%=orders.get(i).getBillingAddress()%></td>
+    <td><%=orders.get(i).getPaymentMethod()%></td>
+    <td><%=orders.get(i).getConfirmationNumber()%></td>
+    <td><%=orders.get(i).getUserID()%></td>
+    <td><%=orders.get(i).getOrderTotal()%></td>
+    <td><%=orders.get(i).getCreditCardID()%></td>
+
+</tr>
+
+<%   
+}
+%>
+
+</table>       
+<!--END OF TABLE-->
+
+
+<div id="error">
+    ${requestScope.error}
+</div>  
+
+            </div>      
+        </div>
                 
-                        <div class="content">
-                            <h2 class="content-subhead">How to use this layout</h2>
-                            <p>
-                                To use this layout, you can just copy paste the HTML, along with the CSS in <a href="/css/layouts/side-menu.css" alt="Side Menu CSS">side-menu.css</a>, and the JavaScript in <a href="/js/ui.js">ui.js</a>. The JS file uses vanilla JavaScript to simply toggle an <code>active</code> class that makes the menu responsive.
-                            </p>
-                
-                            <h2 class="content-subhead">Now Let's Speak Some Latin</h2>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                            </p>
-                
-                            <div class="pure-g">
-                                <div class="pure-u-1-4">
-                                    <img class="pure-img-responsive" src="http://farm3.staticflickr.com/2875/9069037713_1752f5daeb.jpg" alt="Peyto Lake">
-                                </div>
-                                <div class="pure-u-1-4">
-                                    <img class="pure-img-responsive" src="http://farm3.staticflickr.com/2813/9069585985_80da8db54f.jpg" alt="Train">
-                                </div>
-                                <div class="pure-u-1-4">
-                                    <img class="pure-img-responsive" src="http://farm6.staticflickr.com/5456/9121446012_c1640e42d0.jpg" alt="T-Shirt Store">
-                                </div>
-                                <div class="pure-u-1-4">
-                                    <img class="pure-img-responsive" src="http://farm8.staticflickr.com/7357/9086701425_fda3024927.jpg" alt="Mountain">
-                                </div>
-                            </div>
-                
-                            <h2 class="content-subhead">Try Resizing your Browser</h2>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                            </p>
-                        </div>-->
             </div>
         </div>
 

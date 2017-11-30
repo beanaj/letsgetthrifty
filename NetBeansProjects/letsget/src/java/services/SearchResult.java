@@ -45,7 +45,7 @@ public class SearchResult extends HttpServlet {
             request.getRequestDispatcher("results.jsp").forward(request, response);
         }
         else if(search == null){
-            return;
+            request.getRequestDispatcher("search.jsp").forward(request, response);
         }
         else{
             session.setAttribute("option", category);
