@@ -205,6 +205,7 @@ public class OrderDAO {
                     orders.add(order);
                 }
             }
+            connection.close();
 
         }
         return orders;
