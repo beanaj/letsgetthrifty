@@ -96,21 +96,22 @@ public class PaymentDAO {
             conn = DriverManager.getConnection(db.getURL(), db.getUser(), db.getPass());
             
             if (!num.isEmpty()) {
-                String query = "UPDATE creditcards SET num = ? WHERE creditCardID = ?";
+                String query = "UPDATE creditcards SET creditCardNumber = ? WHERE creditCardID = ?";
                 stat = conn.prepareStatement(query);
                 stat.setString(1, num);
                 stat.setString(2, id);
                 stat.executeUpdate();
             }
             if (!exp.isEmpty()) {
-                String query = "UPDATE creditcards SET exp = ? WHERE creditCardID = ?";
+                String query = "UPDATE creditcards SET expirationDate = ? WHERE creditCardID = ?";
                 stat = conn.prepareStatement(query);
                 stat.setString(1, exp);
                 stat.setString(2, id);
                 stat.executeUpdate();
             }
-            if (!type.isEmpty()) {
-                String query = "UPDATE creditcards SET type = ? WHERE creditCardID = ?";
+            System.out.println(type);
+            if (type!=null&&!type.isEmpty()) {
+                String query = "UPDATE creditcards SET creditCardType = ? WHERE creditCardID = ?";
                 stat = conn.prepareStatement(query);
                 stat.setString(1, type);
                 stat.setString(2, id);
