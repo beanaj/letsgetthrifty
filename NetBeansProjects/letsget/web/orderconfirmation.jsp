@@ -68,9 +68,16 @@
                     }
                     if (cookie.getName().equals("error")) {
                         error = cookie.getValue();
-                        error = error.replaceAll("_", " ");
-                        error = error.replaceAll("%", "\n");
-                        cookie.setMaxAge(0);
+                        if(error.equals("false")){
+                            error="";
+                        }else{
+                            error = error.replaceAll("_", " ");
+                            error = error.replaceAll("%", "\n");
+                            error = "<h3>Our apologies, some books in your order were out of stock."+
+                                    "<br>They remain in your cart for a purchase in the future!</h3>";
+                        }
+                        System.out.println(error);
+                        cookie.setMaxAge(-1);
                     }
                 }
             } else {
@@ -208,8 +215,7 @@
                             </table>
 
                             <div id="error">
-                                <h3>Our apologies, these books in your order were out of stock:<br>
-                                    <%=error%><br>They remain in your cart for a purchase in the future!</h3>                                
+                                   <%=error%>                             
                             </div>
                             <div class="pure-g">
                                 <div class="pure-u-1-3"></div>
