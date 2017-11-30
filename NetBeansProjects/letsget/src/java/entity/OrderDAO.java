@@ -171,4 +171,37 @@ public class OrderDAO {
         }
     }
 
+    public Order getOrder(String orderID) {
+        Order od = new Order();
+        DatabaseUtility db = new DatabaseUtility();
+        try {
+            Class.forName(db.getDriver());
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        try (
+                Connection connection = DriverManager.getConnection(db.getURL(), db.getUser(), db.getPass());
+                PreparedStatement statement = connection.prepareStatement("SELECT * FROM orders WHERE orderID = '" + orderID + "'");
+                ResultSet rs = statement.executeQuery();) {
+            while (rs.next()) {
+                od.setUserID(rs.getString("userID"));
+                od.setOrderID(rs.getInt("orderID"));
+                od.setShippingAgencyID(rs.getInt("shippingAgencyID"));
+                od.setOrderStatus(rs.getString("orderStatus"));
+                od.setOrderDate(rs.getString("orderDate"));
+                od.setShippingAddress(rs.getString("shippingAddress"));
+                od.setBillingAddress(rs.getString("billingAdress"));
+                od.setPaymentMethod(rs.getString("paymentMethod"));
+                od.setConfirmationNumber(rs.getString("confirmationNumber"));
+                od.setOrderTotal(""+rs.getDouble("orderTotal"));
+                od.setCreditCardID(rs.getString("creditCardID"));
+            }
+            connection.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return od;
+    }
+
 }

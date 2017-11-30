@@ -362,7 +362,8 @@
                                         </tr>
                                         <%
                                             if(discount>0){
-                                                totalPrice = (totalPrice + (totalPrice * .1)) * discount;
+                                                System.out.println(totalPrice);
+                                                totalPrice = (totalPrice + (totalPrice * .1)) -(totalPrice* discount);
                                             }else{
                                                 totalPrice = (totalPrice + (totalPrice * .1));
                                             }

@@ -120,4 +120,26 @@ public class ShippingAgencyDAO {
             Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, ex);
         } 
     }
+
+    ShippingAgency getShippingAgency(String id) {
+        ShippingAgency agency = new ShippingAgency();
+        DatabaseUtility db = new DatabaseUtility();
+        try (
+            Connection connection = DriverManager.getConnection(db.getURL(), db.getUser(), db.getPass());
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM shippingagencies WHERE shippingAgencyID = '"+id+"'");
+            ResultSet rs = statement.executeQuery();
+                ) {
+            while (rs.next()) {
+                agency.setAgencyID(rs.getInt("shippingAgencyID"));
+                agency.setAgencyName(rs.getString("agencyName"));
+                agency.setPhone(rs.getString("phone"));
+                agency.setContactName(rs.getString("contactName"));
+                agency.setContactPhone(rs.getString("contactPhone"));
+            }
+            connection.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ShippingAgencyDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return agency;
+    }
 }

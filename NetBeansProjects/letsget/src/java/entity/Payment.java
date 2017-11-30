@@ -34,6 +34,16 @@ public class Payment implements PaymentI{
         this.expirationDate=pay.getExp();
         this.userID=pay.getUserID();
     }
+    
+    public Payment(String payID, boolean overload){
+        PaymentDAO db = new PaymentDAO();
+        Payment pay = db.getPaymentByID(payID);
+        this.creditCardID=pay.getCCID();
+        this.creditCardNumber=pay.getNum();
+        this.creditCardType=pay.getType();
+        this.expirationDate=pay.getExp();
+        this.userID=pay.getUserID();
+    }
 
     public Payment() {
     }
