@@ -70,6 +70,7 @@
                         error = cookie.getValue();
                         error = error.replaceAll("_", " ");
                         error = error.replaceAll("%", "\n");
+                        cookie.setMaxAge(0);
                     }
                 }
             } else {
