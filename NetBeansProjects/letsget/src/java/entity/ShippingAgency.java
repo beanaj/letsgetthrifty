@@ -27,7 +27,16 @@ public class ShippingAgency {
        this.contactPhone = coPhone;
    }
    
-   
+   public ShippingAgency(String id){
+       ShippingAgency ship = new ShippingAgency();
+       ShippingAgencyDAO db = new ShippingAgencyDAO();
+       ship = db.getShippingAgency(id);
+       this.shippingAgencyID=ship.shippingAgencyID;
+       this.agencyName=ship.agencyName;
+       this.phone=ship.phone;
+       this.contactName=ship.contactName;
+       this.contactPhone=ship.contactPhone;
+    }
    
    public ShippingAgency() {
    }

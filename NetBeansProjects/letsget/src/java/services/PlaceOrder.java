@@ -13,11 +13,13 @@ import entity.CartObject;
 import entity.Order;
 import entity.OrderDAO;
 import entity.Payment;
+import entity.ShippingAgency;
 import entity.Transaction;
 import entity.TransactionDAO;
 import entity.User;
 import java.io.IOException;
 import java.io.PrintWriter;
+import static java.lang.System.out;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -70,7 +72,7 @@ public class PlaceOrder extends HttpServlet {
         Boolean outOfStock = false;
         //user id for order being placed
         String userID = (String) session.getAttribute("userID");
-
+        String error = "";
         boolean useShip = false;
         boolean usePay = false;
         boolean useBill = false;
@@ -128,6 +130,7 @@ public class PlaceOrder extends HttpServlet {
         //in order to add the book to the transaction:
         //1.) check to make sure it is in stock, if not leave in cart and add to not in stock error
         boolean[] inStock = new boolean[cartContents.length];
+       
         for (int i = 0; i < cartContents.length; i++) {
             Book book = new Book(cartContents[i].isbn);
             int quantityInStock = book.getQtyInStock();
@@ -140,8 +143,23 @@ public class PlaceOrder extends HttpServlet {
                 inStock[i] = true;
             }
         }
+        
+        //ensure we have something in the order
+        boolean anyBooks = false;
+        for(int i=0;i<inStock.length;i++){
+            if(inStock[i]){
+                anyBooks=true;
+            }
+        }
+        if(!anyBooks){
+            error= "<h4>Our apologies, the books in your order are out of stock.<br>They remain in your cart for a purchase in the future!</h>";
+            request.setAttribute("errorNoBooks", error);
+            request.getRequestDispatcher("checkout.jsp").forward(request, response);
+            return;
+        }
         //2.) if it is in stock, remove it from stock and from the cart
         //remove the books from stock
+         String books = "";//for the email
         for (int i = 0; i < cartContents.length; i++) {
             if (inStock[i] == true) {
                 Book book = new Book(cartContents[i].isbn);
@@ -150,18 +168,24 @@ public class PlaceOrder extends HttpServlet {
                 int newTotal = quantityInStock - quantityInOrder;
                 book.setQtyInStock(newTotal);
                 BookDAO db = new BookDAO();
+                books += book.getTitle()+" Quantity: " + quantityInOrder;
                 try {
                     db.updateBook(book.getISBN(), book.getGenre(),
                             book.getAuthor(), book.getTitle(), book.getRating(), book.getPicture(),
                             book.getEdition(), book.getPublisher(), book.getPublicationYear(),
                             book.getQtyInStock(), book.getMinThreshold(), book.getBuyPrice(), book.getSellPrice(), book.getSupplierID());
                 } catch (SQLException ex) {
-                    String error = "Error: Invalid input";
                     //DO SOMETHING WITH ERROR
 //                    request.setAttribute("error", error);
 //                    request.getRequestDispatcher("adminPromotions.jsp").forward(request, response);
                 }
-
+                Cookie bookError = new Cookie("error", "false");
+                response.addCookie(bookError);
+            }else{
+                Book book = new Book(cartContents[i].isbn);
+                error += book.getTitle().replaceAll(" ", "_")+"%";
+                Cookie bookError = new Cookie("error", error);
+                response.addCookie(bookError);
             }
         }
         //remove the books from the cart
@@ -193,9 +217,9 @@ public class PlaceOrder extends HttpServlet {
                 info[3] = promoID;
                 Double price = 0.0;
                 if (discount > 0) {
-                    price = (book.getSellPrice() * cartContents[i].quantity) * discount / 100;
+                    price += (book.getSellPrice() * cartContents[i].quantity)-((book.getSellPrice() * cartContents[i].quantity) * discount / 100);
                 } else {
-                    price = (book.getSellPrice() * cartContents[i].quantity);
+                    price += (book.getSellPrice() * cartContents[i].quantity);
                 }
                 price = Math.floor(price * 100) / 100;
                 info[4] = "" + price;
@@ -206,7 +230,6 @@ public class PlaceOrder extends HttpServlet {
         //when all books are created as transactions
         //1.) create an order database entry **DONE ABOVE**
         order.setOrderID(orderID);
-        System.out.println(order.getOrderID());
         //2. add shipping agency (default to ups)
         order.setShippingAgencyID(1);
         //3. order status will be set to ordered
@@ -281,8 +304,9 @@ public class PlaceOrder extends HttpServlet {
         User userObj = new User(userID, "u");
         String name = userObj.getFN() + " " + userObj.getLN();
         String subject = "Let's Get Thrifty - Your Order has been Placed!";
-        String message = createOrderEmail(name, "" + orderID, "" + order.getShippingAgencyID(), order.getOrderDate(),
-                order.getOrderTotal(), order.getConfirmationNumber());
+        ShippingAgency agency = new ShippingAgency(""+order.getShippingAgencyID());
+        String message = createOrderEmail(name, "" + orderID, agency.getAgencyName(), order.getOrderDate(),
+                order.getOrderTotal(), order.getConfirmationNumber(), books);
 
         try {
             String resultMessage = "";
@@ -306,7 +330,7 @@ public class PlaceOrder extends HttpServlet {
     }
 
     private String createOrderEmail(String name, String orderID, String shippingAgency, String orderDate, String orderTotal,
-            String confirmationCode) {
+            String confirmationCode, String contents) {
         //generate an HTML response email.
         String msg = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n"
                 + "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
@@ -324,7 +348,7 @@ public class PlaceOrder extends HttpServlet {
                 + "    \n"
                 + "    <tr>\n"
                 + "      <td>\n"
-                + "          <b>Your order has been successfully placed. <br>Here is your confirmation, check MyAccount for more details. <br></b><br><br>\n"
+                + "          <b>Your order has been successfully placed. <br>Here is your confirmation, check MyAccount for more details. <br></b>\n"
                 + "      </td>\n"
                 + "     </tr>\n"
                 + "     <tr>\n"
@@ -372,7 +396,7 @@ public class PlaceOrder extends HttpServlet {
                 + "       <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">\n"
                 + "         <tr>\n"
                 + "          <td width=\"260\" valign=\"top\">\n"
-                + "           ShippingAgency:\n"
+                + "           Shipping Agency:\n"
                 + "          </td>\n"
                 + "          <td style=\"font-size: 0; line-height: 0;\" width=\"20\">\n"
                 + "           &nbsp;\n"
@@ -424,6 +448,23 @@ public class PlaceOrder extends HttpServlet {
                 + "       <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">\n"
                 + "         <tr>\n"
                 + "          <td width=\"260\" valign=\"top\">\n"
+                + "           \n"
+                + "          </td>\n"
+                + "          <td style=\"font-size: 0; line-height: 0;\" width=\"20\">\n"
+                + "           &nbsp;\n"
+                + "          </td>\n"
+                + "          <td width=\"260\" valign=\"top\">\n"
+
+                + "          </td>\n"
+                + "         </tr>\n"
+                + "        </table>\n"
+                + "      </td>\n"
+                + "     </tr>\n"
+                + "     <tr>\n"
+                + "      <td>\n"
+                + "        <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">\n"
+                + "         <tr>\n"
+                + "          <td width=\"260\" valign=\"top\">\n"
                 + "           Confirmation Code:\n"
                 + "          </td>\n"
                 + "          <td style=\"font-size: 0; line-height: 0;\" width=\"20\">\n"
@@ -437,35 +478,18 @@ public class PlaceOrder extends HttpServlet {
                 + "      </td>\n"
                 + "     </tr>\n"
                 + "     <tr>\n"
-                + "      <td>\n"
-                + "        <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">\n"
-                + "         <tr>\n"
-                + "          <td width=\"260\" valign=\"top\">\n"
-                + "           \n"
-                + "          </td>\n"
-                + "          <td style=\"font-size: 0; line-height: 0;\" width=\"20\">\n"
-                + "           &nbsp;\n"
-                + "          </td>\n"
-                + "          <td width=\"260\" valign=\"top\">\n"
-                //               + exp
-                + "          </td>\n"
-                + "         </tr>\n"
-                + "        </table>\n"
-                + "      </td>\n"
-                + "     </tr>\n"
-                + "     <tr>\n"
                 + "     <tr>\n"
                 + "      <td>\n"
                 + "       <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">\n"
                 + "         <tr>\n"
                 + "          <td width=\"260\" valign=\"top\">\n"
-                + "           \n"
+                + "           Order Contents:\n"
                 + "          </td>\n"
                 + "          <td style=\"font-size: 0; line-height: 0;\" width=\"20\">\n"
                 + "           &nbsp;\n"
                 + "          </td>\n"
                 + "          <td width=\"260\" valign=\"top\">\n"
-                //             + type
+                + contents
                 + "          </td>\n"
                 + "         </tr>\n"
                 + "        </table>\n"

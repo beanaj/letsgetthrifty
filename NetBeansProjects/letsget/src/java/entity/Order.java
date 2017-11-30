@@ -37,6 +37,23 @@ public class Order {
         this.cCardID = cCard;
     }
     
+    public Order(String orderID){
+        Order od = new Order();
+        OrderDAO db = new OrderDAO();
+        od = db.getOrder(orderID);
+        this.orderID = od.orderID;
+        this.shippingAgencyID = od.shippingAgencyID;
+        this.orderStatus = od.orderStatus;
+        this.orderDate = od.orderDate;
+        this.shippingAdd = od.shippingAdd;
+        this.billingAdd = od.billingAdd;
+        this.paymentMethod = od.paymentMethod;
+        this.confNum = od.confNum;
+        this.userID = od.userID;
+        this.orderTotal = od.orderTotal;
+        this.cCardID = od.cCardID;
+    }
+    
     public Order() {
         
     }

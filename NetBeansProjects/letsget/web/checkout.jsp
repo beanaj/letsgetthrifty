@@ -106,9 +106,11 @@
                 <div class="pure-g">
                     <form class="pure-form" method = "post" action = "placeorder">
                         <div class="pure-u-3-4">
+
                             <div class="browseheader">
                                 ORDER CONTENTS
                             </div>
+
                             <%
                                 String driverName = "com.mysql.jdbc.Driver";
                                 String connectionUrl = "jdbc:mysql://letsgetthrifty-database.cgg5mwmrnbyi.us-east-1.rds.amazonaws.com:3306/letsget?zeroDateTimeBehavior=convertToNull";
@@ -177,19 +179,23 @@
                             </table>       
                             <%
                                 //here is where I will gather all user information
-                                String addressID= "a"+userID.substring(2);
+                                String addressID = "a" + userID.substring(2);
                                 Address userAddress = new Address(addressID, userID);
                                 //gather the users default payment
                                 Payment userPayment = new Payment(userID);
                                 User user = new User(userID, "u");
                             %>
+                            <div id="error">
 
+                                ${requestScope.errorNoBooks}
+
+                            </div>
                             <div class="browseheader">
                                 SHIPPING ADDRESS  
                             </div>
                             <label for="option-one" class="pure-checkbox">
-                                    <input name="ship" id="defaultShipping" type="checkbox" value="" onchange="useDefault(this,'<%=userAddress.street%>','<%=userAddress.city%>','<%=userAddress.state%>','<%=userAddress.zip%>')">
-                                    Use my default shipping address
+                                <input name="ship" id="defaultShipping" type="checkbox" value="" onchange="useDefault(this, '<%=userAddress.street%>', '<%=userAddress.city%>', '<%=userAddress.state%>', '<%=userAddress.zip%>')">
+                                Use my default shipping address
                             </label>
                             <form class="pure-form" method = "post" action = "registered">
                                 <fieldset class="pure-group">
@@ -252,15 +258,15 @@
                                     <input id = "zip" type="text" class="pure-input-1" placeholder="Zipcode" name = "zip" onchange="checkZip(this)" required>
 
                                 </fieldset>
-                                
+
 
                                 <div class="browseheader">
                                     PAYMENT
                                 </div>
                                 <label for="option-one" class="pure-checkbox">
-                                    <input name="paybox" id="defaultShipping" type="checkbox" value="" onchange="useDefaultPay(this, '<%=userPayment.getNum()%>','<%=userPayment.getExp()%>','<%=userPayment.getType()%>','<%=user.getFN()%>','<%=user.getLN()%>')">
+                                    <input name="paybox" id="defaultShipping" type="checkbox" value="" onchange="useDefaultPay(this, '<%=userPayment.getNum()%>', '<%=userPayment.getExp()%>', '<%=userPayment.getType()%>', '<%=user.getFN()%>', '<%=user.getLN()%>')">
                                     Use my saved payment
-                            </label>
+                                </label>
                                 <fieldset class="pure-group">
                                     <input id="firstname" type="text" class="pure-input-1" placeholder="First Name" name = "firstname" onchange="checkFN(this)" required>
                                     <input id="lastname" type="text" class="pure-input-1" placeholder="Last Name" name = "lastname" onchange="checkLN(this)" required>
@@ -279,7 +285,7 @@
                                     BILLING ADDRESS
                                 </div>
                                 <label for="option-one" class="pure-checkbox">
-                                    <input name="bill" id="defaultBilling" type="checkbox" value="" onclick="useDefaultBill(this,'<%=userAddress.street%>','<%=userAddress.city%>','<%=userAddress.state%>','<%=userAddress.zip%>')">
+                                    <input name="bill" id="defaultBilling" type="checkbox" value="" onclick="useDefaultBill(this, '<%=userAddress.street%>', '<%=userAddress.city%>', '<%=userAddress.state%>', '<%=userAddress.zip%>')">
                                     Use my default shipping address
                                 </label>
                                 <fieldset class="pure-group">
@@ -342,7 +348,7 @@
                                     <input id = "bzip" type="text" class="pure-input-1" placeholder="Zipcode" name = "bzip" onchange="checkZip(this)" required>
 
                                 </fieldset>
-                                
+
                         </div>
                         <div class="pure-u-1-4"> 
                             <div class="placeOrder">
@@ -361,12 +367,13 @@
                                             <td>$<%=Math.floor((totalPrice * .1) * 100) / 100%></td>
                                         </tr>
                                         <%
-                                            if(discount>0){
-                                                totalPrice = (totalPrice + (totalPrice * .1)) * discount;
-                                            }else{
+                                            if (discount > 0) {
+                                                System.out.println(totalPrice);
+                                                totalPrice = (totalPrice + (totalPrice * .1)) - (totalPrice * discount);
+                                            } else {
                                                 totalPrice = (totalPrice + (totalPrice * .1));
                                             }
-                                            
+
                                             totalPrice = Math.floor(totalPrice * 100) / 100;
                                         %>
                                         <tr>

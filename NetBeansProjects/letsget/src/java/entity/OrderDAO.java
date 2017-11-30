@@ -79,7 +79,6 @@ public class OrderDAO {
                     + "orderTotal = '" + o.getOrderTotal() + "', "
                     + "creditCardID = '" + o.getCreditCardID() + "' "
                     + "WHERE orderID = '" + orderID + "'";
-            System.out.println(sql);
             stat = con.prepareStatement(sql);
             stat.executeUpdate();
             con.close();
@@ -138,7 +137,6 @@ public class OrderDAO {
             while (rs.next()) {
                 Order order = new Order();
                 order.setOrderID(rs.getInt("orderID"));
-                System.out.println("In resulst loop");
                 orderFound = true;
             }
             connection.close();
@@ -152,8 +150,6 @@ public class OrderDAO {
         Connection conn = null;
         PreparedStatement stat = null;
         DatabaseUtility db = new DatabaseUtility();
-        System.out.println(ordID);
-        System.out.println(orderStat);
         try {
             Class.forName(db.getDriver());
             conn = DriverManager.getConnection(db.getURL(), db.getUser(), db.getPass());
@@ -209,6 +205,39 @@ public class OrderDAO {
 
         }
         return orders;
+    }
+
+    public Order getOrder(String orderID) {
+        Order od = new Order();
+        DatabaseUtility db = new DatabaseUtility();
+        try {
+            Class.forName(db.getDriver());
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        try (
+                Connection connection = DriverManager.getConnection(db.getURL(), db.getUser(), db.getPass());
+                PreparedStatement statement = connection.prepareStatement("SELECT * FROM orders WHERE orderID = '" + orderID + "'");
+                ResultSet rs = statement.executeQuery();) {
+            while (rs.next()) {
+                od.setUserID(rs.getString("userID"));
+                od.setOrderID(rs.getInt("orderID"));
+                od.setShippingAgencyID(rs.getInt("shippingAgencyID"));
+                od.setOrderStatus(rs.getString("orderStatus"));
+                od.setOrderDate(rs.getString("orderDate"));
+                od.setShippingAddress(rs.getString("shippingAddress"));
+                od.setBillingAddress(rs.getString("billingAdress"));
+                od.setPaymentMethod(rs.getString("paymentMethod"));
+                od.setConfirmationNumber(rs.getString("confirmationNumber"));
+                od.setOrderTotal(""+rs.getDouble("orderTotal"));
+                od.setCreditCardID(rs.getString("creditCardID"));
+            }
+            connection.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return od;
     }
 
 }

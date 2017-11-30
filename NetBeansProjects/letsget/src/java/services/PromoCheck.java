@@ -13,6 +13,10 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -91,13 +95,21 @@ public class PromoCheck extends HttpServlet {
             String sql = "SELECT * FROM promotions WHERE promoName = '" + promoName + "'";
             result = state.executeQuery(sql);
             while (result.next()) {//check date too
-                found = result.getString("promoID");
+                String date = result.getString("expiration");
+                Date current = new Date();
+                DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                Date promo =  df.parse(date);
+                if(!current.after(promo)){
+                    found = result.getString("promoID");
+                }
             }
             con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Registration.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(PromoCheck.class.getName()).log(Level.SEVERE, null, ex);
         }
         return found;
     }

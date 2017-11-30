@@ -23,6 +23,20 @@ public class Address implements AddressI{
         
     }
     
+    public Address(String id){
+        Address add;
+        AddressDAO db = new AddressDAO();
+        add = db.getAddressByID(id);
+        this.addressID=add.addressID;
+        this.city=add.city;
+        this.street=add.street;
+        this.state=add.state;
+        this.zip=add.zip;
+        this.userID=add.userID;
+        this.shippingAgencyID = add.shippingAgencyID;
+        this.supplierID = add.supplierID;
+    }
+    
     public Address(String addressID, String userID){
         AddressDAO addressDB = new AddressDAO();
         Address newA = addressDB.getAddressByID(addressID, userID);

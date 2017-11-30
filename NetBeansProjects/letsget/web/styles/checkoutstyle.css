@@ -1,4 +1,10 @@
-
+.error{
+    padding-top: 3px;
+    padding-top: 3px;
+    color: darkred;
+    font-weight: 400;
+    text-align: center;
+}
 html, body {
     width:100%;
 }
@@ -386,4 +392,12 @@ Hides the menu at `48em`, but modify this based on your app's needs.
     }
 }
 
+h4{
+    padding-top: 3px;
+    color: darkred;
+    font-weight: 400;
+    text-align: center;
+    font-size: medium;
+}
+    
 
