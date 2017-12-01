@@ -7,6 +7,20 @@ and open the template in the editor.
     Created on : Nov 8, 2017, 2:07:38 PM
     Author     : Addison
 */
+.browseheader {
+    background: black;
+    color: white;
+    padding: 0.1em 0 0.1em;
+    text-align: center;
+    font-size: xx-large;
+    font-weight: 800;
+    min-width: 500px;
+}
+
+.tableholder{
+    overflow:auto;
+    border: 2px solid black;
+}
 
 .box {
     margin: 0 3em 2em;
@@ -20,7 +34,6 @@ and open the template in the editor.
     background-size: cover;
     height: 200px;
     width: 100%;
-    margin-bottom: 3em;
     display: table;
 }
 
@@ -39,13 +52,29 @@ body {
     color: #777;
 }
 
-table, td, tr {
-    border: 1px solid black;
+.delete{
+    color: black;
+    font-weight: 800;
+    text-decoration: none;
+}
+
+table{
+    margin: 10px;
+    height: 500px;
+    overflow-x: scroll;
+} 
+
+tr {
     color: black;
     font-weight: 200;
-    font-size: .9em;
-    text-align: center;
-    padding: .3em .3em;
+    font-size: small;
+    text-align: left;
+
+}
+
+td{
+    padding: 3px;
+    border-bottom: 1px solid #ccc;
 }
 
 .pure-img-responsive {
@@ -100,7 +129,6 @@ The content `<div>` is where all your content goes.
      text-align: center;
      font-size: xx-large;
      font-weight: 800;
-     max-width: 300;
      /*border-bottom: 1px solid #eee;*/
  }
     .header h1 {
@@ -129,14 +157,14 @@ appears on the left side of the page.
 */
 
 #menu {
-    margin-left: -150px; /* "#menu" width */
-    width: 150px;
+    margin-left: -200px; /* "#menu" width */
+    width: 200px;
     position: fixed;
-    top: 0;
+    top: 0px;
     left: 0;
     bottom: 0;
     z-index: 1000; /* so the menu or its navicon stays above all content */
-    background: #191818;
+    background: black;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
 }
@@ -149,11 +177,6 @@ appears on the left side of the page.
         padding: 0.6em 0 0.6em 0.6em;
     }
 
-/*    .pure-menu {
-        position: sticky;
-        top: 2000px;
-    }*/
-    
     /*
     Remove all background/borders, since we are applying them to #menu.
     */
@@ -270,21 +293,21 @@ Hides the menu at `48em`, but modify this based on your app's needs.
     }
 
     #layout {
-        padding-left: 150px; /* left col width "#menu" */
+        padding-left: 200px; /* left col width "#menu" */
         left: 0;
     }
     #menu {
-        left: 150px;
+        left: 200px;
     }
 
     .menu-link {
         position: fixed;
-        left: 150px;
+        left: 1200px;
         display: none;
     }
 
     #layout.active .menu-link {
-        left: 150px;
+        left: 200px;
     }
 }
 
@@ -297,13 +320,6 @@ Hides the menu at `48em`, but modify this based on your app's needs.
     */
     #layout.active {
         position: relative;
-        left: 150px;
-    }
-}
-
-@media screen and (min-width: 800px){
-    .container{
-        max-width: 800px;/*Limit max-width to 800px*/
-        margin: 0 auto;/*Centering this container*/
+        left: 200px;
     }
 }

@@ -81,7 +81,7 @@
                 
                 <!--THE TABLE:::-->
 
-<table id="bookTable" align="center" cellpadding="5" cellspacing="5" border="1">
+<table id="bookTable" align="center" cellpadding="1" cellspacing="1" >
 <tr>
 
 </tr>
