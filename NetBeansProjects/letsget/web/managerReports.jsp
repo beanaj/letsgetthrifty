@@ -1,4 +1,6 @@
 
+<%@page import="entity.Book"%>
+<%@page import="entity.LowInventory"%>
 <%@page import="entity.EndOfDaySales"%>
 <%@page import="entity.Report"%>
 <%@page import="java.sql.SQLException"%>
@@ -79,73 +81,99 @@
                 </div>
                 <br>
                 <div class="eod">
-                <div class="eodhead">End of Day Sales Report</div> 
-                <h4>This report shows the current sales statistics of the day.</h4>
-                <%                    //this report should show the number of orders places
-                    //the amount of money made in total
-                    //the cost of the books to us?
-                    //total profit
-                    //first thing i need to do is get an array with all these statistics, produced by a report class
-                    Report report = new Report();
-                    EndOfDaySales eod = report.generateEODS();
-                %>
+                    <div class="eodhead">End of Day Sales Report</div> 
+                    <h4>This report shows the current sales statistics of the day.</h4>
+                    <%                    //this report should show the number of orders places
+                        //the amount of money made in total
+                        //the cost of the books to us?
+                        //total profit
+                        //first thing i need to do is get an array with all these statistics, produced by a report class
+                        Report report = new Report();
+                        EndOfDaySales eod = report.generateEODS();
+                    %>
 
-                <table>
-                    <tr>
-                        <th class="lhs">Total Orders Placed:<br></th>
-                        <th class="rhs"><%=eod.getTotalOrders()%></th>
-                    </tr>
-                    <tr>
-                        <th class="lhs">Total Books Sold:<br></th>
-                        <th class="rhs"><%=eod.getTotalBooksSold()%></th>
-                    </tr>
-                    <tr>
-                        <th class="lhs">Total Visa Sales:<br></th>
-                        <th class="rhs"><%=eod.getVisaSales()%></th>
-                    </tr>
-                    <tr>
-                        <th class="lhs">Total MasterCard Sales:<br></th>
-                        <th class="rhs"><%=eod.getMasterCardSales()%></th>
-                    </tr>
-                    <tr>
-                        <th class="lhs">Total American Express Sales:<br></th>
-                        <th class="rhs"><%=eod.getAmericanExpressSales()%></th>
-                    </tr>
-                    <tr>
-                        <th class="lhs">Total Discover Sales:<br></th>
-                        <th class="rhs"><%=eod.getDiscoverSales()%></th>
-                    </tr>
-                    <tr>
-                        <th class="lhs">Total CapitalOne Sales:<br></th>
-                        <th class="rhs"><%=eod.getCapitalOneSales()%></th>
-                    </tr>
-                    <tr>
-                        <th class="lhs">Total Revenue:<br></th>
-                        <th class="revenue">$<%=eod.getTotalRevenue()%></th>
-                    </tr>
-                    <tr>
-                        <th class="lhs">Total Costs:<br></th>
-                        <th class="costs">$<%=eod.getTotalCosts()%></th>
-                    </tr>
-                    <tr>
-                        <th class="lhs">Total Profit:<br></th>
-                        <th class="profit">$<%=eod.getTotalProfit()%></th>
-                    </tr>
-                </table>
-                
+                    <table>
+                        <tr>
+                            <th class="lhs">Total Orders Placed:<br></th>
+                            <th class="rhs"><%=eod.getTotalOrders()%></th>
+                        </tr>
+                        <tr>
+                            <th class="lhs">Total Books Sold:<br></th>
+                            <th class="rhs"><%=eod.getTotalBooksSold()%></th>
+                        </tr>
+                        <tr>
+                            <th class="lhs">Total Visa Sales:<br></th>
+                            <th class="rhs"><%=eod.getVisaSales()%></th>
+                        </tr>
+                        <tr>
+                            <th class="lhs">Total MasterCard Sales:<br></th>
+                            <th class="rhs"><%=eod.getMasterCardSales()%></th>
+                        </tr>
+                        <tr>
+                            <th class="lhs">Total American Express Sales:<br></th>
+                            <th class="rhs"><%=eod.getAmericanExpressSales()%></th>
+                        </tr>
+                        <tr>
+                            <th class="lhs">Total Discover Sales:<br></th>
+                            <th class="rhs"><%=eod.getDiscoverSales()%></th>
+                        </tr>
+                        <tr>
+                            <th class="lhs">Total CapitalOne Sales:<br></th>
+                            <th class="rhs"><%=eod.getCapitalOneSales()%></th>
+                        </tr>
+                        <tr>
+                            <th class="lhs">Total Revenue:<br></th>
+                            <th class="revenue">$<%=eod.getTotalRevenue()%></th>
+                        </tr>
+                        <tr>
+                            <th class="lhs">Total Costs:<br></th>
+                            <th class="costs">$<%=eod.getTotalCosts()%></th>
+                        </tr>
+                        <tr>
+                            <th class="lhs">Total Profit:<br></th>
+                            <th class="profit">$<%=eod.getTotalProfit()%></th>
+                        </tr>
+                    </table>
+
                 </div>
-                        <br>
-                <div class="lirhead">Low-Inventory Report</div>
+                <br>
                 <%
                     //this report should display isbn and title of books below and close to below their thresholds
+                    LowInventory li = report.generateLIR();
                 %>
+                <div class="lir">
+                    <div class="lirhead">Low-Inventory Report</div>
+                    <h4>This report shows the books in inventory that are close to or below their restock threshold.</h4>
+                    <table>
+                        <tr>
+                            <th class="lhs"><br></th>
+                            <th class="rhs">Threshold</th>
+                            <th class="rhs">QTY</th>
+                        </tr>
+                        <%
+                            Book[] books = li.getBooks();
+                            for (int i = 0; i < books.length; i++) {
+                                Book book = books[i];
+                                String classtype = book.getPicture();
+                        %>
+                        <tr>
+                            <th class="lhs"><%=book.getTitle()%><br></th>
+                            <th class="rhs"><%=book.getMinThreshold()%></th>
+                            <th class="<%=classtype%>"><%=book.getQtyInStock()%></th>
+                        </tr>
+                        <%
+                            }
+                        %>
+                    </table>
+                </div>
+                <br>
                 <div class="bsrhead">Book Sales Report</div>  
                 <%
                     //this report should show all books sold and the number of them and their total sale and profit
                 %>
                 <div class="psrhead">Publisher Sales Report</div>
                 <%                    //this report should show the number of books each publisher has sold, their total sales and profit
-%>
+                %>
 
 
 

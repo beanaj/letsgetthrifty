@@ -1,4 +1,3 @@
-
 package entity;
 
 /**
@@ -6,11 +5,11 @@ package entity;
  * @author andrewjacobsen
  */
 public class Report {
-    
-    public Report(){
+
+    public Report() {
     }
-    
-    public EndOfDaySales generateEODS(){
+
+    public EndOfDaySales generateEODS() {
         EndOfDaySales s = new EndOfDaySales(true);
         ReportDAO db = new ReportDAO();
         ////totalOrders need to be found
@@ -29,21 +28,38 @@ public class Report {
         s.discoverSales = cards[3];
         s.capitalOneSales = cards[4];
         //totalRevenue; this is all of the money in transactions
+        int formatIndex = 0;
         Double revenue = db.getTotalRevenue();
-        s.totalRevenue = ""+revenue;
-        int formatIndex = s.totalRevenue.indexOf(".");
-        s.totalRevenue = s.totalRevenue.substring(0, formatIndex+3);
+        if (revenue > 0.0) {
+            s.totalRevenue = "" + revenue+0.00000000000000000000000001;;
+            formatIndex = s.totalRevenue.indexOf(".");
+            s.totalRevenue = s.totalRevenue.substring(0, formatIndex + 3);
+        }
+
         //totalCosts; this is all of costs of the books in transactions buy price
         Double costs = db.getTotalCosts();
-        s.totalCosts = ""+costs;
-        formatIndex = s.totalCosts.indexOf(".");
-        s.totalCosts=s.totalCosts.substring(0, formatIndex+3);
+        if (costs > 0.0) {
+            s.totalCosts = "" + costs+0.00000000000000000000000001;
+            formatIndex = s.totalCosts.indexOf(".");
+            s.totalCosts = s.totalCosts.substring(0, formatIndex + 3);
+        }
+
         //totalProfit; this is total revenue minus total costs
-        Double profit = revenue-costs;
-        s.totalProfit=""+profit;
-        formatIndex = s.totalProfit.indexOf(".");
-        s.totalProfit=s.totalProfit.substring(0, formatIndex+3);
+        Double profit = revenue - costs;
+        if (profit > 0.0) {
+            s.totalProfit = "" + profit+0.00000000000000000000000001;;
+            formatIndex = s.totalProfit.indexOf(".");
+            s.totalProfit = s.totalProfit.substring(0, formatIndex + 3);
+        }
+
         return s;
     }
-    
+
+    public LowInventory generateLIR() {
+        LowInventory li = new LowInventory();
+        ReportDAO db = new ReportDAO();
+        Book[] books = db.getLIBooks();
+        li.setBooks(books);
+        return li;
+    }
 }

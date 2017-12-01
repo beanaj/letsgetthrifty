@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -243,4 +244,42 @@ public class ReportDAO {
         return to;
     }
 
+    Book[] getLIBooks() {
+        ArrayList<Book> books = new ArrayList();
+        Connection con = null;
+        PreparedStatement stat = null;
+        DatabaseUtility db = new DatabaseUtility();
+        try {
+            Connection connection = DriverManager.getConnection(db.getURL(), db.getUser(), db.getPass());
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM books");
+            ResultSet rs = statement.executeQuery();
+            {
+                while (rs.next()) {
+                    String title = rs.getString("title");
+                    String isbn = rs.getString("isbn");
+                    int qty = rs.getInt("qtyInStock");
+                    int thresh = rs.getInt("minThreshold");
+                    int bound = 0;
+                    if (qty > 5) {
+                        bound = 5;
+                    }
+                    if (qty < thresh) {
+                        Book book = new Book(title, isbn, qty, thresh, "below");
+                        books.add(book);
+                    } else if (qty - bound < thresh) {
+                        Book book = new Book(title, isbn, qty, thresh, "above");
+                        books.add(book);
+                    }
+                }
+                connection.close();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Book[] lowinv = new Book[books.size()];
+        for (int i = 0; i < books.size(); i++) {
+            lowinv[i] = books.get(i);
+        }
+        return lowinv;
+    }
 }
