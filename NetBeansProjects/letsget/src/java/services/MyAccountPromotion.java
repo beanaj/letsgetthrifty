@@ -5,11 +5,14 @@
  */
 package services;
 
+import entity.SubscriberDAO;
 import entity.User;
 import entity.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author codar_000
  */
-public class MyAccountPassword extends HttpServlet {
+public class MyAccountPromotion extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,6 +46,7 @@ public class MyAccountPassword extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
     }
 
     /**
@@ -59,36 +63,31 @@ public class MyAccountPassword extends HttpServlet {
                 response.setContentType("text/html");
         PrintWriter out = response.getWriter();
         
-        String hiddenParam = request.getParameter("updatePassword");
+        String hiddenParam = request.getParameter("updateName");
         
         String id = "";
-        String oldPass = "";
-        String newPass = "";
-        String newPassV = "";
-
-        id = request.getParameter("userID");
-        oldPass = request.getParameter("oldPass");
-        newPass = request.getParameter("newPass");
-        newPassV = request.getParameter("newPassV");
+        String email = "";
         
-        UserDAO db = new UserDAO();
+        id = request.getParameter("userID");
         User user = new User(id, "u");
-        if(newPass != null && newPassV != null && oldPass != null){    
-            if(newPass.equals(newPassV)){
-                if (db.encrypt(oldPass).equals(user.getPass())) {
-                    try {
-                        String newPassE = db.encrypt(newPass);
-                        db.updatePassword(id, newPassE);
-                        System.out.println("It Worked!");
-                    } catch (SQLException ex) {
-                        String error = "Error: Invalid input";
-                        request.setAttribute("error", error);
-                        request.getRequestDispatcher("my_accountPassword.jsp").forward(request, response);
-                    }
-                }
+        email = user.getEmail();
+        SubscriberDAO db = new SubscriberDAO();
+        try {
+            System.out.println("Tried...");
+            if(db.findUser(id)){
+                System.out.println("Unsubed! Before");                
+                db.removeUser(id, email);
+                System.out.println("Unsubed! After");
+            }else{
+                System.out.println("Subed! Before");                
+                db.addUser(id, email);
+                System.out.println("Subed! After");
             }
+        } catch (SQLException ex) {
+            Logger.getLogger(MyAccountPromotion.class.getName()).log(Level.SEVERE, null, ex);
         }
-        response.sendRedirect("my_accountPassword.jsp");    
+        
+        response.sendRedirect("my_accountPromotion.jsp");    
         out.close();
     }
 
