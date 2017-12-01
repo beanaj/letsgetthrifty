@@ -67,6 +67,14 @@ public class Book {
        this.supplierID = dbBook.getSupplierID();
        
    }
+   //used for reports
+   public Book(String title, String ISBN, int qty, int thresh, String above){
+       this.title = title;
+       this.isbn = ISBN;
+       this.qtyInStock = qty;
+       this.minThreshold = thresh;
+       this.picture = above;
+   }
    
    public Book() {
        
