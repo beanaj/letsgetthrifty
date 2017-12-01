@@ -80,6 +80,10 @@
         <servlet-name>MyAccountPassword</servlet-name>
         <servlet-class>services.MyAccountPassword</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MyAccountPromotion</servlet-name>
+        <servlet-class>services.MyAccountPromotion</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Registration</servlet-name>
         <url-pattern>/registered</url-pattern>
@@ -158,7 +162,11 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>MyAccountPassword</servlet-name>
-        <url-pattern>/MyAccountPassword</url-pattern>
+        <url-pattern>/myaccountpassword</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MyAccountPromotion</servlet-name>
+        <url-pattern>/myaccountpromotion</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

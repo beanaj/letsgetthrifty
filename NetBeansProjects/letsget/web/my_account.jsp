@@ -51,14 +51,6 @@
             }
         %>
 
-
-        <div class="banner">
-            <h1 class="bannerhead">
-                <img src="img/letsgetlogo.png" alt="logo" height = "150" width="350">  
-            </h1>
-        </div>
-
-
         <div id="layout">
             <!-- Menu toggle -->
             <a href="#menu" id="menuLink" class="menu-link">
@@ -92,10 +84,18 @@
                     </ul>
                 </div>
             </div>
-
+            <div class="pure-u-5-15">
+                <div class="banner">
+                    <h1 class="bannerhead">
+                        <img src="img/letsgetlogo.png" alt="logo" height = "150" width="350">  
+                    </h1>
+                </div>
+            
             <div id="main">
-
-                
+                <div class="header">
+                        Edit your account by clicking What you'd like to edit on the left!
+                        </div>
+            </div>
             </div>
         </div>
 

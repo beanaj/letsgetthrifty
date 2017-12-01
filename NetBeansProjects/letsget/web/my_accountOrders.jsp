@@ -48,11 +48,7 @@
                 sessionID = session.getId();
             }
         %>
-    <div class="banner">
-        <h1 class="bannerhead">
-            <img src="img/letsgetlogo.png" alt="logo" height = "150" width="350">  
-        </h1>
-    </div>
+
     
       
       <div id="layout">
@@ -94,6 +90,11 @@
     </div>
 
     <div id="main">
+    <div class="banner">
+        <h1 class="bannerhead">
+            <img src="img/letsgetlogo.png" alt="logo" height = "150" width="350">  
+        </h1>
+    </div>        
 
                         <div class="content">
             <div class="container">               

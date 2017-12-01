@@ -18,6 +18,23 @@ and open the template in the editor.
     display: table;
 }
 
+.pure-button {
+    background-color: black;
+    color: white;
+    height: 50px;
+    width:100%;
+    font-size: 100%;
+}
+
+.browseheader {
+    background: black;
+    color: white;
+    padding: 0.1em 0 0.1em;
+    text-align: center;
+    font-size: xx-large;
+    font-weight: 800;
+    max-width: 300em;
+}
 
 body {
     color: #777;
@@ -57,6 +74,8 @@ This is the parent `<div>` that contains the menu and the content area.
     position: relative;
     left: 0;
     padding-left: 0;
+    margin: auto;
+    width: 80%;
 }
     #layout.active #menu {
         left: 150px;

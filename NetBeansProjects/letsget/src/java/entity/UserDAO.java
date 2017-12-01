@@ -353,7 +353,7 @@ public class UserDAO {
         } 
     }
     
-    public void updatePassword(String id, String oldPass, String newPass, String newPassV) throws SQLException {
+    public void updatePassword(String id, String newPass) throws SQLException {
         //Set up database connection:
         Connection conn = null;
         PreparedStatement stat = null;
@@ -363,7 +363,11 @@ public class UserDAO {
             Class.forName(db.getDriver());
             conn = DriverManager.getConnection(db.getURL(), db.getUser(), db.getPass());
             
-            
+                String query = "UPDATE users SET userPassword = ? WHERE userID = ?";
+                stat = conn.prepareStatement(query);
+                stat.setString(1, newPass);
+                stat.setString(2, id);
+                stat.executeUpdate();
             
             conn.close();
         } catch (ClassNotFoundException ex) {
