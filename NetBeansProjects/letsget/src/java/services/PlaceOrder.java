@@ -254,7 +254,7 @@ public class PlaceOrder extends HttpServlet {
             order.setShippingAddress(newAddress.addressID);
         }
         //6. for now the payment method will be card
-        order.setPaymentMethod("card");
+        
         //7. if useBill is true we will use the default shipping address
         if (useBill) {
             String addressID = "a" + userID.replaceAll("[^\\d]", "");
@@ -287,16 +287,20 @@ public class PlaceOrder extends HttpServlet {
         if (usePay) {
             String paymentID = "999" + userID.replaceAll("[^\\d]", "");
             order.setCreditCardID(paymentID);
+            Payment card = new Payment(userID);
+            order.setPaymentMethod(card.getType());
         } else {
             Payment card = new Payment();
             card.setCCID("" + orderID);
             card.setExp(request.getParameter("exp"));
             card.setNum(request.getParameter("card"));
             card.setType(request.getParameter("type"));
+            order.setPaymentMethod(card.getType());
             card.setUserID(userID);
             card.submit();
             order.setCreditCardID(card.getCCID());
         }
+        
         OrderDAO dbO = new OrderDAO();
         dbO.updateOrder(order, order.getOrderID());
 

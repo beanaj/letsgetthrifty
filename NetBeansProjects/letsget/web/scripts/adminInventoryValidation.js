@@ -76,8 +76,8 @@ function checkRating(input) {
         input.setCustomValidity('');
     } else {
         //check if number is integer or float and is b/w 0 and 5
-        if ((isNaN(rating)) || (rating < 0) || (rating > 5)) {
-            input.setCustomValidity('Please enter a valid number between 0 and 5');
+        if ((isNaN(rating)) || (rating < 0) || (rating > 10)) {
+            input.setCustomValidity('Please enter a valid number between 0 and 10');
         } else {
             input.setCustomValidity('');
         }

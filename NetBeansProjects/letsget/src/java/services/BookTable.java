@@ -68,7 +68,7 @@ public class BookTable extends HttpServlet {
                 int minT = Integer.parseInt(request.getParameter("new_minthreshold"));
                 double buyPrice = Double.parseDouble(request.getParameter("new_buyprice"));
                 double sellPrice = Double.parseDouble(request.getParameter("new_sellprice"));
-                int supplierID = Integer.parseInt(request.getParameter("new_supplierID"));
+                int supplierID = 1;
 
                 //Create Book object and add to database:
                 Book book = new Book(isbn, genre, author, title, rating, picture, edition, pub, pubYear, quantity, minT, buyPrice, sellPrice, supplierID);
@@ -134,9 +134,6 @@ public class BookTable extends HttpServlet {
                 }
                 if (!request.getParameter("new_sellprice").isEmpty()) {
                     s = Double.parseDouble(request.getParameter("new_sellprice"));
-                }
-                if (!request.getParameter("new_supplierID").isEmpty()) {
-                    sup = Integer.parseInt(request.getParameter("new_supplierID"));
                 }
                 
                 //Update book in the database:
