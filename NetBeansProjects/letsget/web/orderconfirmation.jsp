@@ -76,7 +76,6 @@
                             error = "<h3>Our apologies, some books in your order were out of stock."+
                                     "<br>They remain in your cart for a purchase in the future!</h3>";
                         }
-                        System.out.println(error);
                         cookie.setMaxAge(-1);
                     }
                 }
