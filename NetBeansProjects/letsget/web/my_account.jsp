@@ -94,73 +94,7 @@
             </div>
 
             <div id="main">
-                <div class="content">
-            <div class="container">               
-                <div class="box">
-                    <div class="header">
-                        <h1>Orders</h1>
-                    </div>               
-                </div>
-                
-                <!--THE TABLE:::-->
-<table id="orderTable" align="center" cellpadding="5" cellspacing="5" border="1">
-<tr>
 
-</tr>
-<td><b>Order ID</b></td>
-<td><b>Shipping Agency ID</b></td>
-<td><b>Order Status</b></td>
-<td><b>Order Date</b></td>
-<td><b>Shipping Address</b></td>
-<td><b>Billing Address</b></td>
-<td><b>Payment Method</b></td>
-<td><b>Confirmation Number</b></td>
-<td><b>User ID</b></td>
-<td><b>Order Total</b></td>
-<td><b>Credit Card ID</b></td>
-</tr>
-
-<%
-OrderDAO db = new OrderDAO();
-//make an array of the user's orders:
-List<Order> orders = db.getUserOrders(userID);
-
-for (int i = 0; i < orders.size(); i++) {
-%>
-
-<tr>  
-    <%
-        int primaryKey = orders.get(i).getOrderID();
-        
-    %>
-    <td><%=orders.get(i).getOrderID() %></td>
-    <td><%=orders.get(i).getShippingAgencyID()%></td>
-    <td><%=orders.get(i).getOrderStatus()%></td>
-    <td><%=orders.get(i).getOrderDate()%></td>
-    <td><%=orders.get(i).getShippingAddress()%></td>
-    <td><%=orders.get(i).getBillingAddress()%></td>
-    <td><%=orders.get(i).getPaymentMethod()%></td>
-    <td><%=orders.get(i).getConfirmationNumber()%></td>
-    <td><%=orders.get(i).getUserID()%></td>
-    <td><%=orders.get(i).getOrderTotal()%></td>
-    <td><%=orders.get(i).getCreditCardID()%></td>
-
-</tr>
-
-<%   
-}
-%>
-
-</table>       
-<!--END OF TABLE-->
-
-
-<div id="error">
-    ${requestScope.error}
-</div>  
-
-            </div>      
-        </div>
                 
             </div>
         </div>
