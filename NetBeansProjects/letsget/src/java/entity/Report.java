@@ -62,4 +62,40 @@ public class Report {
         li.setBooks(books);
         return li;
     }
+    
+    public BookSales generateBSR() {
+        BookSales bs = new BookSales();
+        ReportDAO db = new ReportDAO();
+        Book[] books = db.getBookSales();
+        for(int i = 0; i<books.length;i++){
+            Book book = books[i];
+            double revenue = book.getSellPrice()*book.getQtyInStock();
+            book.setSellPrice(revenue);
+            double costs = book.getBuyPrice()*book.getQtyInStock();
+            book.setBuyPrice(costs);
+            double profits = revenue-costs;
+            book.setRating(profits);
+            books[i]=book;
+        }
+        bs.setBooks(books);
+        return bs;
+    }
+    
+    public PublisherSales generatePSR() {
+        PublisherSales ps = new PublisherSales();
+        ReportDAO db = new ReportDAO();
+        Book[] books = db.getPublisherSales();
+        for(int i = 0; i<books.length;i++){
+            Book book = books[i];
+            double revenue = book.getSellPrice()*book.getQtyInStock();
+            book.setSellPrice(revenue);
+            double costs = book.getBuyPrice()*book.getQtyInStock();
+            book.setBuyPrice(costs);
+            double profits = revenue-costs;
+            book.setRating(profits);
+            books[i]=book;
+        }
+        ps.setBooks(books);
+        return ps;
+    }
 }

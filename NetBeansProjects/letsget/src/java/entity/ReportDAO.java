@@ -15,6 +15,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import services.DatabaseUtility;
@@ -275,6 +277,114 @@ public class ReportDAO {
             }
         } catch (SQLException ex) {
             Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Book[] lowinv = new Book[books.size()];
+        for (int i = 0; i < books.size(); i++) {
+            lowinv[i] = books.get(i);
+        }
+        return lowinv;
+    }
+
+    Book[] getBookSales() {
+        ArrayList<Book> books = new ArrayList();
+        DatabaseUtility db = new DatabaseUtility();
+        try {
+            Connection connection = DriverManager.getConnection(db.getURL(), db.getUser(), db.getPass());
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM books");
+            ResultSet rs = statement.executeQuery();
+            {
+                while (rs.next()) {
+                    String isbn = rs.getString("isbn");
+                    String title = rs.getString("title");
+                    double sp = rs.getDouble("sellPrice");
+                    double bp = rs.getDouble("buyPrice");
+                    int qty = 0;
+                    try {
+                        PreparedStatement stat = connection.prepareStatement("SELECT * FROM transactions WHERE isbn = '" + isbn + "'");
+                        ResultSet rse = stat.executeQuery();
+                        {
+                            while (rse.next()) {
+                                qty += rse.getInt("qty");
+                            }
+                        }
+                    } catch (SQLException ex) {
+                        Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    Book book = new Book(title, isbn, qty, bp, sp, 0.00);
+                    books.add(book);
+                }
+                connection.close();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Book[] lowinv = new Book[books.size()];
+        for (int i = 0; i < books.size(); i++) {
+            lowinv[i] = books.get(i);
+        }
+        return lowinv;
+    }
+
+    Book[] getPublisherSales() {
+        ArrayList<Book> books = new ArrayList();
+        Set<String> publishers = new HashSet<String>();
+        DatabaseUtility db = new DatabaseUtility();
+        try {
+            Connection connection = DriverManager.getConnection(db.getURL(), db.getUser(), db.getPass());
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM books");
+            ResultSet rs = statement.executeQuery();
+            {
+                while (rs.next()) {
+                    String pub = rs.getString("publisher");
+                    publishers.add(pub);
+                }
+                connection.close();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        String[] pubs = publishers.toArray(new String[0]);
+        for (int i = 0; i < pubs.length; i++) {
+            String publisher = pubs[i];
+            try {
+                Connection connection = DriverManager.getConnection(db.getURL(), db.getUser(), db.getPass());
+                PreparedStatement statement = connection.prepareStatement("SELECT * FROM books WHERE publisher = '" + publisher + "'");
+                ResultSet rs = statement.executeQuery();
+                {
+                    int qty = 0;
+                    String title = "";
+                    String isbn = "";
+                    double cost = 0.0;
+                    double rev = 0.0;
+                    while (rs.next()) {
+                        isbn = rs.getString("isbn");
+                        title = rs.getString("publisher");
+                        double sp = rs.getDouble("sellPrice");
+                        double bp = rs.getDouble("buyPrice");
+                        try {
+                            PreparedStatement stat = connection.prepareStatement("SELECT * FROM transactions WHERE isbn = '" + isbn + "'");
+                            
+                            ResultSet rse = stat.executeQuery();
+                            {
+                                while (rse.next()) {
+                                    int quty = rse.getInt("qty");
+                                    cost = quty*bp;
+                                    rev = quty*sp;
+                                    qty+= quty;
+                                }
+                            }
+                        } catch (SQLException ex) {
+                            //Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                    Book book = new Book(title, isbn, qty, cost, rev, 0.00);
+                    books.add(book);
+                    connection.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         Book[] lowinv = new Book[books.size()];
         for (int i = 0; i < books.size(); i++) {

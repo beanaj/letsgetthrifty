@@ -76,6 +76,16 @@ public class Book {
        this.picture = above;
    }
    
+   //used for book sales report
+   public Book(String title, String ISBN, int qty, double buyPrice, double sellPrice, double rating){
+       this.title = title;
+       this.isbn = ISBN;
+       this.qtyInStock = qty;
+       this.buyPrice=buyPrice;
+       this.sellPrice=sellPrice;
+       this.rating = rating;
+   }
+   
    public Book() {
        
    }
@@ -112,7 +122,7 @@ public class Book {
    public Double getRating() {
        return this.rating;
    }
-   public void setRating(int rat) {
+   public void setRating(double rat) {
        this.rating = rat;
    }
    public String getPicture() {
