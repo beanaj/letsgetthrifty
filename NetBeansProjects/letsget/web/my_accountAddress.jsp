@@ -78,6 +78,15 @@
                     ADDRESS
                 </div>
                 <%
+                    if (session.getAttribute("type") != null) {
+                        if (session.getAttribute("type").equals("a")) {
+                            response.sendRedirect("adminInventory.jsp");
+                        } else if (session.getAttribute("type").equals("e")) {
+                            response.sendRedirect("shipmentEmployee.jsp");
+                        } else if (session.getAttribute("type").equals("m")) {
+                            response.sendRedirect("managerReports.jsp");
+                        }
+                    }
                     String userID = (String) session.getAttribute("userID");
                     String addressID = "a" + userID.substring(2);
                     //System.out.print(userID + " " + addressID);

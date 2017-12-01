@@ -31,7 +31,15 @@
         <style src="hompagestyle.css"></style>
     </head>
     <body>
-        <%
+        <%  if (session.getAttribute("type") != null) {
+                if (session.getAttribute("type").equals("a")) {
+                    response.sendRedirect("adminInventory.jsp");
+                } else if (session.getAttribute("type").equals("e")) {
+                    response.sendRedirect("shipmentEmployee.jsp");
+                } else if (session.getAttribute("type").equals("m")) {
+                    response.sendRedirect("managerReports.jsp");
+                }
+            }
             String userID = null;
             userID = (String) session.getAttribute("userID");
             String userName = "Guest";
@@ -56,7 +64,7 @@
             Statement state = null;
             ResultSet result = null;
             DatabaseUtility db = new DatabaseUtility();
-            String booksInCart="";
+            String booksInCart = "";
             try {
                 //register the driver
                 Class.forName(db.getDriver());
@@ -64,17 +72,17 @@
                 con = DriverManager.getConnection(db.getURL(), db.getUser(), db.getPass());
                 //generate sql statement
                 state = con.createStatement();
-                String sql = "SELECT * FROM carts WHERE userID = '"+userID+"'";
+                String sql = "SELECT * FROM carts WHERE userID = '" + userID + "'";
                 result = state.executeQuery(sql);
-                int inCart=0;
-                while(result.next()){
+                int inCart = 0;
+                while (result.next()) {
                     inCart++;
                 }
-                
-                if(inCart>0){
-                    booksInCart = " ( "+Integer.toString(inCart)+" )";
+
+                if (inCart > 0) {
+                    booksInCart = " ( " + Integer.toString(inCart) + " )";
                 }
-                
+
             } catch (SQLException e) {
                 e.printStackTrace();
             } catch (ClassNotFoundException ex) {
@@ -93,7 +101,7 @@
                     <a class="pure-menu-heading" href="#">Welcome<%="\n " + userName%></a>
                     <ul class="pure-menu-list">
                         <li class="pure-menu-item menu-item-divided pure-menu-selected"><a href="homepage.jsp" class="pure-menu-link">Home</a></li>
-                        <li class="pure-menu-item"><a href="my_cart.jsp" class="pure-menu-link">My Cart<%=""+booksInCart%></a></li>
+                        <li class="pure-menu-item"><a href="my_cart.jsp" class="pure-menu-link">My Cart<%="" + booksInCart%></a></li>
                         <li class="pure-menu-item"><a href="search.jsp" class="pure-menu-link">Search</a></li>
                         <li class="pure-menu-item"><a href="my_accountName.jsp" class="pure-menu-link">My Account</a></li>
                         <li class="pure-menu-item"><a href="login_register.jsp" class="pure-menu-link">Log In/Register</a></li>

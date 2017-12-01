@@ -236,6 +236,7 @@
                             %>
                         </table>
                     </div>
+                        <br>
                     <div class="psr">
                         <div class="psrhead">Publisher Sales Report</div>
                         <h4>This report shows the overall sales of books by publisher.</h4>

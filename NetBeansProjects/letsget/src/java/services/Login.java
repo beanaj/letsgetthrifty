@@ -69,10 +69,12 @@ public class Login extends HttpServlet {
                 HttpSession session = request.getSession();
                 session.setAttribute("userID", userID);
                 session.setAttribute("name", userFirstname);
+                session.setAttribute("type", user.getType());
                 //setting session to expiry in 30 mins
                 session.setMaxInactiveInterval(30 * 60);
                 Cookie userName = new Cookie("userID", userID);
                 Cookie userFirst = new Cookie("userName", userFirstname);
+                Cookie userType = new Cookie("type", user.getType());
                 response.addCookie(userName);
                 response.addCookie(userFirst);
                 //Get the encoded URL string

@@ -26,6 +26,15 @@
 
 
     <body>
+        <%
+            if (session.getAttribute("type").equals("u")) {
+                response.sendRedirect("homepage.jsp");
+            } else if (session.getAttribute("type").equals("e")) {
+                response.sendRedirect("shipmentEmployee.jsp");
+            } else if (session.getAttribute("type").equals("m")) {
+                response.sendRedirect("managerReports.jsp");
+            }
+        %>
         <div class="pure-g">
 
 

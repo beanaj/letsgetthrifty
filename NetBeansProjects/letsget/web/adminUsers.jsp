@@ -1,4 +1,4 @@
-<%-- 
+<%--
     Document   : adminPage
     Created on : Nov 8, 2017, 2:08:17 PM
     Author     : Addison
@@ -21,14 +21,23 @@
         <title>Admin Users</title>
         <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
         <link rel="stylesheet" href="styles/adminstyle.css">
-        <meta name="viewport" content="width=device-width, initial-scale=1">      
+        <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
 
 
     <body>
+        <%
+            if (session.getAttribute("type").equals("u")) {
+                response.sendRedirect("homepage.jsp");
+            } else if (session.getAttribute("type").equals("e")) {
+                response.sendRedirect("shipmentEmployee.jsp");
+            } else if (session.getAttribute("type").equals("m")) {
+                response.sendRedirect("managerReports.jsp");
+            }
+        %>
         <div class="banner">
             <h1 class="bannerhead">
-                <img src="img/letsgetlogo.png" alt="logo" height = "150" width="350">  
+                <img src="img/letsgetlogo.png" alt="logo" height = "150" width="350">
             </h1>
         </div>
 
@@ -66,11 +75,11 @@
                 </div>
 
                 <div class="content">
-                    <div class="container">               
+                    <div class="container">
                         <div class="box">
                             <div class="header">
                                 <h1>Users</h1>
-                            </div>               
+                            </div>
                         </div>
 
                         <!--THE TABLE:::-->
@@ -97,7 +106,7 @@
                                 for (int i = 0; i < userList.size(); i++) {
                             %>
 
-                            <tr>  
+                            <tr>
                                 <%
                                     String primaryKey = userList.get(i).getAccountID();
                                 %>
@@ -148,14 +157,14 @@
                                 </tr>
                             </form>
 
-                        </table>       
+                        </table>
                         <!--END OF TABLE-->
 
                         <div id="error">
                             ${requestScope.error}
-                        </div> 
+                        </div>
 
-                    </div>      
+                    </div>
                 </div>
             </div>
         </div>

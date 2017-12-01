@@ -32,6 +32,15 @@
     </head>
     <body>
         <%
+            if (session.getAttribute("type") != null) {
+                if (session.getAttribute("type").equals("a")) {
+                    response.sendRedirect("adminInventory.jsp");
+                } else if (session.getAttribute("type").equals("e")) {
+                    response.sendRedirect("shipmentEmployee.jsp");
+                } else if (session.getAttribute("type").equals("m")) {
+                    response.sendRedirect("managerReports.jsp");
+                }
+            }
             String userID = null;
             userID = (String) session.getAttribute("userID");
             String userName = "Guest";

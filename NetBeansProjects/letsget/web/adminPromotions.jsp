@@ -24,8 +24,18 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">      
     </head>
 
+    
 
     <body>
+        <%
+            if (session.getAttribute("type").equals("u")) {
+                response.sendRedirect("homepage.jsp");
+            } else if (session.getAttribute("type").equals("e")) {
+                response.sendRedirect("shipmentEmployee.jsp");
+            } else if (session.getAttribute("type").equals("m")) {
+                response.sendRedirect("managerReports.jsp");
+            }
+        %>
         <div class="banner">
             <h1 class="bannerhead">
                 <img src="img/letsgetlogo.png" alt="logo" height = "150" width="350">  
