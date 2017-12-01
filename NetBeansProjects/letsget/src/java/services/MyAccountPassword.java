@@ -5,6 +5,7 @@
  */
 package services;
 
+import entity.User;
 import entity.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -58,7 +59,7 @@ public class MyAccountPassword extends HttpServlet {
                 response.setContentType("text/html");
         PrintWriter out = response.getWriter();
         
-        String hiddenParam = request.getParameter("updateName");
+        String hiddenParam = request.getParameter("updatePassword");
         
         String id = "";
         String oldPass = "";
@@ -69,15 +70,28 @@ public class MyAccountPassword extends HttpServlet {
         oldPass = request.getParameter("oldPass");
         newPass = request.getParameter("newPass");
         newPassV = request.getParameter("newPassV");
-                
-        if(newPass == newPassV){
-            UserDAO db = new UserDAO();
-            try {
-                db.updatePassword(id, oldPass, newPass, newPassV);
-            } catch (SQLException ex) {
+        System.out.println("Begin Test");
+        System.out.println(oldPass);
+        System.out.println(newPass);
+        System.out.println(newPassV);
+        
+        UserDAO db = new UserDAO();
+        User user = new User(id, "u");
+        if(newPass != null && newPassV != null && oldPass != null){    
+            System.out.println("1");
+            if(newPass.equals(newPassV)){
+                System.out.println("Failed: " + db.encrypt(oldPass) + "  " + user.getPass());
+                if (db.encrypt(oldPass).equals(user.getPass())) {
+                    System.out.println("It Almost Worked!");
+                    try {
+                        db.updatePassword(id, newPass);
+                        System.out.println("It Worked!");
+                    } catch (SQLException ex) {
                         String error = "Error: Invalid input";
                         request.setAttribute("error", error);
                         request.getRequestDispatcher("my_accountPassword.jsp").forward(request, response);
+                    }
+                }
             }
         }
         response.sendRedirect("my_accountPassword.jsp");    
