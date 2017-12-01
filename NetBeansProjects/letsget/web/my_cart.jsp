@@ -34,6 +34,15 @@
     </head>
     <body>
         <%
+            if (session.getAttribute("type") != null) {
+                if (session.getAttribute("type").equals("a")) {
+                    response.sendRedirect("adminInventory.jsp");
+                } else if (session.getAttribute("type").equals("e")) {
+                    response.sendRedirect("shipmentEmployee.jsp");
+                } else if (session.getAttribute("type").equals("m")) {
+                    response.sendRedirect("managerReports.jsp");
+                }
+            }
             //allow access only if session exists
             String userID = null;
             if (session.getAttribute("userID") == null) {

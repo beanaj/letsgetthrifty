@@ -73,11 +73,20 @@
                         <img src="img/letsgetlogo.png" alt="logo" height = "150" width="350">  
                     </h1>
                 </div>
-                    <div class="browseheader">
-                        NAME
-                    </div>
+                <div class="browseheader">
+                    NAME
+                </div>
 
                 <%
+                    if (session.getAttribute("type") != null) {
+                        if (session.getAttribute("type").equals("a")) {
+                            response.sendRedirect("adminInventory.jsp");
+                        } else if (session.getAttribute("type").equals("e")) {
+                            response.sendRedirect("shipmentEmployee.jsp");
+                        } else if (session.getAttribute("type").equals("m")) {
+                            response.sendRedirect("managerReports.jsp");
+                        }
+                    }
                     String userID = (String) session.getAttribute("userID");
 
                     UserDAO db = new UserDAO();

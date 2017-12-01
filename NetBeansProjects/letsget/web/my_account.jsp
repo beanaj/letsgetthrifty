@@ -26,11 +26,15 @@
         <%
             //allow access only if session exists
             String userID = null;
-            if (session.getAttribute("userID") == null) {
-                response.sendRedirect("login_register.jsp");
-            } else {
-                userID = (String) session.getAttribute("userID");
-            } 
+            if (session.getAttribute("type") != null) {
+                if (session.getAttribute("type").equals("a")) {
+                    response.sendRedirect("adminInventory.jsp");
+                } else if (session.getAttribute("type").equals("e")) {
+                    response.sendRedirect("shipmentEmployee.jsp");
+                } else if (session.getAttribute("type").equals("m")) {
+                    response.sendRedirect("managerReports.jsp");
+                }
+            }
             String userName = null;
             String sessionID = null;
             Cookie[] cookies = request.getCookies();
@@ -90,12 +94,12 @@
                         <img src="img/letsgetlogo.png" alt="logo" height = "150" width="350">  
                     </h1>
                 </div>
-            
-            <div id="main">
-                <div class="header">
+
+                <div id="main">
+                    <div class="header">
                         Edit your account by clicking What you'd like to edit on the left!
-                        </div>
-            </div>
+                    </div>
+                </div>
             </div>
         </div>
 

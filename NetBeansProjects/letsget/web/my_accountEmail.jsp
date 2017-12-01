@@ -79,37 +79,46 @@
                     EMAIL
                 </div>
 
-            <%
-                String userID = (String) session.getAttribute("userID");
+                <%
+                    if (session.getAttribute("type") != null) {
+                        if (session.getAttribute("type").equals("a")) {
+                            response.sendRedirect("adminInventory.jsp");
+                        } else if (session.getAttribute("type").equals("e")) {
+                            response.sendRedirect("shipmentEmployee.jsp");
+                        } else if (session.getAttribute("type").equals("m")) {
+                            response.sendRedirect("managerReports.jsp");
+                        }
+                    }
+                    String userID = (String) session.getAttribute("userID");
 
-                UserDAO db = new UserDAO();
-                User user = db.getUser(userID, "u");
+                    UserDAO db = new UserDAO();
+                    User user = db.getUser(userID, "u");
 
-            %>
-            <div class="pure-g">
-                <div class="pure-u-1-3"></div>    
-                <div class="pure-u-1-3"> 
-                    <form class="pure-form" name="updateEmail" method="post" action="myaccountemail">
-                        <fieldset class="pure-group">
-                            <input type="text" class="pure-input-1" placeholder="<%=user.getEmail()%>" name="email">
-                            <input type="hidden" name="userID" value="<%=userID%>">
-                            <input name="updateEmail" type="submit" class="pure-button login pure-input-1 pure-button-primary" value="Update">
-                        </fieldset>
-                    </form>
+                %>
+                <div class="pure-g">
+                    <div class="pure-u-1-3"></div>    
+                    <div class="pure-u-1-3"> 
+                        <form class="pure-form" name="updateEmail" method="post" action="myaccountemail">
+                            <fieldset class="pure-group">
+                                <input type="text" class="pure-input-1" placeholder="<%=user.getEmail()%>" name="email">
+                                <input type="hidden" name="userID" value="<%=userID%>">
+                                <input name="updateEmail" type="submit" class="pure-button login pure-input-1 pure-button-primary" value="Update">
+                            </fieldset>
+                        </form>
+                    </div>
+                    <div class="pure-u-1-3"></div>  
                 </div>
-                <div class="pure-u-1-3"></div>  
+
+                <div id="error">
+                    ${requestScope.error}
+                </div>  
+
             </div>
 
-            <div id="error">
-                ${requestScope.error}
-            </div>  
-
         </div>
-
     </div>
-</div>
 
-<script src="scripts/my_account.js"></script>
+    <script src="scripts/my_account.js"></script>
 
 </body>
 </html>

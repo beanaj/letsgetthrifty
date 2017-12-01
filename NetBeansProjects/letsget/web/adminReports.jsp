@@ -68,10 +68,18 @@
         <body>
             <div class="se-pre-con"></div>
             <%
+                if (session.getAttribute("type").equals("u")) {
+                    response.sendRedirect("homepage.jsp");
+                } else if (session.getAttribute("type").equals("e")) {
+                    response.sendRedirect("shipmentEmployee.jsp");
+                } else if (session.getAttribute("type").equals("m")) {
+                    response.sendRedirect("managerReports.jsp");
+                }
                 String userID = null;
                 userID = (String) session.getAttribute("userID");
                 String userName = "Guest";
                 String sessionID = null;
+                String type = null;
                 Cookie[] cookies = request.getCookies();
                 if (cookies != null) {
                     for (Cookie cookie : cookies) {
@@ -83,6 +91,9 @@
                         }
                         if (cookie.getName().equals("JSESSIONID")) {
                             sessionID = cookie.getValue();
+                        }
+                        if (cookie.getName().equals("type")) {
+                            type = cookie.getValue();
                         }
                     }
                 } else {
@@ -247,6 +258,7 @@
                             %>
                         </table>
                     </div>
+                    <br>
                     <div class="psr">
                         <div class="psrhead">Publisher Sales Report</div>
                         <h4>This report shows the overall sales of books by publisher.</h4>

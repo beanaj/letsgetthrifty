@@ -345,11 +345,16 @@ public class ReportDAO {
         }
 
         String[] pubs = publishers.toArray(new String[0]);
+        
         for (int i = 0; i < pubs.length; i++) {
+            
             String publisher = pubs[i];
+
+            
             try {
                 Connection connection = DriverManager.getConnection(db.getURL(), db.getUser(), db.getPass());
                 PreparedStatement statement = connection.prepareStatement("SELECT * FROM books WHERE publisher = '" + publisher + "'");
+
                 ResultSet rs = statement.executeQuery();
                 {
                     int qty = 0;
@@ -383,7 +388,7 @@ public class ReportDAO {
                     connection.close();
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+                //Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         Book[] lowinv = new Book[books.size()];
