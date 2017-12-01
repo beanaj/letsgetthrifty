@@ -106,7 +106,7 @@
                 con = DriverManager.getConnection(db.getURL(), db.getUser(), db.getPass());
                 //generate sql statement
                 state = con.createStatement();
-                String sql = "SELECT * FROM books WHERE "+session.getAttribute("option")+" like '"+session.getAttribute("input")+"%' ORDER BY title";
+                String sql = "SELECT * FROM books WHERE "+session.getAttribute("option")+" like '%"+session.getAttribute("input")+"%'";// OR like '%"+session.getAttribute("input")+"%'  ORDER BY title";
                 result = state.executeQuery(sql);
                 while(result.next()){%>
                     <tr>  

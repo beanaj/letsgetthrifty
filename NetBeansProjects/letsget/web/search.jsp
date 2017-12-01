@@ -28,7 +28,9 @@
         <!--<![endif]-->
         <link rel="stylesheet" href="styles/search.css">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <script src="scripts/homepage.js"></script>
+       
+        <script src="scripts/searchvalidation.js"></script>
+        
     </head>
     <body>
         <%
@@ -84,7 +86,7 @@
             <div class="pure-u-5-8">
                 <div class="search">
                      <form class="pure-form" method="post" action="searchresult">
-                        <input class="searchbar" name ="input" placeholder="Search by Title, Author, Genre, or ISBN">
+                        <input class="searchbar" name ="input" onchange="searchBar(this)" placeholder="Search by Title, Author, Genre, or ISBN">
                         <select class="searchOption" name="option">
                             <option value="title">Title</option>
                             <option value="author">Author</option>
