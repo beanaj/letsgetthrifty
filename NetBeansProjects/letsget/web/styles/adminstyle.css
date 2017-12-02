@@ -8,8 +8,15 @@ and open the template in the editor.
     Author     : Addison
 */
 
+input[type=text] {
+    box-sizing: border-box;
+    border: 1px solid red;
+    border-radius: 3px;
+}
+
 .button {
-    background-color: #1f8dd6;
+    /*background-color: #1f8dd6;*/
+    background-color: #3479D4;
     color: white;
     /*padding: 15px 32px;*/
     text-align: center;
@@ -86,6 +93,10 @@ tr {
     font-size: small;
     text-align: left;
 
+}
+
+tr:hover {
+    background-color: #ddd;
 }
 
 td{
