@@ -35,14 +35,7 @@
                 response.sendRedirect("managerReports.jsp");
             }
         %>
-        <div class="banner">
-            <h1 class="bannerhead">
-                <img src="img/letsgetlogo.png" alt="logo" height = "150" width="350">
-            </h1>
-        </div>
-
-        <div id="layout">
-
+        <div class="pure-g">
 
 
             <!-- Menu toggle -->
@@ -51,13 +44,7 @@
                 <span></span>
             </a>
 
-
-
-            <div id="main">
-
-
-
-
+            <div class="pure-u-1-4">
                 <div id="menu">
                     <div class="pure-menu">
                         <a class="pure-menu-heading" href="#">Admin</a>
@@ -73,104 +60,111 @@
                         </ul>
                     </div>
                 </div>
-
-                <div class="content">
-                    <div class="container">
-                        <div class="box">
-                            <div class="header">
-                                <h1>Users</h1>
-                            </div>
-                        </div>
-
-                        <!--THE TABLE:::-->
-                        <table id="bookTable" align="center" cellpadding="5" cellspacing="5" border="1">
-                            <tr>
-
-                            </tr>
-
-                            <tr>
-                                <td><b>User ID</b></td>
-                                <td><b>First Name</b></td>
-                                <td><b>Last Name</b></td>
-                                <td><b>Phone</b></td>
-                                <td><b>Email</b></td>
-                                <td><b>User Type</b></td>
-                                <td><b>Order Confirmation</b></td>
-                                <td><b>Active</b></td>
-                            </tr>
-
-                            <%
-                                UserDAO db = new UserDAO();
-                                List<User> userList = db.list();
-
-                                for (int i = 0; i < userList.size(); i++) {
-                            %>
-
-                            <tr>
-                                <%
-                                    String primaryKey = userList.get(i).getAccountID();
-                                %>
-                                <td><%=userList.get(i).getAccountID()%></td>
-                                <td><%=userList.get(i).getFN()%></td>
-                                <td><%=userList.get(i).getLN()%></td>
-                                <td><%=userList.get(i).getPhone()%></td>
-                                <td><%=userList.get(i).getEmail()%></td>
-                                <td><%=userList.get(i).getType()%></td>
-                                <td><%=userList.get(i).getCode()%></td>
-                                <td><%=userList.get(i).getActive()%></td>
-                                <td>
-                                    <!--Promote User-->
-                                    <form name="promoteUserButton" method="post" action="userTable">
-                                        <input type="hidden" name = "tableType" value="user">
-                                        <input type="hidden" name="new_userID" value="<%=primaryKey%>">
-                                        <input name="addUpdate" type="submit" value="Promote User">
-                                    </form>
-                                </td>
-                                <td>
-                                    <!--Suspend User-->
-                                    <form name="suspendUserButton" method="post" action="userTable">
-                                        <input type="hidden" name = "tableType" value="user">
-                                        <input type="hidden" name="new_userID" value="<%=primaryKey%>">
-                                        <input name="addUpdate" type="submit" value="Suspend User">
-                                    </form>
-                                </td>
-
-                            </tr>
-
-                            <%
-                                }
-                            %>
-
-                            <!--Update User Row:-->
-                            <form name="updateUserButton" method="post" action="userTable">
-                                <tr>
-                                    <td><input type="text" name="new_userID" onkeyup="checkID(this)" onclick="checkID(this)" onchange="checkID(this)" required></td>
-                                    <td><input type="text" name="new_firstName" onkeyup="checkName(this)" onclick="checkName(this)" onchange="checkName(this)"></td>
-                                    <td><input type="text" name="new_lastName" onkeyup="checkName(this)" onclick="checkName(this)" onchange="checkName(this)"></td>
-                                    <td><input type="text" name="new_phone" onkeyup="checkPhone(this)" onclick="checkPhone(this)" onchange="checkPhone(this)"></td>
-                                    <td><input type="text" name="new_email" onkeyup= "checkEmail(this)" onclick="checkEmail(this)" onchange="checkEmail(this)"></td>
-                                    <td><input type="text" name="new_userType" onkeyup= "checkType(this)" onclick="checkType(this)" onchange="checkType(this)"></td>
-                                    <td><input type="text" name="new_orderConfirmationCode" onkeyup="checkCode(this)" onclick="checkCode(this)" onchange="checkCode(this)"></td>
-                                    <td><input type="text" name="new_active" onkeyup="checkActive(this)" onclick="checkActive(this)" onchange="checkActive(this)"></td>
-                                <input type="hidden" name = "tableType" value="user">
-                                <td><input name="addUpdate" type="submit" value="Update User"></td>
-                                </tr>
-                            </form>
-
-                        </table>
-                        <!--END OF TABLE-->
-
-                        <div id="error">
-                            ${requestScope.error}
-                        </div>
-
-                    </div>
-                </div>
             </div>
+            <div class="pure-u-5-8">
+                <div class="banner">
+                    <h1 class="bannerhead">
+                        <img src="img/letsgetlogo.png" alt="logo" height = "150" width="350">  
+                    </h1>
+                </div>
+                <div class="browseheader">
+                    USERS
+                </div>
+
+                <!--THE TABLE:::-->
+                <div class="tableholder">
+                    <table>
+                        <tr>
+                            <td><b>User ID</b></td>
+                            <td><b>First Name</b></td>
+                            <td><b>Last Name</b></td>
+                            <td><b>Phone</b></td>
+                            <td><b>Email</b></td>
+                            <td><b>User Type</b></td>
+                            <td><b>Order Confirmation</b></td>
+                            <td><b>Active</b></td>
+                        </tr>
+                        <!--Update User Row:-->
+                        <form name="updateUserButton" method="post" action="userTable">
+                            <tr>
+                                <td><input type="text" name="new_userID" onkeyup="checkID(this)" onclick="checkID(this)" onchange="checkID(this)" required></td>
+                                <td><input type="text" name="new_firstName" onkeyup="checkName(this)" onclick="checkName(this)" onchange="checkName(this)"></td>
+                                <td><input type="text" name="new_lastName" onkeyup="checkName(this)" onclick="checkName(this)" onchange="checkName(this)"></td>
+                                <td><input type="text" name="new_phone" onkeyup="checkPhone(this)" onclick="checkPhone(this)" onchange="checkPhone(this)"></td>
+                                <td><input type="text" name="new_email" onkeyup= "checkEmail(this)" onclick="checkEmail(this)" onchange="checkEmail(this)"></td>
+                                <td><input type="text" name="new_userType" onkeyup= "checkType(this)" onclick="checkType(this)" onchange="checkType(this)"></td>
+                                <td><input type="text" name="new_orderConfirmationCode" onkeyup="checkCode(this)" onclick="checkCode(this)" onchange="checkCode(this)"></td>
+                                <td><input type="text" name="new_active" onkeyup="checkActive(this)" onclick="checkActive(this)" onchange="checkActive(this)"></td>
+                            <input type="hidden" name = "tableType" value="user">
+                            <td><input name="addUpdate" type="submit" value="Update User"></td>
+                            </tr>
+                        </form>
+                        <tr>
+
+                        </tr>
+
+                        <tr>
+                            <td><b>User ID</b></td>
+                            <td><b>First Name</b></td>
+                            <td><b>Last Name</b></td>
+                            <td><b>Phone</b></td>
+                            <td><b>Email</b></td>
+                            <td><b>User Type</b></td>
+                            <td><b>Order Confirmation</b></td>
+                            <td><b>Active</b></td>
+                        </tr>
+
+                        <%
+                            UserDAO db = new UserDAO();
+                            List<User> userList = db.list();
+
+                            for (int i = 0; i < userList.size(); i++) {
+                        %>
+
+                        <tr>
+                            <%
+                                String primaryKey = userList.get(i).getAccountID();
+                            %>
+                            <td><%=userList.get(i).getAccountID()%></td>
+                            <td><%=userList.get(i).getFN()%></td>
+                            <td><%=userList.get(i).getLN()%></td>
+                            <td><%=userList.get(i).getPhone()%></td>
+                            <td><%=userList.get(i).getEmail()%></td>
+                            <td><%=userList.get(i).getType()%></td>
+                            <td><%=userList.get(i).getCode()%></td>
+                            <td><%=userList.get(i).getActive()%></td>
+                            <td>
+                                <!--Promote User-->
+                                <form name="promoteUserButton" method="post" action="userTable">
+                                    <input type="hidden" name = "tableType" value="user">
+                                    <input type="hidden" name="new_userID" value="<%=primaryKey%>">
+                                    <input name="addUpdate" type="submit" value="Promote User">
+                                </form>
+                            </td>
+                            <td>
+                                <!--Suspend User-->
+                                <form name="suspendUserButton" method="post" action="userTable">
+                                    <input type="hidden" name = "tableType" value="user">
+                                    <input type="hidden" name="new_userID" value="<%=primaryKey%>">
+                                    <input name="addUpdate" type="submit" value="Suspend User">
+                                </form>
+                            </td>
+
+                        </tr>
+
+                        <%
+                            }
+                        %>
+
+                    </table>
+                </div>
+                <!--END OF TABLE-->
+            </div>
+            <div id="error">
+                ${requestScope.error}
+            </div>
+            <div class="pure-u-1-8"></div>   
         </div>
-
-
-
 
         <script src="scripts/admin.js"></script>
         <script src="scripts/adminEmployeeVerification.js"></script>

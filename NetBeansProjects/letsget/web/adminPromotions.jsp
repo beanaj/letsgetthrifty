@@ -24,7 +24,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">      
     </head>
 
-    
+
 
     <body>
         <%
@@ -36,14 +36,7 @@
                 response.sendRedirect("managerReports.jsp");
             }
         %>
-        <div class="banner">
-            <h1 class="bannerhead">
-                <img src="img/letsgetlogo.png" alt="logo" height = "150" width="350">  
-            </h1>
-        </div>
-
-        <div id="layout">
-
+        <div class="pure-g">
 
 
             <!-- Menu toggle -->
@@ -52,13 +45,7 @@
                 <span></span>
             </a>
 
-
-
-            <div id="main">
-
-
-
-
+            <div class="pure-u-1-4">
                 <div id="menu">
                     <div class="pure-menu">
                         <a class="pure-menu-heading" href="#">Admin</a>
@@ -74,91 +61,94 @@
                         </ul>
                     </div>
                 </div>
-
-                <div class="content">
-                    <div class="container">               
-                        <div class="box">
-                            <div class="header">
-                                <h1>Promotions</h1>
-                            </div>               
-                        </div>
-
-                        <!--THE TABLE:::-->
-
-                        <table id="bookTable" align="center" cellpadding="1" cellspacing="1" >
-                            <tr>
-
-                            </tr>
-                            <!--<tr bgcolor="#A52A2A">-->
-                            <tr>
-                                <td><b>Promo ID</b></td>
-                                <td><b>Promo Name</b></td>
-                                <td><b>Percentage</b></td>
-                                <td><b>Expiration</b></td>
-                            </tr>
-
-                            <%
-                                PromotionDAO db = new PromotionDAO();
-                                List<Promotion> promoList = db.list();
-
-                                for (int i = 0; i < promoList.size(); i++) {
-                            %>
-
-                            <tr>  
-                                <%
-                                    int primaryKey = promoList.get(i).getPromoID();
-                                    String deleteType = "promotion";
-                                %>
-                                <td><%=promoList.get(i).getPromoID()%></td>
-                                <td><%=promoList.get(i).getPromoName()%></td>
-                                <td><%=promoList.get(i).getPercentage()%></td>
-                                <td><%=promoList.get(i).getExpiration()%></td>
-                                <td>
-                                    <a href="deleteBook.jsp?deleteid=<%=primaryKey%>&type=<%=deleteType%>">Delete</a>
-                                </td>
-
-                            </tr>
-
-                            <%
-                                }
-                            %>
-
-                            <!--Add Promotion row:-->
-                            <form name="addPromoButton" method="post" action="promotion">
-                                <tr>
-                                    <td><input type="text" name="new_promoID" onkeyup="checkID(this)" onclick="checkID(this)" onchange="checkID(this)" required></td>
-                                    <td><input type="text" name="new_promoName" onkeyup="checkPromoName(this)" onclick="checkPromoName(this)" onchange="checkPromoName(this)" required></td>
-                                    <td><input type="text" name="new_percentage" onkeyup="checkPerc(this)" onclick="checkPerc(this)" onchange="checkPerc(this)" required></td>
-                                    <td><input type="datetime-local" name="new_expiration" required></td>
-                                    <td><input name="addUpdate" type="submit" value="Add Promotion"></td>
-                                </tr>
-                            </form>
-
-                            <!--Update promotion Row:-->
-                            <form name="addPromoButton" method="post" action="promotion">
-                                <tr>
-                                    <td><input type="text" name="new_promoID" onkeyup="checkID(this)" onclick="checkID(this)" onchange="checkID(this)" required></td>
-                                    <td><input type="text" name="new_promoName" onkeyup="checkPromoName(this)" onclick="checkPromoName(this)" onchange="checkPromoName(this)"></td>
-                                    <td><input type="text" name="new_percentage" onkeyup="checkPerc(this)" onclick="checkPerc(this)" onchange="checkPerc(this)"></td>
-                                    <td><input type="datetime-local" name="new_expiration"></td>
-                                    <td><input name="addUpdate" type="submit" value="Update Promotion"></td>
-                                </tr>
-                            </form>
-
-                        </table>       
-                        <!--END OF TABLE-->
-
-                        <div id="error">
-                            ${requestScope.error}
-                        </div> 
-
-                    </div>      
-                </div>
             </div>
+            <div class="pure-u-5-8">
+                <div class="banner">
+                    <h1 class="bannerhead">
+                        <img src="img/letsgetlogo.png" alt="logo" height = "150" width="350">  
+                    </h1>
+                </div>
+                <div class="browseheader">
+                    PROMOTIONS
+                </div>
+                <!--THE TABLE:::-->
+                <div class="tableholder">
+                    <table>
+                        <tr>
+                            <td><b>Promo ID</b></td>
+                            <td><b>Promo Name</b></td>
+                            <td><b>Percentage</b></td>
+                            <td><b>Expiration</b></td>
+                        </tr>
+
+                        <!--Add Promotion row:-->
+                        <form name="addPromoButton" method="post" action="promotion">
+                            <tr>
+                                <td><input type="text" name="new_promoID" onkeyup="checkID(this)" onclick="checkID(this)" onchange="checkID(this)" required></td>
+                                <td><input type="text" name="new_promoName" onkeyup="checkPromoName(this)" onclick="checkPromoName(this)" onchange="checkPromoName(this)" required></td>
+                                <td><input type="text" name="new_percentage" onkeyup="checkPerc(this)" onclick="checkPerc(this)" onchange="checkPerc(this)" required></td>
+                                <td><input type="datetime-local" name="new_expiration" required></td>
+                                <td><input name="addUpdate" type="submit" value="Add Promotion"></td>
+                            </tr>
+                        </form>
+
+                        <!--Update promotion Row:-->
+                        <form name="addPromoButton" method="post" action="promotion">
+                            <tr>
+                                <td><input type="text" name="new_promoID" onkeyup="checkID(this)" onclick="checkID(this)" onchange="checkID(this)" required></td>
+                                <td><input type="text" name="new_promoName" onkeyup="checkPromoName(this)" onclick="checkPromoName(this)" onchange="checkPromoName(this)"></td>
+                                <td><input type="text" name="new_percentage" onkeyup="checkPerc(this)" onclick="checkPerc(this)" onchange="checkPerc(this)"></td>
+                                <td><input type="datetime-local" name="new_expiration"></td>
+                                <td><input name="addUpdate" type="submit" value="Update Promotion"></td>
+                            </tr>
+                        </form>
+                        <tr>
+
+                        </tr>
+                        <!--<tr bgcolor="#A52A2A">-->
+                        <tr>
+                            <td><b>Promo ID</b></td>
+                            <td><b>Promo Name</b></td>
+                            <td><b>Percentage</b></td>
+                            <td><b>Expiration</b></td>
+                        </tr>
+
+                        <%
+                            PromotionDAO db = new PromotionDAO();
+                            List<Promotion> promoList = db.list();
+
+                            for (int i = 0; i < promoList.size(); i++) {
+                        %>
+
+                        <tr>  
+                            <%
+                                int primaryKey = promoList.get(i).getPromoID();
+                                String deleteType = "promotion";
+                            %>
+                            <td><%=promoList.get(i).getPromoID()%></td>
+                            <td><%=promoList.get(i).getPromoName()%></td>
+                            <td><%=promoList.get(i).getPercentage()%></td>
+                            <td><%=promoList.get(i).getExpiration()%></td>
+                            <td>
+                                <a href="deleteBook.jsp?deleteid=<%=primaryKey%>&type=<%=deleteType%>" class="delete">Delete</a>
+                            </td>
+
+                        </tr>
+
+                        <%
+                            }
+                        %>
+
+
+                    </table>  
+                </div>
+                <!--END OF TABLE-->
+            </div>
+            <div id="error">
+                ${requestScope.error}
+            </div>    
+            <div class="pure-u-1-8"></div>
         </div>
-
-
-
 
         <script src="scripts/admin.js"></script>
         <script src="scripts/adminPromoValidation.js"></script>

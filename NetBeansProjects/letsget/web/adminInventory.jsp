@@ -37,9 +37,6 @@
         %>
         <div class="pure-g">
 
-
-
-
             <!-- Menu toggle -->
             <a href="#menu" id="menuLink" class="menu-link">
                 <!-- Hamburger icon -->
@@ -195,15 +192,10 @@
 
             <div class="pure-u-1-8"></div>     
         </div>
-    </div>
-</div>
+
+        <script src="scripts/admin.js"></script>
+        <script src="scripts/adminInventoryValidation.js"></script>
 
 
-
-
-<script src="scripts/admin.js"></script>
-<script src="scripts/adminInventoryValidation.js"></script>
-
-
-</body>
+    </body>
 </html>

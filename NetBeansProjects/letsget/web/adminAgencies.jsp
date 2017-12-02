@@ -35,15 +35,8 @@
                 response.sendRedirect("managerReports.jsp");
             }
         %>
-        <div class="banner">
-            <h1 class="bannerhead">
-                <img src="img/letsgetlogo.png" alt="logo" height = "150" width="350">  
-            </h1>
-        </div>
 
-        <div id="layout">
-
-
+        <div class="pure-g">
 
             <!-- Menu toggle -->
             <a href="#menu" id="menuLink" class="menu-link">
@@ -53,11 +46,7 @@
 
 
 
-            <div id="main">
-
-
-
-
+            <div class="pure-u-1-4">
                 <div id="menu">
                     <div class="pure-menu">
                         <a class="pure-menu-heading" href="#">Admin</a>
@@ -72,91 +61,102 @@
                             <li class="pure-menu-item"><a href="adminReports.jsp" class="pure-menu-link">Reports</a></li> </ul>
                     </div>
                 </div>
-
-                <div class="content">
-                    <div class="container">               
-                        <div class="box">
-                            <div class="header">
-                                <h1>Agencies</h1>
-                            </div>               
-                        </div>
-
-                        <!--THE TABLE:::-->
-                        <table id="bookTable" align="center" cellpadding="5" cellspacing="5" border="1">
-                            <tr>
-
-                            </tr>
-                            <!--<tr bgcolor="#A52A2A">-->
-                            <tr>
-                                <td><b>Shipping Agency ID</b></td>
-                                <td><b>Agency Name</b></td>
-                                <td><b>Phone</b></td>
-                                <td><b>Contact Name</b></td>
-                                <td><b>Contact Phone</b></td>
-                            </tr>
-
-                            <%
-                                ShippingAgencyDAO db = new ShippingAgencyDAO();
-                                List<ShippingAgency> agencyList = db.list();
-
-                                for (int i = 0; i < agencyList.size(); i++) {
-                            %>
-                            <!--<tr bgcolor="#DEB887">-->
-                            <tr>  
-                                <%
-                                    int primaryKey = agencyList.get(i).getAgencyID();
-                                    String deleteType = "agency";
-                                %>
-                                <td><%=agencyList.get(i).getAgencyID()%></td>
-                                <td><%=agencyList.get(i).getAgencyName()%></td>
-                                <td><%=agencyList.get(i).getPhone()%></td>
-                                <td><%=agencyList.get(i).getContactName()%></td>
-                                <td><%=agencyList.get(i).getContactPhone()%></td>
-                                <td>
-                                    <a href="deleteBook.jsp?deleteid=<%=primaryKey%>&type=<%=deleteType%>">Delete</a>
-                                </td>
-
-                            </tr>
-
-                            <%
-                                }
-                            %>
-
-                            <!--Add Agency row:-->
-                            <form name="addAgencyForm" method="post" action="agency"">
-                                <tr>
-                                    <td><input type="text" name="new_shippingAgencyID" onkeyup="checkID(this)" onclick="checkID(this)" onchange="checkID(this)" required></td>
-                                    <td><input type="text" name="new_agencyName" onkeyup="checkName(this)" onclick="checkName(this)" onchange="checkName(this)" required></td>
-                                    <td><input type="text" name="new_phone" onkeyup="checkPhone(this)" onclick="checkPhone(this)" onchange="checkPhone(this)" required></td>
-                                    <td><input type="text" name="new_contactName" onkeyup="checkName(this)" onclick="checkName(this)" onchange="checkName(this)" required></td>
-                                    <td><input type="text" name="new_contactPhone" onkeyup="checkPhone(this)" onclick="checkPhone(this)" onchange="checkPhone(this)" required></td>
-                                    <td><input name="addUpdate" type="submit" value="Add Agency"></td>
-                                </tr>
-                            </form>
-
-
-                            <!--Update Agency Row:-->
-                            <form name="addAgencyButton" method="post" action="agency">
-                                <tr>
-                                    <td><input type="text" name="new_shippingAgencyID" onkeyup="checkID(this)" onclick="checkID(this)" onchange="checkID(this)" required></td>
-                                    <td><input type="text" name="new_agencyName" onkeyup="checkName(this)" onclick="checkName(this)" onchange="checkName(this)"></td>
-                                    <td><input type="text" name="new_phone" onkeyup="checkPhone(this)" onclick="checkPhone(this)" onchange="checkPhone(this)"></td>
-                                    <td><input type="text" name="new_contactName" onkeyup="checkName(this)" onclick="checkName(this)" onchange="checkName(this)"></td>
-                                    <td><input type="text" name="new_contactPhone" onkeyup="checkPhone(this)" onclick="checkPhone(this)" onchange="checkPhone(this)"></td>
-                                    <td><input name="addUpdate" type="submit" value="Update Agency"></td>
-                                </tr>
-                            </form>
-
-                        </table>       
-                        <!--END OF TABLE-->
-
-                        <div id="error">
-                            ${requestScope.error}
-                        </div>     
-
-                    </div>      
-                </div>
             </div>
+
+            <div class="pure-u-5-8">
+                <div class="banner">
+                    <h1 class="bannerhead">
+                        <img src="img/letsgetlogo.png" alt="logo" height = "150" width="350">  
+                    </h1>
+                </div>
+                <div class="browseheader">
+                    AGENCIES
+                </div>              
+
+                <!--THE TABLE:::-->
+                <div class="tableholder">
+                    <table>
+                        <tr>
+                            <td><b>Shipping Agency ID</b></td>
+                            <td><b>Agency Name</b></td>
+                            <td><b>Phone</b></td>
+                            <td><b>Contact Name</b></td>
+                            <td><b>Contact Phone</b></td>
+                        </tr>
+                        <!--Add Agency row:-->
+                        <form name="addAgencyForm" method="post" action="agency"">
+                            <tr>
+                                <td><input type="text" name="new_shippingAgencyID" onkeyup="checkID(this)" onclick="checkID(this)" onchange="checkID(this)" required></td>
+                                <td><input type="text" name="new_agencyName" onkeyup="checkName(this)" onclick="checkName(this)" onchange="checkName(this)" required></td>
+                                <td><input type="text" name="new_phone" onkeyup="checkPhone(this)" onclick="checkPhone(this)" onchange="checkPhone(this)" required></td>
+                                <td><input type="text" name="new_contactName" onkeyup="checkName(this)" onclick="checkName(this)" onchange="checkName(this)" required></td>
+                                <td><input type="text" name="new_contactPhone" onkeyup="checkPhone(this)" onclick="checkPhone(this)" onchange="checkPhone(this)" required></td>
+                                <td><input name="addUpdate" type="submit" value="Add Agency"></td>
+                            </tr>
+                        </form>
+
+
+                        <!--Update Agency Row:-->
+                        <form name="addAgencyButton" method="post" action="agency">
+                            <tr>
+                                <td><input type="text" name="new_shippingAgencyID" onkeyup="checkID(this)" onclick="checkID(this)" onchange="checkID(this)" required></td>
+                                <td><input type="text" name="new_agencyName" onkeyup="checkName(this)" onclick="checkName(this)" onchange="checkName(this)"></td>
+                                <td><input type="text" name="new_phone" onkeyup="checkPhone(this)" onclick="checkPhone(this)" onchange="checkPhone(this)"></td>
+                                <td><input type="text" name="new_contactName" onkeyup="checkName(this)" onclick="checkName(this)" onchange="checkName(this)"></td>
+                                <td><input type="text" name="new_contactPhone" onkeyup="checkPhone(this)" onclick="checkPhone(this)" onchange="checkPhone(this)"></td>
+                                <td><input name="addUpdate" type="submit" value="Update Agency"></td>
+                            </tr>
+                        </form>
+                        <tr>
+
+                        </tr>
+                        <!--<tr bgcolor="#A52A2A">-->
+                        <tr>
+                            <td><b>Shipping Agency ID</b></td>
+                            <td><b>Agency Name</b></td>
+                            <td><b>Phone</b></td>
+                            <td><b>Contact Name</b></td>
+                            <td><b>Contact Phone</b></td>
+                        </tr>
+
+                        <%
+                            ShippingAgencyDAO db = new ShippingAgencyDAO();
+                            List<ShippingAgency> agencyList = db.list();
+
+                            for (int i = 0; i < agencyList.size(); i++) {
+                        %>
+                        <!--<tr bgcolor="#DEB887">-->
+                        <tr>  
+                            <%
+                                int primaryKey = agencyList.get(i).getAgencyID();
+                                String deleteType = "agency";
+                            %>
+                            <td><%=agencyList.get(i).getAgencyID()%></td>
+                            <td><%=agencyList.get(i).getAgencyName()%></td>
+                            <td><%=agencyList.get(i).getPhone()%></td>
+                            <td><%=agencyList.get(i).getContactName()%></td>
+                            <td><%=agencyList.get(i).getContactPhone()%></td>
+                            <td>
+                                <a href="deleteBook.jsp?deleteid=<%=primaryKey%>&type=<%=deleteType%>" class="delete">Delete</a>
+                            </td>
+
+                        </tr>
+
+                        <%
+                            }
+                        %>
+
+                    </table>       
+                </div>
+                <!--END OF TABLE-->
+
+            </div>
+
+            <div id="error">
+                ${requestScope.error}
+            </div>   
+
+            <div class="pure-u-1-8"></div> 
         </div>
 
 

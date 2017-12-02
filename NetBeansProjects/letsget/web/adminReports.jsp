@@ -118,7 +118,7 @@
                             <li class="pure-menu-item"><a href="adminUsers.jsp" class="pure-menu-link">Users</a></li>
                             <li class="pure-menu-item"><a href="adminEmployees.jsp" class="pure-menu-link">Employees</a></li>
                             <li class="pure-menu-item"><a href="adminAgencies.jsp" class="pure-menu-link">Agencies</a></li>
-                            <li class="pure-menu-item menu-item-divided pure-menu-selected"><a href="adminReports.jsp" class="pure-menu-link">Agencies</a></li>
+                            <li class="pure-menu-item menu-item-divided pure-menu-selected"><a href="adminReports.jsp" class="pure-menu-link">Reports</a></li>
                         </ul>
                     </div>
                 </div>
