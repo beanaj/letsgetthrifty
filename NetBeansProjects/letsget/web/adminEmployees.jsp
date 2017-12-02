@@ -96,7 +96,7 @@
                                 <td><input type="text" name="new_orderConfirmationCode" onkeyup="checkCode(this)" onclick="checkCode(this)" onchange="checkCode(this)"></td>
                                 <td><input type="text" name="new_active" onkeyup="checkActive(this)" onclick="checkActive(this)" onchange="checkActive(this)"></td>
                             <input type="hidden" name = "tableType" value="employee">
-                            <td><input name="addUpdate" type="submit" value="Update User"></td>
+                            <td><input name="addUpdate" type="submit" value="Update User" class="button"></td>
                             </tr>
                         </form>
                         <tr>

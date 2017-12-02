@@ -18,7 +18,7 @@ function checkID(input) {
             if (id > 0 && id <= (Math.pow(2,31)-1)) {
                 input.setCustomValidity('');
             } else {
-                input.setCustomValidity('Agency ID must be valid number between 1 and 2,147,483,647')
+                input.setCustomValidity('Agency ID must be valid number between 1 and 2,147,483,647');
             }
         } else {
             input.setCustomValidity('Agency ID must be valid number between 1 and 2,147,483,647');

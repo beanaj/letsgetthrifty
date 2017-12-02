@@ -107,7 +107,7 @@
                                 <td><input type="text" name="new_minthreshold" onkeyup="checkThreshold(this)" onclick="checkThreshold(this)" onchange="checkThreshold(this)" required></td>
                                 <td><input type="text" name="new_buyprice" onkeyup="checkBuyP(this)" onclick="checkBuyP(this)" onchange="checkBuyP(this)" required></td>
                                 <td><input type="text" name="new_sellprice" onkeyup="checkSellP(this)" onclick="checkSellP(this)" onchange="checkSellP(this)" required></td>
-                                <td><input name="addUpdate" type="submit" value="Add Book"></td>
+                                <td><input name="addUpdate" type="submit" value="Add Book" class="button"></td>
                             </tr>
                         </form>
 
@@ -127,7 +127,7 @@
                                 <td><input type="text" name="new_minthreshold" onkeyup="checkThreshold(this)" onclick="checkThreshold(this)" onchange="checkThreshold(this)"></td>
                                 <td><input type="text" name="new_buyprice" onkeyup="checkBuyP(this)" onclick="checkBuyP(this)" onchange="checkBuyP(this)"></td>
                                 <td><input type="text" name="new_sellprice" onkeyup="checkSellP(this)" onclick="checkSellP(this)" onchange="checkSellP(this)"></td>
-                                <td><input name="addUpdate" type="submit" value="Update Book"></td>
+                                <td><input name="addUpdate" type="submit" value="Update Book" class="button"></td>
                             </tr>
                         </form>
 

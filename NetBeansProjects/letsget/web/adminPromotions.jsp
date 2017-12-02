@@ -88,7 +88,7 @@
                                 <td><input type="text" name="new_promoName" onkeyup="checkPromoName(this)" onclick="checkPromoName(this)" onchange="checkPromoName(this)" required></td>
                                 <td><input type="text" name="new_percentage" onkeyup="checkPerc(this)" onclick="checkPerc(this)" onchange="checkPerc(this)" required></td>
                                 <td><input type="datetime-local" name="new_expiration" required></td>
-                                <td><input name="addUpdate" type="submit" value="Add Promotion"></td>
+                                <td><input name="addUpdate" type="submit" value="Add Promotion" class="button"></td>
                             </tr>
                         </form>
 
@@ -99,7 +99,7 @@
                                 <td><input type="text" name="new_promoName" onkeyup="checkPromoName(this)" onclick="checkPromoName(this)" onchange="checkPromoName(this)"></td>
                                 <td><input type="text" name="new_percentage" onkeyup="checkPerc(this)" onclick="checkPerc(this)" onchange="checkPerc(this)"></td>
                                 <td><input type="datetime-local" name="new_expiration"></td>
-                                <td><input name="addUpdate" type="submit" value="Update Promotion"></td>
+                                <td><input name="addUpdate" type="submit" value="Update Promotion" class="button"></td>
                             </tr>
                         </form>
                         <tr>

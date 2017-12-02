@@ -91,7 +91,7 @@
                                 <td><input type="text" name="new_phone" onkeyup="checkPhone(this)" onclick="checkPhone(this)" onchange="checkPhone(this)" required></td>
                                 <td><input type="text" name="new_contactName" onkeyup="checkName(this)" onclick="checkName(this)" onchange="checkName(this)" required></td>
                                 <td><input type="text" name="new_contactPhone" onkeyup="checkPhone(this)" onclick="checkPhone(this)" onchange="checkPhone(this)" required></td>
-                                <td><input name="addUpdate" type="submit" value="Add Agency"></td>
+                                <td><input name="addUpdate" type="submit" value="Add Agency" class="button"></td>
                             </tr>
                         </form>
 
@@ -104,7 +104,7 @@
                                 <td><input type="text" name="new_phone" onkeyup="checkPhone(this)" onclick="checkPhone(this)" onchange="checkPhone(this)"></td>
                                 <td><input type="text" name="new_contactName" onkeyup="checkName(this)" onclick="checkName(this)" onchange="checkName(this)"></td>
                                 <td><input type="text" name="new_contactPhone" onkeyup="checkPhone(this)" onclick="checkPhone(this)" onchange="checkPhone(this)"></td>
-                                <td><input name="addUpdate" type="submit" value="Update Agency"></td>
+                                <td><input name="addUpdate" type="submit" value="Update Agency" class="button"></td>
                             </tr>
                         </form>
                         <tr>

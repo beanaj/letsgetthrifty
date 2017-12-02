@@ -85,15 +85,23 @@ function checkCode(input) {
 }
 
 function checkActive(input) {
-    var act = input.value;
+    var inputVal = input.value;
+    var act = Number(input.value);
     //if act is null:
-    if (!act) {
+    if (!inputVal) {
         input.setCustomValidity('');
     } else {
-        if (act == 0 || act == 1) {
-            input.setCustomValidity('');
+        //if act is a number and an integer
+        if ((typeof act ==='number') && ((act%1)===0)) {
+            //check to see if between 0  and 2:
+            if (act >= 0 && act <= 2) {
+                input.setCustomValidity('');
+            } else {
+                input.setCustomValidity('Invalid value: Enter \'0\' for unconfirmed, \'1\' for active, \'2\' for suspended');
+            }
         } else {
-            input.setCustomValidity('Invalid value: Enter \'0\' for inactive and \'1\' for active');
+            input.setCustomValidity('Invalid value: Enter \'0\' for unconfirmed, \'1\' for active, \'2\' for suspended');
         }
+//        Invalid value: Enter \'0\' for unconfirmed, \'1\' for active, \'2\' for suspended
     }
 }
