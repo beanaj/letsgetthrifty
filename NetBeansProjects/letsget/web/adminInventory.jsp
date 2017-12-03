@@ -33,6 +33,8 @@
                 response.sendRedirect("shipmentEmployee.jsp");
             } else if (session.getAttribute("type").equals("m")) {
                 response.sendRedirect("managerReports.jsp");
+            } else if (session.getAttribute("type") == null) {
+                response.sendRedirect("homepage.jsp");
             }
         %>
         <div class="pure-g">
