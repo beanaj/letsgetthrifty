@@ -84,6 +84,14 @@
         <servlet-name>MyAccountPromotion</servlet-name>
         <servlet-class>services.MyAccountPromotion</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ForgotEmail</servlet-name>
+        <servlet-class>services.ForgotEmail</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Reset</servlet-name>
+        <servlet-class>services.Reset</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Registration</servlet-name>
         <url-pattern>/registered</url-pattern>
@@ -167,6 +175,14 @@
     <servlet-mapping>
         <servlet-name>MyAccountPromotion</servlet-name>
         <url-pattern>/myaccountpromotion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ForgotEmail</servlet-name>
+        <url-pattern>/forgot</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Reset</servlet-name>
+        <url-pattern>/reset</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

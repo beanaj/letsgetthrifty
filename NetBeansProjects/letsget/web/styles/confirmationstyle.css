@@ -7,6 +7,18 @@ and open the template in the editor.
     Created on : Nov 4, 2017, 11:38:19 AM
     Author     : andrewjacobsen
 */
+h1{
+    text-align: center;
+    font-size: large;
+    font-weight: 300;
+}
+
+h2{
+    color: darkred;
+    text-align: center;
+    font-size: large;
+    font-weight: 300;
+}
 
 .banner {
     background: transparent url('../img/topbanner.png') 0 0 no-repeat fixed;

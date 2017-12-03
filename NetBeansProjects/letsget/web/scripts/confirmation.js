@@ -14,3 +14,23 @@ function checkAccount(input){
         }
     }
 }
+
+function checkPass(input){
+    var pass1 = input.value;
+    var pass2 = document.getElementById("p1").value;
+    if(pass1 !== null){
+        if(pass1!==pass2){
+            if(pass1.length<5){
+                input.setCustomValidity("Passwords must be at least 5 characters");
+            }else{
+                input.setCustomValidity("Passwords do not match");
+            }
+        }else{
+            if(pass1.length<5){
+                input.setCustomValidity("Passwords must be at least 5 characters");
+            }else{
+                input.setCustomValidity("");
+            }
+        }
+    }
+}

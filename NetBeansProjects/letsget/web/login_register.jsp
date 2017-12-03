@@ -38,7 +38,10 @@
                                     <input type="text" class="pure-input-1" placeholder="AccountID/Email" name="accountLogin" required>
                                     <input type="password" class="pure-input-1" placeholder="Password" name="accountPassword" required>
                                     <br>
+                                    <a href="forgotpassword.jsp" class="forgot">Forgot Password?</a> 
                                     <button type="submit" class="pure-button login pure-input-1 pure-button-primary">Log in</button>
+                                    <br>
+                                    
                                 </fieldset>
                             </form>
                             <div id="errorLogin">

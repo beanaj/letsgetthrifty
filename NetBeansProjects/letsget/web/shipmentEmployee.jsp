@@ -56,7 +56,7 @@
                         <a class="pure-menu-heading" href="#">Shipment Employee</a>
 
                         <ul class="pure-menu-list">
-                            <li class="pure-menu-item"><a href="#" class="pure-menu-link">Sign Out</a></li>
+                            <li class="pure-menu-item"><a href="signout" class="pure-menu-link">Sign Out</a></li>
                         </ul>
                     </div>
                 </div>

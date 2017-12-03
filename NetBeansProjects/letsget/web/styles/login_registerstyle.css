@@ -1,3 +1,11 @@
+.forget{
+    color: black
+}
+
+a{
+    color: black;
+}
+
 .banner {
     background: transparent url('../img/topbanner.png') 0 0 no-repeat fixed;
     text-align: center;

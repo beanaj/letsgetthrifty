@@ -79,7 +79,7 @@ public class MyAccountPassword extends HttpServlet {
                     try {
                         String newPassE = db.encrypt(newPass);
                         db.updatePassword(id, newPassE);
-                        System.out.println("It Worked!");
+                        //System.out.println("It Worked!");
                     } catch (SQLException ex) {
                         String error = "Error: Invalid input";
                         request.setAttribute("error", error);
