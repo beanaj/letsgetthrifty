@@ -66,11 +66,6 @@
             ResultSet result = null;
             DatabaseUtility db = new DatabaseUtility();
         %>
-        <div class="banner">
-        <h1 class="bannerhead">
-            <img src="img/letsgetlogo.png" alt="logo" height = "150" width="350">  
-        </h1>
-    </div>
     <!-- Menu toggle -->
         <a href="#menu" id="menuLink" class="menu-link">
         <!-- Hamburger icon -->
@@ -87,11 +82,16 @@
                 <li class="pure-menu-item menu-item-divided pure-menu-selected"><a href="search.jsp" class="pure-menu-link">Search</a></li>
                 <li class="pure-menu-item"><a href="my_account.jsp" class="pure-menu-link">My Account</a></li>
                 <li class="pure-menu-item"><a href="login_register.jsp" class="pure-menu-link">Log In/Register</a></li>
-                <li class="pure-menu-item"><a href="#" class="pure-menu-link">Sign Out</a></li>
+                <li class="pure-menu-item"><a href="signout" class="pure-menu-link">Sign Out</a></li>
             </ul>
         </div>
         </div>
         <div class="pure-u-5-8">
+            <div class="banner">
+        <h1 class="bannerhead">
+            <img src="img/letsgetlogo.png" alt="logo" height = "150" width="350">  
+        </h1>
+    </div>
             <div class="search">
                 <form class="pure-form" action="searchresult" method="post">
                     <input class="searchbar" name ="input" placeholder="Search by Title, Author, Genre, or ISBN">
@@ -101,7 +101,7 @@
                         <option value="genre">Genre</option>
                         <option value="ISBN">ISBN</option>
                     </select>
-                    <button type="submit" class="pure-button pure-button-primary" value="SHOW ME WHAT YOU GOT"></button>
+                    <button type="submit" class="pure-button" value="SHOW ME WHAT YOU GOT"></button>
                 </form>
             </div>
         <div class="browseheader">

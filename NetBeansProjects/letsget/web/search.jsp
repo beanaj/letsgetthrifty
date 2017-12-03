@@ -28,9 +28,6 @@
         <!--<![endif]-->
         <link rel="stylesheet" href="styles/search.css">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-       
-        <script src="scripts/searchvalidation.js"></script>
-        
     </head>
     <body>
         <%
@@ -68,11 +65,7 @@
             ResultSet result = null;
             DatabaseUtility db = new DatabaseUtility();
         %>
-        <div class="banner">
-            <h1 class="bannerhead">
-                <img src="img/letsgetlogo.png" alt="logo" height = "150" width="350">  
-            </h1>
-        </div>
+        
         <!-- Menu toggle -->
         <a href="#menu" id="menuLink" class="menu-link">
             <!-- Hamburger icon -->
@@ -88,21 +81,26 @@
                         <li class="pure-menu-item menu-item-divided pure-menu-selected"><a href="" class="pure-menu-link">Search</a></li>
                         <li class="pure-menu-item"><a href="my_accountName.jsp" class="pure-menu-link">My Account</a></li>
                         <li class="pure-menu-item"><a href="login_register.jsp" class="pure-menu-link">Log In/Register</a></li>
-                        <li class="pure-menu-item"><a href="#" class="pure-menu-link">Sign Out</a></li>
+                        <li class="pure-menu-item"><a href="signout" class="pure-menu-link">Sign Out</a></li>
                     </ul>
                 </div>
             </div>
             <div class="pure-u-5-8">
+                <div class="banner">
+                    <h1 class="bannerhead">
+                        <img src="img/letsgetlogo.png" alt="logo" height = "150" width="350">  
+                    </h1>
+                </div>
                 <div class="search">
                      <form class="pure-form" method="post" action="searchresult">
-                        <input class="searchbar" name ="input" onchange="searchBar(this)" placeholder="Search by Title, Author, Genre, or ISBN">
+                        <input class="searchbar" name ="input" placeholder="Search by Title, Author, Genre, or ISBN">
                         <select class="searchOption" name="option">
                             <option value="title">Title</option>
                             <option value="author">Author</option>
                             <option value="genre">Genre</option>
                             <option value="ISBN">ISBN</option>
                         </select>
-                        <input type="submit" name="button" class="pure-button pure-button-primary" value="SHOW ME WHAT YOU GOT">
+                        <input type="submit" name="button" class="pure-button" value="SHOW ME WHAT YOU GOT">
                     </form>
                 </div>
                 <div class="browseheader">

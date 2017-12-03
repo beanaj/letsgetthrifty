@@ -64,6 +64,15 @@ input.searchbar {
     font-size: 100%;
 }
 
+select.searchOption {
+   padding-left: 300px;
+    padding-right:300px;
+    width: 50%;
+    height: 50px;
+    vertical-align: middle; 
+    font-size: 100%; 
+}
+
 .pure-button {
     background-color: black;
     color: white;
