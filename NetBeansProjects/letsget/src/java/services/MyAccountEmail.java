@@ -5,6 +5,7 @@
  */
 package services;
 
+import entity.SubscriberDAO;
 import entity.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -74,8 +75,10 @@ public class MyAccountEmail extends HttpServlet {
                 
         //Update agency in the database:
         UserDAO db = new UserDAO();
+        SubscriberDAO subdb = new SubscriberDAO();
         try {
             db.updateUser(id, fN, lN, phone, email, type, code, active);
+            subdb.updateEmail(id, email);
         } catch (SQLException ex) {
                     String error = "Error: Invalid input";
                     request.setAttribute("error", error);

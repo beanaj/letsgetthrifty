@@ -41,7 +41,7 @@
                         <li class="pure-menu-item"><a href="search.jsp" class="pure-menu-link">Search</a></li>
 
                         <li class="pure-menu-item menu-item-divided pure-menu-selected">
-                            <a href="my_account.jsp" class="pure-menu-link">My Account</a>
+                            <a href="my_accountName.jsp" class="pure-menu-link">My Account</a>
                         </li>
                     </ul>
                     <ul class="pure-menu-list">

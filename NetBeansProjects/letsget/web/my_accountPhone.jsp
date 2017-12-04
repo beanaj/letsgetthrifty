@@ -40,7 +40,7 @@
                         <li class="pure-menu-item"><a href="search.jsp" class="pure-menu-link">Search</a></li>
 
                         <li class="pure-menu-item menu-item-divided pure-menu-selected">
-                            <a href="my_account.jsp" class="pure-menu-link">My Account</a>
+                            <a href="my_accountName.jsp" class="pure-menu-link">My Account</a>
                         </li>
                     </ul>
                     <ul class="pure-menu-list">
@@ -90,7 +90,7 @@
                     <div class="pure-u-1-3"> 
                         <form class="pure-form" name="updatePhone" method="post" action="myaccountphone">
                             <fieldset class="pure-group">
-                                <input type="text" class="pure-input-1" placeholder="<%=user.getPhone()%>" name="phone">
+                                <input type="text" class="pure-input-1" placeholder="<%=user.getPhone()%>" name="phone" onkeyup="checkPhone(this)" onclick="checkPhone(this)" onchange="checkPhone(this)">
                                 <input type="hidden" name="userID" value="<%=userID%>">
                                 <input name="updatePhone" type="submit" class="pure-button login pure-input-1 pure-button-primary" value="Update">
                             </fieldset>

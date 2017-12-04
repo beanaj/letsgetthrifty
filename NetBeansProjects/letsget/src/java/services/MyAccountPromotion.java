@@ -75,13 +75,10 @@ public class MyAccountPromotion extends HttpServlet {
         try {
             System.out.println("Tried...");
             if(db.findUser(id)){
-                System.out.println("Unsubed! Before");                
                 db.removeUser(id, email);
-                System.out.println("Unsubed! After");
             }else{
-                System.out.println("Subed! Before");                
                 db.addUser(id, email);
-                System.out.println("Subed! After");
+
             }
         } catch (SQLException ex) {
             Logger.getLogger(MyAccountPromotion.class.getName()).log(Level.SEVERE, null, ex);

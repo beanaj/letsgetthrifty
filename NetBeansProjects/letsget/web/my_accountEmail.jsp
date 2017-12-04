@@ -48,7 +48,7 @@
                         <li class="pure-menu-item"><a href="search.jsp" class="pure-menu-link">Search</a></li>
 
                         <li class="pure-menu-item menu-item-divided pure-menu-selected">
-                            <a href="my_account.jsp" class="pure-menu-link">My Account</a>
+                            <a href="my_accountName.jsp" class="pure-menu-link">My Account</a>
                         </li>
                     </ul>
                     <ul class="pure-menu-list">
@@ -100,13 +100,13 @@
                     <div class="pure-u-1-3"> 
                         <form class="pure-form" name="updateEmail" method="post" action="myaccountemail">
                             <fieldset class="pure-group">
-                                <input type="text" class="pure-input-1" placeholder="<%=user.getEmail()%>" name="email">
+                                <input type="email" class="pure-input-1" placeholder="<%=user.getEmail()%>" name="email" >
                                 <input type="hidden" name="userID" value="<%=userID%>">
                                 <input name="updateEmail" type="submit" class="pure-button login pure-input-1 pure-button-primary" value="Update">
                             </fieldset>
                         </form>
                     </div>
-                    <div class="pure-u-1-3"></div>  
+                    <div class="pure-u-1-3"></div>
                 </div>
 
                 <div id="error">
