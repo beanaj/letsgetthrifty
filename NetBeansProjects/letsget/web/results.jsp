@@ -65,6 +65,30 @@
             Statement state = null;
             ResultSet result = null;
             DatabaseUtility db = new DatabaseUtility();
+            String booksInCart = null;
+            try {
+                //register the driver
+                Class.forName(db.getDriver());
+                //connect to the database
+                con = DriverManager.getConnection(db.getURL(), db.getUser(), db.getPass());
+                //generate sql statement
+                state = con.createStatement();
+                String sql = "SELECT * FROM carts WHERE userID = '" + userID + "'";
+                result = state.executeQuery(sql);
+                int inCart = 0;
+                while (result.next()) {
+                    inCart++;
+                }
+
+                if (inCart > 0) {
+                    booksInCart = " ( " + Integer.toString(inCart) + " )";
+                }
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Registration.class.getName()).log(Level.SEVERE, null, ex);
+            }
         %>
     <!-- Menu toggle -->
         <a href="#menu" id="menuLink" class="menu-link">
@@ -78,7 +102,7 @@
 
             <ul class="pure-menu-list">
                 <li class="pure-menu-item"><a href="homepage.jsp" class="pure-menu-link">Home</a></li>
-                <li class="pure-menu-item"><a href="my_cart.jsp" class="pure-menu-link">My Cart</a></li>
+                <li class="pure-menu-item"><a href="my_cart.jsp" class="pure-menu-link">My Cart<%="" + booksInCart%></a></li>
                 <li class="pure-menu-item menu-item-divided pure-menu-selected"><a href="search.jsp" class="pure-menu-link">Search</a></li>
                 <li class="pure-menu-item"><a href="my_accountName.jsp" class="pure-menu-link">My Account</a></li>
                 <li class="pure-menu-item"><a href="login_register.jsp" class="pure-menu-link">Log In/Register</a></li>
@@ -101,7 +125,7 @@
                         <option value="genre">Genre</option>
                         <option value="ISBN">ISBN</option>
                     </select>
-                    <button type="submit" class="pure-button" value="SHOW ME WHAT YOU GOT"></button>
+                    <input type="submit" class="pure-button" value="SHOW ME WHAT YOU GOT">
                 </form>
             </div>
         <div class="browseheader">
@@ -115,7 +139,7 @@
                 con = DriverManager.getConnection(db.getURL(), db.getUser(), db.getPass());
                 //generate sql statement
                 state = con.createStatement();
-                String sql = "SELECT * FROM books WHERE "+session.getAttribute("option")+" like '%"+session.getAttribute("input")+"%'";// OR like '%"+session.getAttribute("input")+"%'  ORDER BY title";
+                String sql = "SELECT * FROM books WHERE "+session.getAttribute("option")+" like '%"+session.getAttribute("input")+"%' ORDER BY title";
                 result = state.executeQuery(sql);
                 while(result.next()){%>
                     <tr>  
