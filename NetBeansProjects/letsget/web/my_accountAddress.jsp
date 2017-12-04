@@ -22,7 +22,7 @@
         <!--<![endif]-->
         <link rel="stylesheet" href="styles/my_account.css">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!--<script src="scripts/login_registerscript.js"></script>-->
+        <script src="scripts/login_registerscript.js"></script>
         <style media="screen" type="text/css">
 
         </style>
@@ -155,7 +155,7 @@
                                     <option value="WI">Wisconsin</option>
                                     <option value="WY">Wyoming</option>
                                 </select>
-                                <input type="text" class="pure-input-1" placeholder="<%=address.getZip()%>" name="zip">
+                                <input type="text" class="pure-input-1" placeholder="<%=address.getZip()%>" name="zip" onkeyup="checkZip(this)" onclick="checkZip(this)" onchange="checkZip(this)">
 
                                 <input type="hidden" name="addressID" value="<%=addressID%>">
                                 <input name="updateAddress" type="submit" class="pure-button login pure-input-1 pure-button-primary" value="Update">

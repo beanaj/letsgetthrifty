@@ -14,7 +14,7 @@
         <!--<![endif]-->
         <link rel="stylesheet" href="styles/my_account.css">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!--<script src="scripts/login_registerscript.js"></script>-->
+        <script src="scripts/login_registerscript.js"></script>
         <style media="screen" type="text/css">
 
         </style>
@@ -92,8 +92,8 @@
                     <div class="pure-u-1-3"> 
                         <form class="pure-form" name="updatePayment" method="post" action="myaccountpayment">
                             <fieldset class="pure-group">
-                                <input type="text" class="pure-input-1" placeholder="<%=payment.getNum()%>" name="num">
-                                <input type="text" class="pure-input-1" placeholder="<%=payment.getExp()%>" name="exp">
+                                <input type="text" class="pure-input-1" placeholder="<%=payment.getNum()%>" name="num" onkeyup="checkCard(this)" onclick="checkCard(this)" onchange="checkCard(this)">
+                                <input type="text" class="pure-input-1" placeholder="<%=payment.getExp()%>" name="exp" onkeyup="checkExp(this)" onclick="checkExp(this)" onchange="checkExp(this)">
                                 <select id="select" class="pure-input-1" name= "type">
                                     <option disabled selected value><%=payment.getType()%></option>
                                     <option>Visa</option>
