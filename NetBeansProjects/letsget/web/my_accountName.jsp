@@ -29,7 +29,11 @@
     </head>
     <body>
 
-
+        <%
+            if (session.getAttribute("type") == null) {
+                response.sendRedirect("login_register.jsp");
+            }
+        %>
 
         <div id="layout">
             <!-- Menu toggle -->

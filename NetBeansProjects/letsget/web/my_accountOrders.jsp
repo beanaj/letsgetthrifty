@@ -73,7 +73,7 @@
 
                     <ul class="pure-menu-list">
                         <li class="pure-menu-item"><a href="homepage.jsp" class="pure-menu-link">Home</a></li>
-                        <li class="pure-menu-item"><a href="#" class="pure-menu-link">My Cart</a></li>
+                        <li class="pure-menu-item"><a href="my_cart.jsp" class="pure-menu-link">My Cart</a></li>
                         <li class="pure-menu-item"><a href="search.jsp" class="pure-menu-link">Search</a></li>
 
                         <li class="pure-menu-item menu-item-divided pure-menu-selected">
