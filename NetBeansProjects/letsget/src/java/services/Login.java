@@ -60,6 +60,7 @@ public class Login extends HttpServlet {
             user = new User(accountOrEmail, type);
             String userID = user.getAccountID();
             String userFirstname = user.getFN();
+            userFirstname = userFirstname.replaceAll(" ", "");
             UserDAO dao = new UserDAO();
             //encrypt input passed pw
             password = dao.encrypt(password);
