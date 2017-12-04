@@ -28,15 +28,7 @@
 
 
     <body>
-        <div class="banner">
-            <h1 class="bannerhead">
-                <img src="img/letsgetlogo.png" alt="logo" height = "150" width="350">  
-            </h1>
-        </div>
-
-        <div id="layout">
-
-
+        <div class="pure-g">
 
             <!-- Menu toggle -->
             <a href="#menu" id="menuLink" class="menu-link">
@@ -44,13 +36,7 @@
                 <span></span>
             </a>
 
-
-
-            <div id="main">
-
-
-
-
+            <div class="pure-u-1-4">
                 <div id="menu">
                     <div class="pure-menu">
                         <a class="pure-menu-heading" href="#">Shipment Employee</a>
@@ -60,95 +46,95 @@
                         </ul>
                     </div>
                 </div>
+            </div>
 
-                <div class="content">
-                    <div class="container">               
-                        <div class="box">
-                            <div class="header">
-                                <h1>Orders</h1>
-                            </div>               
-                        </div>
+            <div class="pure-u-5-8">
+                <div class="banner">
+                    <h1 class="bannerhead">
+                        <img src="img/letsgetlogo.png" alt="logo" height = "150" width="350">  
+                    </h1>
+                </div>
+                <div class="browseheader">
+                    ORDERS
+                </div>
 
-                        <!--THE TABLE:::-->
+                <!--THE TABLE:::-->
+                <div class="tableholder">
+                    <table>
+                        <tr>
 
-                        <table id="bookTable" align="center" cellpadding="5" cellspacing="5" border="1">
-                            <tr>
+                        </tr>
+                        <tr>  
+                            <td><b>Order ID</b></td>
+                            <td><b>Shipping Agency ID</b></td>
+                            <td><b>Update Order Status</b></td>
+                            <td><b>Order Status</b></td>
+                            <td><b>Order Date</b></td>
+                            <td><b>Shipping Address</b></td>
+                            <td><b>Billing Address</b></td>
+                            <td><b>Payment Method</b></td>
+                            <td><b>Confirmation Number</b></td>
+                            <td><b>User ID</b></td>
+                            <td><b>Order Total</b></td>
+                            <td><b>Credit Card ID</b></td>
+                        </tr>
 
-                            </tr>
-                            <tr>  
-                                <td><b>Order ID</b></td>
-                                <td><b>Shipping Agency ID</b></td>
-                                <td><b>Update Order Status</b></td>
-                                <td><b>Order Status</b></td>
-                                <td><b>Order Date</b></td>
-                                <td><b>Shipping Address</b></td>
-                                <td><b>Billing Address</b></td>
-                                <td><b>Payment Method</b></td>
-                                <td><b>Confirmation Number</b></td>
-                                <td><b>User ID</b></td>
-                                <td><b>Order Total</b></td>
-                                <td><b>Credit Card ID</b></td>
-                            </tr>
-
-                            <%
+                        <%
                             //Create a OrderDAO Object to access a list of the orders
-                                OrderDAO db = new OrderDAO();
-                                List<Order> orderList = db.list();
+                            OrderDAO db = new OrderDAO();
+                            List<Order> orderList = db.list();
 
                             //Loop through the book list and put the books in a table:
-                                for (int i = 0; i < orderList.size(); i++) {
-                            %>
+                            for (int i = 0; i < orderList.size(); i++) {
+                        %>
 
 
-                            <%
-                                int primaryKey = orderList.get(i).getOrderID();
-                                String deleteType = "order";
-                            %>
-                            <tr> 
-                            <form name="updateOrder" method="post" action="order">
-                                <td><%=orderList.get(i).getOrderID()%></td>
-                                <td><%=orderList.get(i).getShippingAgencyID()%></td> 
-                                <td ALIGN="center">
-                                    <select name="orderStatus">        
-                                        <option value="Placed">Placed</option>
-                                        <option value="preparing for shipment">Preparing For Shipment</option>
-                                        <option value="shipped">Shipped</option>
-                                        <option value="delivered">Delivered</option>
-                                    </select>
-                                </td>      
-                                <td><%=orderList.get(i).getOrderStatus()%></td>
-                                <td><%=orderList.get(i).getOrderDate()%></td>
-                                <td><%=orderList.get(i).getShippingAddress()%></td>
-                                <td><%=orderList.get(i).getBillingAddress()%></td>
-                                <td><%=orderList.get(i).getPaymentMethod()%></td>
-                                <td><%=orderList.get(i).getConfirmationNumber()%></td>
-                                <td><%=orderList.get(i).getUserID()%></td>
-                                <td><%=orderList.get(i).getOrderTotal()%></td>
-                                <td><%=orderList.get(i).getCreditCardID()%></td>
-                                <td>
-                                    <!--Update Order Status:-->
+                        <%
+                            int primaryKey = orderList.get(i).getOrderID();
+                            String deleteType = "order";
+                        %>
+                        <tr> 
+                        <form name="updateOrder" method="post" action="order">
+                            <td><%=orderList.get(i).getOrderID()%></td>
+                            <td><%=orderList.get(i).getShippingAgencyID()%></td> 
+                            <td ALIGN="center">
+                                <select name="orderStatus">        
+                                    <option value="Placed">Placed</option>
+                                    <option value="preparing for shipment">Preparing For Shipment</option>
+                                    <option value="shipped">Shipped</option>
+                                    <option value="delivered">Delivered</option>
+                                </select>
+                            </td>      
+                            <td><%=orderList.get(i).getOrderStatus()%></td>
+                            <td><%=orderList.get(i).getOrderDate()%></td>
+                            <td><%=orderList.get(i).getShippingAddress()%></td>
+                            <td><%=orderList.get(i).getBillingAddress()%></td>
+                            <td><%=orderList.get(i).getPaymentMethod()%></td>
+                            <td><%=orderList.get(i).getConfirmationNumber()%></td>
+                            <td><%=orderList.get(i).getUserID()%></td>
+                            <td><%=orderList.get(i).getOrderTotal()%></td>
+                            <td><%=orderList.get(i).getCreditCardID()%></td>
+                            <td>
+                                <!--Update Order Status:-->
 
-                                    <input  type="hidden" name="orderID" value=<%=primaryKey%>>
-                                    <input name="update" type="submit" value="Update Status">
+                                <input  type="hidden" name="orderID" value=<%=primaryKey%>>
+                                <input name="update" type="submit" value="Update Status" class="button">
 
-                                </td>
-                            </form>
-                            </tr>
+                            </td>
+                        </form>
+                        </tr>
 
-                            <%
-                                }
-                            %>
+                        <%
+                            }
+                        %>
 
-                        </table>       
-                        <!--END OF TABLE-->
-
-
-                    </div>      
+                    </table> 
                 </div>
+                <!--END OF TABLE-->
+
             </div>
+            <div class="pure-u-1-8"></div> 
         </div>
-
-
 
 
         <script src="scripts/admin.js"></script>
