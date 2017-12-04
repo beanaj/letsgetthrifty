@@ -88,7 +88,6 @@ public class MyAccountPayment extends HttpServlet {
         type = request.getParameter("type");
 
         String expF = "20" + exp.substring(3) + "-" + exp.substring(0,2) + "-01";
-        System.out.println(expF);
         //Update agency in the database:
         PaymentDAO db = new PaymentDAO();
                     
