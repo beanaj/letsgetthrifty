@@ -170,8 +170,8 @@
                             <td><%=bookList.get(i).getTitle()%></td>
                             <td><%=bookList.get(i).getRating()%></td>
                             <td><%=bookList.get(i).getPublisher()%></td>
-                            <td><%=bookList.get(i).getQtyInStock()%></td>
-                            <td><%=bookList.get(i).getMinThreshold()%></td>
+                            <td class="qtyCells"><%=bookList.get(i).getQtyInStock()%></td>
+                            <td class="minTCells"><%=bookList.get(i).getMinThreshold()%></td>
                             <td><%=bookList.get(i).getBuyPrice()%></td>
                             <td><%=bookList.get(i).getSellPrice()%></td>
                             <td>

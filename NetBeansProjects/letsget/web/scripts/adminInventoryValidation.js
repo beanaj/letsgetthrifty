@@ -5,17 +5,16 @@
  */
 
 function checkISBN(input) {
-    //Check if ISBN is 13 digits and an integer:
+//Check if ISBN is 13 digits and an integer:
     var inputVal = input.value;
     var isbn = Number(input.value);
-    
     //if isbn is null:
     if (!inputVal) {
         input.setCustomValidity('');
     } else {
-        //if isbn is a number and an integer
-        if ((typeof isbn ==='number') && ((isbn%1)===0)) {
-            //Now check to see if it's 13 digits:
+//if isbn is a number and an integer
+        if ((typeof isbn === 'number') && ((isbn % 1) === 0)) {
+//Now check to see if it's 13 digits:
             if (!(isbn.toString().length == 13)) {
                 input.setCustomValidity('ISBN must be a 13 digit integer')
             } else {
@@ -33,7 +32,7 @@ function checkGenre(input) {
     if (!genre) {
         input.setCustomValidity('');
     } else {
-        if (genre.length<=1||genre.length>45) {
+        if (genre.length <= 1 || genre.length > 45) {
             input.setCustomValidity("Genre must be between 2 and 45 characters");
         } else {
             input.setCustomValidity('');
@@ -47,7 +46,7 @@ function checkAuthor(input) {
     if (!author) {
         input.setCustomValidity('');
     } else {
-        if (author.length<=1||author.length>45) {
+        if (author.length <= 1 || author.length > 45) {
             input.setCustomValidity("Author's name must be between 2 and 45 characters");
         } else {
             input.setCustomValidity('');
@@ -61,7 +60,7 @@ function checkTitle(input) {
     if (!title) {
         input.setCustomValidity('');
     } else {
-        if (title.length<=1||title.length>45) {
+        if (title.length <= 1 || title.length > 45) {
             input.setCustomValidity("Title must be between 2 and 45 characters");
         } else {
             input.setCustomValidity('');
@@ -69,13 +68,13 @@ function checkTitle(input) {
     }
 }
 
-function checkRating(input) { 
+function checkRating(input) {
     var rating = input.value;
     //if the name is null:
     if (!rating) {
         input.setCustomValidity('');
     } else {
-        //check if number is integer or float and is b/w 0 and 5
+//check if number is integer or float and is b/w 0 and 5
         if ((isNaN(rating)) || (rating < 0) || (rating > 10)) {
             input.setCustomValidity('Please enter a valid number between 0 and 10');
         } else {
@@ -84,21 +83,21 @@ function checkRating(input) {
     }
 }
 
-function checkLink(input) { 
+function checkLink(input) {
     input.setCustomValidity('');
 }
 
-function checkEdition(input) { 
+function checkEdition(input) {
     var inputVal = input.value;
     var edition = Number(input.value);
     //if the edition is null:
     if (!inputVal) {
         input.setCustomValidity('');
     } else {
-        //make sure edition is integer and 
-        if ((typeof edition ==='number') && ((edition%1)===0)) {
-            //Now make sure edition is between 1 and 7:
-            if (edition >=1 && edition <= 15) {
+//make sure edition is integer and 
+        if ((typeof edition === 'number') && ((edition % 1) === 0)) {
+//Now make sure edition is between 1 and 7:
+            if (edition >= 1 && edition <= 15) {
                 input.setCustomValidity('');
             } else {
                 input.setCustomValidity('Please enter a valid integer between 1 and 15');
@@ -115,7 +114,7 @@ function checkPublisher(input) {
     if (!pub) {
         input.setCustomValidity('');
     } else {
-        if (pub.length<=1||pub.length>45) {
+        if (pub.length <= 1 || pub.length > 45) {
             input.setCustomValidity("Publisher name must be between 2 and 45 characters");
         } else {
             input.setCustomValidity('');
@@ -130,8 +129,8 @@ function checkPubYear(input) {
     if (!inputVal) {
         input.setCustomValidity('');
     } else {
-        //make sure pubYear is an integer
-        if ((typeof pubYear ==='number') && ((pubYear%1)===0)) {
+//make sure pubYear is an integer
+        if ((typeof pubYear === 'number') && ((pubYear % 1) === 0)) {
             if (pubYear >= 0 && pubYear <= 2300) {
                 input.setCustomValidity('');
             } else {
@@ -150,10 +149,10 @@ function checkQuantity(input) {
     if (!inputVal) {
         input.setCustomValidity('');
     } else {
-        //check if quantity is integer:
-        if ((typeof quantity ==='number') && ((quantity%1)===0)) {
-            //make sure quantity is 1 or greater:
-            if (quantity >= 1 && quantity <= (Math.pow(2,31)-1)) {
+//check if quantity is integer:
+        if ((typeof quantity === 'number') && ((quantity % 1) === 0)) {
+//make sure quantity is 1 or greater:
+            if (quantity >= 1 && quantity <= (Math.pow(2, 31) - 1)) {
                 input.setCustomValidity('');
             } else {
                 input.setCustomValidity("Quantity must be valid number greater than 0");
@@ -171,10 +170,10 @@ function checkThreshold(input) {
     if (!inputVal) {
         input.setCustomValidity('');
     } else {
-        //check if min threshold is integer:
-        if ((typeof thresh ==='number') && ((thresh%1)===0)) {
-            //make sure thresh is 1 or greater:
-            if (thresh >= 1 && thresh <= (Math.pow(2,31)-1)) {
+//check if min threshold is integer:
+        if ((typeof thresh === 'number') && ((thresh % 1) === 0)) {
+//make sure thresh is 1 or greater:
+            if (thresh >= 1 && thresh <= (Math.pow(2, 31) - 1)) {
                 input.setCustomValidity('');
             } else {
                 input.setCustomValidity("Min Threshold must be valid number greater than 0");
@@ -220,10 +219,10 @@ function checkSID(input) {
     if (!s) {
         input.setCustomValidity('');
     } else {
-        //check if supplier id is integer:
-        if ((typeof sid ==='number') && ((sid%1)===0)) {
-            //make sure Supplier id is 0 or greater:
-            if (sid >= 0 && sid <= (Math.pow(2,31)-1)) {
+//check if supplier id is integer:
+        if ((typeof sid === 'number') && ((sid % 1) === 0)) {
+//make sure Supplier id is 0 or greater:
+            if (sid >= 0 && sid <= (Math.pow(2, 31) - 1)) {
                 input.setCustomValidity('');
             } else {
                 input.setCustomValidity("Please enter a valid supplier ID between 1 and 2,147,483,647");
@@ -233,4 +232,27 @@ function checkSID(input) {
         }
     }
 }
+
+window.onload = function () { // After all the contents has loaded
+//    var qtyCells = document.getElementsByClassName("qtyCells");
+//    for(var i=0;i<qtyCells.length;i++){  //iterate through each of them
+//       //check if content is more than 0
+//       if(parseFloat(qtyCells[i].textContent || qtyCells[i].innerText)>=0){ 
+//           qtyCells[i].style.backgroundColor="red"; //change background to red
+//       }
+//    }
+//get the quantity and min threshold column cells 
+    var qtyCells = document.getElementsByClassName("qtyCells");
+    var minTCells = document.getElementsByClassName("minTCells");
+    //loop through them (if the qtyCells is same length as minTCells):
+    if (qtyCells.length === minTCells.length) {
+        for (var i = 0; i < qtyCells.length; i++) {
+            //if the quantity is less than the min Threshold:
+            if (parseInt(qtyCells[i].textContent) < parseInt(minTCells[i].textContent)) {
+                qtyCells[i].style.backgroundColor="red"; //change to red background color
+            }
+            
+        }
+    }
+};
 
