@@ -64,7 +64,7 @@
             Statement state = null;
             ResultSet result = null;
             DatabaseUtility db = new DatabaseUtility();
-            String booksInCart = null;
+            String booksInCart = "";
             try {
                 //register the driver
                 Class.forName(db.getDriver());
