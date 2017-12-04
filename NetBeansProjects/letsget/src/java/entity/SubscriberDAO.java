@@ -123,5 +123,26 @@ public class SubscriberDAO {
         } 
         conn.close();
         return false;
+    }
+    public void updateEmail(String id, String email) throws SQLException {
+        //Set up database connection:
+        Connection conn = null;
+        PreparedStatement stat = null;
+        DatabaseUtility db = new DatabaseUtility();
+        
+        try {
+            Class.forName(db.getDriver());
+            conn = DriverManager.getConnection(db.getURL(), db.getUser(), db.getPass());
+            if (!email.isEmpty()) {
+                String query = "UPDATE subscribers SET email = ? WHERE subscribeID = ?";
+                stat = conn.prepareStatement(query);
+                stat.setString(1, email);
+                stat.setString(2, id);
+                stat.executeUpdate();
+            }
+            conn.close();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } 
     }    
 }

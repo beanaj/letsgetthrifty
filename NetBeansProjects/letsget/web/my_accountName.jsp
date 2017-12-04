@@ -22,7 +22,7 @@
         <!--<![endif]-->
         <link rel="stylesheet" href="styles/my_account.css">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!--<script src="scripts/login_registerscript.js"></script>-->
+        <script src="scripts/my_account.js"></script>
         <style media="screen" type="text/css">
 
         </style>
@@ -52,7 +52,7 @@
                         <li class="pure-menu-item"><a href="search.jsp" class="pure-menu-link">Search</a></li>
 
                         <li class="pure-menu-item menu-item-divided pure-menu-selected">
-                            <a href="my_account.jsp" class="pure-menu-link">My Account</a>
+                            <a href="my_accountName.jsp" class="pure-menu-link">My Account</a>
                         </li>
                     </ul>
 
@@ -103,8 +103,8 @@
                     <div class="pure-u-1-3"> 
                         <form class="pure-form" name="updateName" method="post" action="myaccountname">
                             <fieldset class="pure-group">
-                                <input type="text" class="pure-input-1" placeholder="<%=user.getFN()%>" name="firstName">
-                                <input type="text" class="pure-input-1" placeholder="<%=user.getLN()%>" name="lastName">
+                                <input type="text" class="pure-input-1" placeholder="<%=user.getFN()%>" name="firstName" onkeyup="checkFN(this)" onclick="checkFN(this)" onchange="checkFN(this)">
+                                <input type="text" class="pure-input-1" placeholder="<%=user.getLN()%>" name="lastName" onkeyup="checkLN(this)" onclick="checkLN(this)" onchange="checkLN(this)">
                                 <input type="hidden" name="userID" value="<%=userID%>">
                                 <input name="updateName" type="submit" class="pure-button pure-input-1 pure-button-primary" value="Update">
                             </fieldset>

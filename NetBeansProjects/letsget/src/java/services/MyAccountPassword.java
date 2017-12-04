@@ -7,6 +7,7 @@ package services;
 
 import entity.User;
 import entity.UserDAO;
+import java.io.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -86,7 +87,16 @@ public class MyAccountPassword extends HttpServlet {
                         request.getRequestDispatcher("my_accountPassword.jsp").forward(request, response);
                     }
                 }
+                else{
+                    System.out.println("Old Password Incorrect");
+                }
             }
+            else{
+                System.out.println("Passwords dont Match");
+            }
+        }
+        else{
+            System.out.println("One or More Fields Left Blank");
         }
         response.sendRedirect("my_accountPassword.jsp");    
         out.close();
