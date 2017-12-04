@@ -86,6 +86,9 @@
                     PaymentDAO db = new PaymentDAO();
                     Payment payment = db.getPaymentByID(creditCardID);
 
+                    String expF = payment.getExp();
+                    String exp = expF.substring(5,7) + "/" + expF.substring(2,4);
+
                 %>
                 <div class="pure-g">
                     <div class="pure-u-1-3"></div>    
@@ -93,7 +96,7 @@
                         <form class="pure-form" name="updatePayment" method="post" action="myaccountpayment">
                             <fieldset class="pure-group">
                                 <input type="text" class="pure-input-1" placeholder="<%=payment.getNum()%>" name="num" onkeyup="checkCard(this)" onclick="checkCard(this)" onchange="checkCard(this)">
-                                <input type="text" class="pure-input-1" placeholder="<%=payment.getExp()%>" name="exp" onkeyup="checkExp(this)" onclick="checkExp(this)" onchange="checkExp(this)">
+                                <input type="text" class="pure-input-1" placeholder="<%=exp%>" name="exp" onkeyup="checkExp(this)" onclick="checkExp(this)" onchange="checkExp(this)">
                                 <select id="select" class="pure-input-1" name= "type">
                                     <option disabled selected value><%=payment.getType()%></option>
                                     <option>Visa</option>

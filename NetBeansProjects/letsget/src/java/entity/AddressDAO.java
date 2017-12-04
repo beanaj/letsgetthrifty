@@ -49,7 +49,7 @@ public class AddressDAO {
             Logger.getLogger(Registration.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public void addAddress(Address addr) {
         //insert user address information into database
         Connection con = null;
@@ -63,7 +63,7 @@ public class AddressDAO {
             //generate sql statement
             stmnt = con.createStatement();
             String sql = "INSERT INTO addresses (addressID, street, city, state, zip, userID) VALUES (\""
-                    + addr.getAddressID()+ "\", \""//addressID
+                    + addr.getAddressID() + "\", \""//addressID
                     + addr.getStreet() + "\", \""//street
                     + addr.getCity() + "\", \""//city
                     + addr.getState() + "\", \""//state
@@ -111,8 +111,8 @@ public class AddressDAO {
         }
         return returnA;
     }
-    
-     public Address getAddressByID(String addressID) {
+
+    public Address getAddressByID(String addressID) {
         Address returnA = new Address();
         Connection con = null;
         Statement state = null;
@@ -145,17 +145,17 @@ public class AddressDAO {
         }
         return returnA;
     }
-    
+
     public void updateAddress(String id, String street, String city, String state, String zip) {
         //Set up database connection:
         Connection conn = null;
         PreparedStatement stat = null;
         DatabaseUtility db = new DatabaseUtility();
-        
+
         try {
             Class.forName(db.getDriver());
             conn = DriverManager.getConnection(db.getURL(), db.getUser(), db.getPass());
-            
+
             if (!street.isEmpty()) {
                 String query = "UPDATE addresses SET street = ? WHERE addressID = ?";
                 stat = conn.prepareStatement(query);
@@ -170,13 +170,6 @@ public class AddressDAO {
                 stat.setString(2, id);
                 stat.executeUpdate();
             }
-            if (!state.isEmpty()) {
-                String query = "UPDATE addresses SET state = ? WHERE addressID = ?";
-                stat = conn.prepareStatement(query);
-                stat.setString(1, state);
-                stat.setString(2, id);
-                stat.executeUpdate();
-            }
             if (!zip.isEmpty()) {
                 String query = "UPDATE addresses SET zip = ? WHERE addressID = ?";
                 stat = conn.prepareStatement(query);
@@ -184,7 +177,13 @@ public class AddressDAO {
                 stat.setString(2, id);
                 stat.executeUpdate();
             }
-           
+            {
+                String query = "UPDATE addresses SET state = ? WHERE addressID = ?";
+                stat = conn.prepareStatement(query);
+                stat.setString(1, state);
+                stat.setString(2, id);
+                stat.executeUpdate();
+            }
             conn.close();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, ex);

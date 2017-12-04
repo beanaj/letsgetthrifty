@@ -22,7 +22,7 @@
         <!--<![endif]-->
         <link rel="stylesheet" href="styles/my_account.css">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <script src="scripts/login_registerscript.js"></script>
+        <script src="scripts/my_account.js"></script>
         <style media="screen" type="text/css">
 
         </style>
