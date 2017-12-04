@@ -36,7 +36,7 @@ public class OrderDAO {
 
         try (
                 Connection connection = DriverManager.getConnection(db.getURL(), db.getUser(), db.getPass());
-                PreparedStatement statement = connection.prepareStatement("SELECT * FROM orders");
+                PreparedStatement statement = connection.prepareStatement("SELECT * FROM orders ORDER BY orderDate");
                 ResultSet rs = statement.executeQuery();) {
             while (rs.next()) {
                 Order order = new Order();
