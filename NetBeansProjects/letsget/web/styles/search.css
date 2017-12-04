@@ -53,12 +53,14 @@ td{
 .search{
     padding-bottom: 1em;
     padding-top: 1em;
+    width: 80%;
+    margin: 0 auto;
 }
 
 input.searchbar {
     padding-left: 300px;
     padding-right:300px;
-    width: 100%;
+    width: 65%;
     height: 50px;
     vertical-align: middle; 
     font-size: 100%;
@@ -69,6 +71,14 @@ input.searchbar {
     color: white;
     height: 50px;
     width:100%;
+    font-size: 100%;
+}
+
+.searchButt{
+    background-color: black;
+    color: white;
+    height: 50px;
+    width:25%;
     font-size: 100%;
 }
 

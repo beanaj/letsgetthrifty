@@ -65,7 +65,7 @@
             Statement state = null;
             ResultSet result = null;
             DatabaseUtility db = new DatabaseUtility();
-            String booksInCart = null;
+            String booksInCart = "";
             try {
                 //register the driver
                 Class.forName(db.getDriver());
@@ -125,7 +125,7 @@
                         <option value="genre">Genre</option>
                         <option value="ISBN">ISBN</option>
                     </select>
-                    <input type="submit" class="pure-button" value="SHOW ME WHAT YOU GOT">
+                    <input type="submit" class="searchButt" value="SHOW ME WHAT YOU GOT">
                 </form>
             </div>
         <div class="browseheader">
