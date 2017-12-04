@@ -110,7 +110,7 @@
                                 <td><%=orderList.get(i).getShippingAgencyID()%></td> 
                                 <td ALIGN="center">
                                     <select name="orderStatus">        
-                                        <option value="placed">Placed</option>
+                                        <option value="Placed">Placed</option>
                                         <option value="preparing for shipment">Preparing For Shipment</option>
                                         <option value="shipped">Shipped</option>
                                         <option value="delivered">Delivered</option>
