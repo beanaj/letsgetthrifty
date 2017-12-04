@@ -41,6 +41,10 @@ function checkCard(input){
         card = card.replace(/[0-9]/g, "");
         if(card.length!=0){
             input.setCustomValidity("Please enter a card number (Only the number, omit symbols)");
+        }else if(card.length<16){
+            input.setCustomValidity("Please enter a card number at least 16 digits in length");
+        }else if(card.length>16){
+            input.setCustomValidity("Please enter a card number no more than 16 digits in length");
         }else{
             input.setCustomValidity('');
         }
