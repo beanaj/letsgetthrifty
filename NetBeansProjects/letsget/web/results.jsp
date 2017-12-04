@@ -101,7 +101,7 @@
                         <option value="genre">Genre</option>
                         <option value="ISBN">ISBN</option>
                     </select>
-                    <button type="submit" class="pure-button" value="SHOW ME WHAT YOU GOT"></button>
+                    <input type="submit" class="pure-button" value="SHOW ME WHAT YOU GOT">
                 </form>
             </div>
         <div class="browseheader">
