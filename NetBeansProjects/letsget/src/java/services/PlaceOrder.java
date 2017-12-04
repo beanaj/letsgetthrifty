@@ -168,7 +168,7 @@ public class PlaceOrder extends HttpServlet {
                 int newTotal = quantityInStock - quantityInOrder;
                 book.setQtyInStock(newTotal);
                 BookDAO db = new BookDAO();
-                books += book.getTitle()+" Quantity: " + quantityInOrder;
+                books += book.getTitle()+" Quantity: <br>" + quantityInOrder;
                 try {
                     db.updateBook(book.getISBN(), book.getGenre(),
                             book.getAuthor(), book.getTitle(), book.getRating(), book.getPicture(),
