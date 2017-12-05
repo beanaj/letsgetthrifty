@@ -98,6 +98,9 @@
                 <div class="pure-g">
                     <div class="pure-u-1-3"></div>    
                     <div class="pure-u-1-3"> 
+                        <div class="header">
+                            Edit your email using the field below
+                        </div>
                         <form class="pure-form" name="updateEmail" method="post" action="myaccountemail">
                             <fieldset class="pure-group">
                                 <input type="email" class="pure-input-1" placeholder="<%=user.getEmail()%>" name="email" >

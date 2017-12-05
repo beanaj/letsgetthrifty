@@ -14,7 +14,7 @@
         <!--<![endif]-->
         <link rel="stylesheet" href="styles/my_account.css">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!--<script src="scripts/login_registerscript.js"></script>-->
+        <script src="scripts/my_account.js"></script>
         <style media="screen" type="text/css">
 
         </style>
@@ -83,20 +83,27 @@
 
                     UserDAO db = new UserDAO();
                     User user = db.getUser(userID, "u");
-
                 %>
                 <div class="pure-g">
                     <div class="pure-u-1-3"></div>    
                     <div class="pure-u-1-3"> 
+                        <div class="header">
+                            Change your password using the fields below
+                        </div>                        
                         <form class="pure-form" name="updatePassword" method="post" action="myaccountpassword">
                             <fieldset class="pure-group">
-                                <input type="password" class="pure-input-1" placeholder="Old Password" name="oldPass">
-                                <input type="password" class="pure-input-1" placeholder="New Password" name="newPass">
-                                <input type="password" class="pure-input-1" placeholder="Verify New Password" name="newPassV">
+                                <input type="password" class="pure-input-1" placeholder="Old Password" name="oldPass" required>
+                                <input type="password" class="pure-input-1" placeholder="New Password" name="newPass" required>
+                                <input type="password" class="pure-input-1" placeholder="Verify New Password" name="newPassV" required>
                                 <input type="hidden" name="userID" value="<%=userID%>">
                                 <input name="updatePassword" type="submit" class="pure-button login pure-input-1 pure-button-primary" value="Update">
                             </fieldset>
                         </form>
+                            <div id="errorLogin">
+                                
+                                    ${requestScope.errorLogin}
+                                
+                            </div>
                     </div>
                     <div class="pure-u-1-3"></div>  
                 </div>

@@ -93,6 +93,10 @@
                 <div class="pure-g">
                     <div class="pure-u-1-3"></div>    
                     <div class="pure-u-1-3"> 
+                        <div class="header">
+                            Edit your payment info using the fields below
+                            Use only digits for your card number and use MM/YY format for the expiration date
+                        </div>
                         <form class="pure-form" name="updatePayment" method="post" action="myaccountpayment">
                             <fieldset class="pure-group">
                                 <input type="text" class="pure-input-1" placeholder="<%=payment.getNum()%>" name="num" onkeyup="checkCard(this)" onclick="checkCard(this)" onchange="checkCard(this)">

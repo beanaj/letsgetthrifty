@@ -75,11 +75,12 @@ public class MyAccountPassword extends HttpServlet {
         UserDAO db = new UserDAO();
         User user = new User(id, "u");
         if(newPass != null && newPassV != null && oldPass != null){    
-            if(newPass.equals(newPassV)){
+            if(newPass.length() >= 5 && newPass.equals(newPassV)){
                 if (db.encrypt(oldPass).equals(user.getPass())) {
                     try {
                         String newPassE = db.encrypt(newPass);
                         db.updatePassword(id, newPassE);
+                        request.setAttribute("errorLogin", "<b>Success!</b><br>Password changed");
                         //System.out.println("It Worked!");
                     } catch (SQLException ex) {
                         String error = "Error: Invalid input";
@@ -89,13 +90,18 @@ public class MyAccountPassword extends HttpServlet {
                 }
                 else{
                     System.out.println("Old Password Incorrect");
+                    request.setAttribute("errorLogin", "<b>Old Password Incorrect</b><br>Please enter correct password");
+                    request.getRequestDispatcher("my_accountPassword.jsp").forward(request, response);
                 }
             }
             else{
                 System.out.println("Passwords dont Match");
+                request.setAttribute("errorLogin", "<b>Passwords dont Match or New Password is too short</b><br>(5 character min)");
+                request.getRequestDispatcher("my_accountPassword.jsp").forward(request, response);
             }
         }
         else{
+            //error = "One or More Fields Left Blank";
             System.out.println("One or More Fields Left Blank");
         }
         response.sendRedirect("my_accountPassword.jsp");    

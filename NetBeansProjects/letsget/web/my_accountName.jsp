@@ -101,6 +101,9 @@
 
                     <div class="pure-u-1-3"></div>    
                     <div class="pure-u-1-3"> 
+                        <div class="header">
+                            Edit your name using the fields below
+                        </div>
                         <form class="pure-form" name="updateName" method="post" action="myaccountname">
                             <fieldset class="pure-group">
                                 <input type="text" class="pure-input-1" placeholder="<%=user.getFN()%>" name="firstName" onkeyup="checkFN(this)" onclick="checkFN(this)" onchange="checkFN(this)">

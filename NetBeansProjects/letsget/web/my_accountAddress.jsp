@@ -97,6 +97,9 @@
                 <div class="pure-g">
                     <div class="pure-u-1-3"></div>    
                     <div class="pure-u-1-3"> 
+                        <div class="header">
+                            Edit your address using the fields below
+                        </div>
                         <form class="pure-form" name="updateAddress" method="post" action="myaccountaddress">
                             <fieldset class="pure-group">
                                 <input type="text" class="pure-input-1" placeholder="<%=address.getStreet()%>" name="street">

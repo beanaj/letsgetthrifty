@@ -88,6 +88,10 @@
                 <div class="pure-g">
                     <div class="pure-u-1-3"></div>    
                     <div class="pure-u-1-3"> 
+                        <div class="header">
+                            Edit your phone number using the field below
+                            Be sure to include dashes
+                        </div>
                         <form class="pure-form" name="updatePhone" method="post" action="myaccountphone">
                             <fieldset class="pure-group">
                                 <input type="text" class="pure-input-1" placeholder="<%=user.getPhone()%>" name="phone" onkeyup="checkPhone(this)" onclick="checkPhone(this)" onchange="checkPhone(this)">
